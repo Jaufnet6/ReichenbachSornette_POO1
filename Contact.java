@@ -6,4 +6,8 @@ public class Contact {
 		System.out.println("test");
 	}
 	
+	public static void mdr(){
+		System.out.println("lol");
+	}
+	
 }
