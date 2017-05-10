@@ -1,5 +1,3 @@
-package Contact;
-
 public class Contact {
 
 	public static void test(){
