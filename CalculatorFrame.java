@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class MainFrame extends JFrame{
+public class CalculatorFrame extends JFrame{
     
     private static final long serialVersionUID = 1L;
     
@@ -47,11 +47,12 @@ public class MainFrame extends JFrame{
     //Not Visible variables
     private String choice; //Useful for the choice of symbol (sign)
     
-    public MainFrame(){
+    public CalculatorFrame(){
         super("Calculator");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(480, 800);
-        
+		setResizable(false);
+
         //Add the text fields
         fields.setLayout(new GridLayout(1, 3));
         fields.add(firstNumber);
