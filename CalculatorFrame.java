@@ -7,12 +7,14 @@ import javax.swing.*;
 public class CalculatorFrame extends JFrame{
     
     private static final long serialVersionUID = 1L;
+    final static boolean shouldFill = true;
+    final static boolean shouldWeightX = true;
+    final static boolean RIGHT_TO_LEFT = false;
     
     //Area number written
     private JLabel firstNumber = new JLabel();
     private JLabel addition = new JLabel();
     private JLabel secondNumber = new JLabel();
-    private JLabel result = new JLabel("Result");
     private JLabel resultValue = new JLabel();
     private JButton go = new JButton("Go");
     private JButton clear = new JButton("Clear");
@@ -35,17 +37,20 @@ public class CalculatorFrame extends JFrame{
     private JButton substract = new JButton("-");
     private JButton multiply = new JButton("x");
     private JButton divide = new JButton("/");
-    private JButton modulo = new JButton("Mod");
+//  private JButton modulo = new JButton("Mod");
     //Panels
-    private JPanel signs = new JPanel();
     private JPanel fields = new JPanel();
     private JPanel buttons = new JPanel();
-    private JPanel results = new JPanel();
+    private JPanel results = new JPanel(new BorderLayout());
     private JPanel whole = new JPanel();
     private JPanel clears = new JPanel();
     private JPanel clearsAndGo = new JPanel();
+    private JPanel operationsAndGo = new JPanel();
+    private JPanel allButtons = new JPanel();
     //Not Visible variables
     private String choice; //Useful for the choice of symbol (sign)
+    
+   
     
     public CalculatorFrame(){
         super("Calculator");
@@ -59,6 +64,15 @@ public class CalculatorFrame extends JFrame{
         fields.add(addition);
         fields.add(secondNumber);
         
+        //Regrouping the mid part
+        operationsAndGo.setLayout(new GridLayout(1,2));
+        operationsAndGo.add(fields);
+        operationsAndGo.add(clearsAndGo);
+        
+        //Add the results place
+        resultValue.setFont(new Font("Serif", Font.BOLD, 120));
+        results.add(resultValue, BorderLayout.LINE_END);
+
         //Add both clear buttons to clear Panel
         clears.setLayout(new GridLayout(1, 2));
         clears.add(clear);
@@ -66,39 +80,32 @@ public class CalculatorFrame extends JFrame{
         //Add Clears and Go to ClearsAndGo Panel
         clearsAndGo.setLayout(new GridLayout(2, 1));
         clearsAndGo.add(clears);
-        clearsAndGo.add(go);
-        //Add the results place and go and clears buttons
-        results.setLayout(new GridLayout(1, 3));
-        results.add(result);
-        results.add(resultValue);
-        results.add(clearsAndGo);
-        //Add all the signs
-        signs.setLayout(new GridLayout(1, 5));
-        signs.add(add);
-        signs.add(substract);
-        signs.add(multiply);
-        signs.add(divide);
-        signs.add(modulo);
-        //Add the center with all the numbers
-        buttons.setLayout(new GridLayout(4, 3));
+        clearsAndGo.add(go);    
+
+        //Add the center with all the numbers and signs
+        buttons.setLayout(new GridLayout(4,4));
         buttons.add(one);
         buttons.add(two);
         buttons.add(three);
+        buttons.add(add);
         buttons.add(four);
         buttons.add(five);
         buttons.add(six);
+        buttons.add(substract);
         buttons.add(seven);
         buttons.add(eight);
         buttons.add(nine);
+        buttons.add(multiply);
         buttons.add(negation);
         buttons.add(zero);
         buttons.add(dot);
+        buttons.add(divide);
+
         //Puts everything in a panel
-        whole.setLayout(new GridLayout(4,1));
-        whole.add(fields);
+        whole.setLayout(new GridLayout(3,1));
         whole.add(results);
+        whole.add(operationsAndGo);
         whole.add(buttons);
-        whole.add(signs);
         //Add to the main frame
         add(whole);        
         //Actions
@@ -125,9 +132,12 @@ public class CalculatorFrame extends JFrame{
         substract.addActionListener(new Button_Signs());
         multiply.addActionListener(new Button_Signs());
         divide.addActionListener(new Button_Signs());
-        modulo.addActionListener(new Button_Signs());
+//        modulo.addActionListener(new Button_Signs());
+        
+
       
     }
+    
         //Listener for all the button for the numbers
     class Button_Numbers implements ActionListener{
         public void actionPerformed(ActionEvent e) {
@@ -205,10 +215,10 @@ public class CalculatorFrame extends JFrame{
                     choice = "/";
                     addition.setText("/");
                 }
-                else if(e.getSource().equals(modulo)){
-                    choice = "%";
-                    addition.setText("mod");
-                }
+//                else if(e.getSource().equals(modulo)){
+//                    choice = "%";
+//                    addition.setText("mod");
+//                }
             } else if(resultValue.getText().equals("") && firstNumber.getText().equals("")){
                 //If user tries to enter a equation sign 
                 //Nothing happens 
