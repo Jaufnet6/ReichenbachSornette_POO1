@@ -1,24 +1,27 @@
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import java.awt.GridBagLayout;
+import javax.swing.JButton;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JLabel;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+
+import java.awt.SystemColor;
 
 public class CalculatorFrame extends JFrame{
-    
-    private static final long serialVersionUID = 1L;
-    final static boolean shouldFill = true;
-    final static boolean shouldWeightX = true;
-    final static boolean RIGHT_TO_LEFT = false;
-    
-    //Area number written
+
+	 //Area number written
     private JLabel firstNumber = new JLabel();
     private JLabel addition = new JLabel();
     private JLabel secondNumber = new JLabel();
     private JLabel resultValue = new JLabel();
-    private JButton go = new JButton("Go");
-    private JButton clear = new JButton("Clear");
-    private JButton clearAll = new JButton("Clear All");
     //Numbers
     private JButton one = new JButton("1");
     private JButton two = new JButton("2");
@@ -37,147 +40,178 @@ public class CalculatorFrame extends JFrame{
     private JButton substract = new JButton("-");
     private JButton multiply = new JButton("x");
     private JButton divide = new JButton("/");
-//  private JButton modulo = new JButton("Mod");
-    //Panels
-    private JPanel fields = new JPanel();
-    private JPanel buttons = new JPanel();
-    private JPanel results = new JPanel(new BorderLayout());
-    private JPanel whole = new JPanel();
-    private JPanel clears = new JPanel();
-    private JPanel clearsAndGo = new JPanel();
-    private JPanel operationsAndGo = new JPanel();
-    private JPanel allButtons = new JPanel();
-    //Not Visible variables
-    private String choice; //Useful for the choice of symbol (sign)
+    //Clears&Go
+    private JButton go = new JButton("=");
+    private JButton clear = new JButton("C");
+    private JButton clearAll = new JButton("CE");
+    //Useful for the choice of symbol (sign)
+    private String choice; 
     
-    private GridBagLayout midPartLayout = new GridBagLayout();
-    private GridBagLayout wholeLayout = new GridBagLayout();
-    private GridBagLayout clearsLayout = new GridBagLayout();
-    private GridBagLayout clearsNGoLayout = new GridBagLayout();
+	public CalculatorFrame() {
+		 super("Calculator");
+		 getContentPane().setBackground(SystemColor.inactiveCaption);
+	        setDefaultCloseOperation(EXIT_ON_CLOSE);
+	        setSize(480, 800);
+			setResizable(false);
+			getContentPane().setLayout(null);
+			
+			//Top part of the calculator
+			resultValue.setOpaque(true);
+			resultValue.setHorizontalAlignment(SwingConstants.RIGHT);
+			resultValue.setBackground(SystemColor.inactiveCaptionBorder);
+			resultValue.setFont(new Font("Arial Black", Font.BOLD, 40));
+			resultValue.setBounds(12, 13, 450, 191);
+			getContentPane().add(resultValue);
+			
+			//Mid part : both parts of operation + sign
+			firstNumber.setOpaque(true);
+			firstNumber.setBackground(SystemColor.inactiveCaptionBorder);
+			firstNumber.setHorizontalAlignment(SwingConstants.CENTER);
+			firstNumber.setFont(new Font("Arial", Font.PLAIN, 25));
+			firstNumber.setBounds(12, 217, 140, 123);
+			getContentPane().add(firstNumber);
+			
+			secondNumber.setOpaque(true);
+			secondNumber.setBackground(SystemColor.inactiveCaptionBorder);
+			secondNumber.setHorizontalAlignment(SwingConstants.CENTER);
+			secondNumber.setFont(new Font("Arial", Font.PLAIN, 25));
+			secondNumber.setBounds(181, 217, 140, 123);
+			getContentPane().add(secondNumber);
+			
+			addition.setOpaque(true);
+			addition.setBackground(SystemColor.inactiveCaptionBorder);
+			addition.setHorizontalAlignment(SwingConstants.CENTER);
+			addition.setFont(new Font("Arial", Font.PLAIN, 25));
+			addition.setBounds(152, 217, 31, 123);
+			getContentPane().add(addition);
+			
+			//Clears and GO buttons
+			clearAll.setBackground(SystemColor.activeCaption);
+			clearAll.setFont(new Font("Arial", Font.BOLD, 22));
+			clearAll.setBounds(397, 217, 65, 55);
+			getContentPane().add(clearAll);
+			
+			clear.setBackground(SystemColor.activeCaption);
+			clear.setFont(new Font("Arial", Font.BOLD, 22));
+			clear.setBounds(333, 217, 65, 55);
+			getContentPane().add(clear);
+			
+			go.setBackground(SystemColor.activeCaption);
+			go.setFont(new Font("Arial", Font.BOLD, 30));
+			go.setBounds(333, 271, 129, 69);
+			getContentPane().add(go);
+			
+			//Numbers
+			one.setBackground(SystemColor.activeCaption);
+			one.setFont(new Font("Arial", Font.BOLD, 30));
+			one.setBounds(12, 355, 110, 100);
+			getContentPane().add(one);
+			
+			two.setBackground(SystemColor.activeCaption);
+			two.setOpaque(true);
+			two.setFont(new Font("Arial", Font.BOLD, 30));
+			two.setBounds(121, 355, 110, 100);
+			getContentPane().add(two);
+			
+			three.setBackground(SystemColor.activeCaption);
+			three.setFont(new Font("Arial", Font.BOLD, 30));
+			three.setBounds(230, 355, 110, 100);
+			getContentPane().add(three);
+			
+			four.setBackground(SystemColor.activeCaption);
+			four.setFont(new Font("Arial", Font.BOLD, 30));
+			four.setBounds(12, 454, 110, 100);
+			getContentPane().add(four);
+			
+			five.setBackground(SystemColor.activeCaption);
+			five.setFont(new Font("Arial", Font.BOLD, 30));
+			five.setBounds(121, 454, 110, 100);
+			getContentPane().add(five);
+			
+			six.setBackground(SystemColor.activeCaption);
+			six.setFont(new Font("Arial", Font.BOLD, 30));
+			six.setBounds(230, 454, 110, 100);
+			getContentPane().add(six);
+			
+			seven.setBackground(SystemColor.activeCaption);
+			seven.setFont(new Font("Arial", Font.BOLD, 30));
+			seven.setBounds(12, 553, 110, 100);
+			getContentPane().add(seven);
+			
+			eight.setBackground(SystemColor.activeCaption);
+			eight.setFont(new Font("Arial", Font.BOLD, 30));
+			eight.setBounds(121, 553, 110, 100);
+			getContentPane().add(eight);
+			
+			nine.setBackground(SystemColor.activeCaption);
+			nine.setFont(new Font("Arial", Font.BOLD, 30));
+			nine.setBounds(230, 553, 110, 100);
+			getContentPane().add(nine);
+			
+			negation.setBackground(SystemColor.activeCaption);
+			negation.setFont(new Font("Arial", Font.BOLD, 30));
+			negation.setBounds(12, 652, 110, 100);
+			getContentPane().add(negation);
+			
+			zero.setBackground(SystemColor.activeCaption);
+			zero.setFont(new Font("Arial", Font.BOLD, 30));
+			zero.setBounds(121, 652, 110, 100);
+			getContentPane().add(zero);
+			
+			dot.setBackground(SystemColor.activeCaption);
+			dot.setFont(new Font("Arial", Font.BOLD, 30));
+			dot.setBounds(230, 652, 110, 100);
+			getContentPane().add(dot);
 
-    private GridBagConstraints mpLc = new GridBagConstraints();
-    private GridBagConstraints wLc = new GridBagConstraints();
-    private GridBagConstraints cLc = new GridBagConstraints();
-    private GridBagConstraints cNGc = new GridBagConstraints();
-
-
-    
-    public CalculatorFrame(){
-        super("Calculator");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(480, 800);
-		setResizable(false);
-
-        //Add the text fields
-        fields.setLayout(new GridLayout(1, 3));
-        fields.add(firstNumber);
-        fields.add(addition);
-        fields.add(secondNumber);
-        
-        //Regrouping the mid part
-        operationsAndGo.setLayout(midPartLayout);
-        operationsAndGo.setBackground(Color.BLUE);
-        mpLc.gridx = 0;
-        mpLc.gridy = 0;
-        mpLc.weightx = 1.0;
-        mpLc.weighty = 1.0;
-        operationsAndGo.add(fields,mpLc);
-        mpLc.gridx = 1;
-        mpLc.gridy = 0;
-        operationsAndGo.add(clearsAndGo,mpLc);
-             
-        //Add the results place
-  //    resultValue.setFont(new Font("Serif", Font.BOLD, 120));
-        results.setBackground(Color.RED);
-        results.add(resultValue, BorderLayout.LINE_END);
-
-        //Add both clear buttons to clear Panel
-        clears.setLayout(clearsLayout);
-        cLc.gridx = 0;
-        cLc.gridy = 0;
-        cLc.weightx = 1.0;
-        cLc.weighty = 1.0;
-        clears.add(clear,cLc);
-        cLc.gridx = 1;
-        clears.add(clearAll,cLc);
-        //Add Clears and Go to ClearsAndGo Panel
-        clearsAndGo.setLayout(clearsNGoLayout);
-        cNGc.gridx = 0;
-        cNGc.gridy = 0;
-        cNGc.weightx = 1.0;
-        cNGc.weighty = 1.0;
-        clearsAndGo.add(clears);
-        cNGc.gridy = 1;
-        cNGc.gridwidth = 2;
-        cNGc.fill = GridBagConstraints.HORIZONTAL;
-        clearsAndGo.add(go);
-
-        //Add the center with all the numbers and signs
-        buttons.setLayout(new GridLayout(4,4));
-        buttons.add(one);
-        buttons.add(two);
-        buttons.add(three);
-        buttons.add(add);
-        buttons.add(four);
-        buttons.add(five);
-        buttons.add(six);
-        buttons.add(substract);
-        buttons.add(seven);
-        buttons.add(eight);
-        buttons.add(nine);
-        buttons.add(multiply);
-        buttons.add(negation);
-        buttons.add(zero);
-        buttons.add(dot);
-        buttons.add(divide);
-
-        //Puts everything in a panel
-        whole.setLayout(wholeLayout);
-        wLc.gridx = 0;
-        wLc.gridy = 0;
-        wLc.weightx = 1.0;
-        wLc.weighty = 1.0;
-        wLc.fill = GridBagConstraints.BOTH;
-        whole.add(results,wLc);
-        wLc.gridy = 1;
-        whole.add(operationsAndGo,wLc);
-        wLc.gridy = 2;
-        whole.add(buttons,wLc);
-        
-        //Add to the main frame
-        add(whole);        
-        
-        //Actions
-        //Action for each number button
-        one.addActionListener(new Button_Numbers());
-        two.addActionListener(new Button_Numbers());
-        three.addActionListener(new Button_Numbers());
-        four.addActionListener(new Button_Numbers());
-        five.addActionListener(new Button_Numbers());
-        six.addActionListener(new Button_Numbers());
-        seven.addActionListener(new Button_Numbers());
-        eight.addActionListener(new Button_Numbers());
-        nine.addActionListener(new Button_Numbers());
-        zero.addActionListener(new Button_Numbers());
-        negation.addActionListener(new Button_Negation());
-        dot.addActionListener(new Button_Dot());
-        //Action for the go button
-        go.addActionListener(new Button_Go());
-        //Action for both clear buttons
-        clear.addActionListener(new Button_Clear());
-        clearAll.addActionListener(new Button_ClearAll());
-        //Actions for the symbol buttons
-        add.addActionListener(new Button_Signs());
-        substract.addActionListener(new Button_Signs());
-        multiply.addActionListener(new Button_Signs());
-        divide.addActionListener(new Button_Signs());
-//        modulo.addActionListener(new Button_Signs());
-        
-
-      
-    }
-    
-        //Listener for all the button for the numbers
+			//Operation buttons
+			add.setBackground(SystemColor.activeCaption);
+			add.setFont(new Font("Arial", Font.BOLD, 30));
+			add.setBounds(352, 355, 110, 100);
+			getContentPane().add(add);
+			
+			substract.setBackground(SystemColor.activeCaption);
+			substract.setFont(new Font("Arial", Font.BOLD, 30));
+			substract.setBounds(352, 454, 110, 100);
+			getContentPane().add(substract);
+			
+			multiply.setBackground(SystemColor.activeCaption);
+			multiply.setFont(new Font("Arial", Font.BOLD, 30));
+			multiply.setBounds(352, 553, 110, 100);
+			getContentPane().add(multiply);
+			
+			divide.setBackground(SystemColor.activeCaption);
+			divide.setFont(new Font("Arial", Font.BOLD, 30));
+			divide.setBounds(352, 652, 110, 100);
+			getContentPane().add(divide);
+			
+			 //Actions
+	        //Action for each number button
+	        one.addActionListener(new Button_Numbers());
+	        two.addActionListener(new Button_Numbers());
+	        three.addActionListener(new Button_Numbers());
+	        four.addActionListener(new Button_Numbers());
+	        five.addActionListener(new Button_Numbers());
+	        six.addActionListener(new Button_Numbers());
+	        seven.addActionListener(new Button_Numbers());
+	        eight.addActionListener(new Button_Numbers());
+	        nine.addActionListener(new Button_Numbers());
+	        zero.addActionListener(new Button_Numbers());
+	        negation.addActionListener(new Button_Negation());
+	        dot.addActionListener(new Button_Dot());
+	        //Action for the go button
+	        go.addActionListener(new Button_Go());
+	        //Action for both clear buttons
+	        clear.addActionListener(new Button_Clear());
+	        clearAll.addActionListener(new Button_ClearAll());
+	        //Actions for the symbol buttons
+	        add.addActionListener(new Button_Signs());
+	        substract.addActionListener(new Button_Signs());
+	        multiply.addActionListener(new Button_Signs());
+	        divide.addActionListener(new Button_Signs());
+	        
+	}
+	
+    //Listener for all the button for the numbers
     class Button_Numbers implements ActionListener{
         public void actionPerformed(ActionEvent e) {
             if(addition.getText().isEmpty()){
@@ -269,7 +303,6 @@ public class CalculatorFrame extends JFrame{
     
     //The Go button activate the calculus
     class Button_Go implements ActionListener{
-        ErrorMessage test = new ErrorMessage();
 
         public void actionPerformed(ActionEvent e) {
             if(firstNumber.getText().equals("") == false && secondNumber.getText().equals("") ){
@@ -365,4 +398,8 @@ public class CalculatorFrame extends JFrame{
     }
     
 }
+	
+	
+        
+    
 
