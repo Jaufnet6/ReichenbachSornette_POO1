@@ -22,6 +22,9 @@ public class CalculatorFrame extends JFrame{
     private JLabel addition = new JLabel();
     private JLabel secondNumber = new JLabel();
     private JLabel resultValue = new JLabel();
+    private JButton go = new JButton("=");
+    private JButton clear = new JButton("C");
+    private JButton clearAll = new JButton("CE");
     //Numbers
     private JButton one = new JButton("1");
     private JButton two = new JButton("2");
@@ -40,12 +43,8 @@ public class CalculatorFrame extends JFrame{
     private JButton substract = new JButton("-");
     private JButton multiply = new JButton("x");
     private JButton divide = new JButton("/");
-    //Clears&Go
-    private JButton go = new JButton("=");
-    private JButton clear = new JButton("C");
-    private JButton clearAll = new JButton("CE");
-    //Useful for the choice of symbol (sign)
-    private String choice; 
+
+    private String choice; //Useful for the choice of symbol (sign)
     
 	public CalculatorFrame() {
 		 super("Calculator");
@@ -55,7 +54,6 @@ public class CalculatorFrame extends JFrame{
 			setResizable(false);
 			getContentPane().setLayout(null);
 			
-			//Top part of the calculator
 			resultValue.setOpaque(true);
 			resultValue.setHorizontalAlignment(SwingConstants.RIGHT);
 			resultValue.setBackground(SystemColor.inactiveCaptionBorder);
@@ -63,7 +61,6 @@ public class CalculatorFrame extends JFrame{
 			resultValue.setBounds(12, 13, 450, 191);
 			getContentPane().add(resultValue);
 			
-			//Mid part : both parts of operation + sign
 			firstNumber.setOpaque(true);
 			firstNumber.setBackground(SystemColor.inactiveCaptionBorder);
 			firstNumber.setHorizontalAlignment(SwingConstants.CENTER);
@@ -71,41 +68,25 @@ public class CalculatorFrame extends JFrame{
 			firstNumber.setBounds(12, 217, 140, 123);
 			getContentPane().add(firstNumber);
 			
-			secondNumber.setOpaque(true);
-			secondNumber.setBackground(SystemColor.inactiveCaptionBorder);
-			secondNumber.setHorizontalAlignment(SwingConstants.CENTER);
-			secondNumber.setFont(new Font("Arial", Font.PLAIN, 25));
-			secondNumber.setBounds(181, 217, 140, 123);
-			getContentPane().add(secondNumber);
+			three.setBackground(SystemColor.activeCaption);
+			three.setFont(new Font("Arial", Font.BOLD, 30));
+			three.setBounds(230, 355, 110, 100);
+			getContentPane().add(three);
 			
-			addition.setOpaque(true);
-			addition.setBackground(SystemColor.inactiveCaptionBorder);
-			addition.setHorizontalAlignment(SwingConstants.CENTER);
-			addition.setFont(new Font("Arial", Font.PLAIN, 25));
-			addition.setBounds(152, 217, 31, 123);
-			getContentPane().add(addition);
+			six.setBackground(SystemColor.activeCaption);
+			six.setFont(new Font("Arial", Font.BOLD, 30));
+			six.setBounds(230, 454, 110, 100);
+			getContentPane().add(six);
 			
-			//Clears and GO buttons
-			clearAll.setBackground(SystemColor.activeCaption);
-			clearAll.setFont(new Font("Arial", Font.BOLD, 22));
-			clearAll.setBounds(397, 217, 65, 55);
-			getContentPane().add(clearAll);
+			nine.setBackground(SystemColor.activeCaption);
+			nine.setFont(new Font("Arial", Font.BOLD, 30));
+			nine.setBounds(230, 553, 110, 100);
+			getContentPane().add(nine);
 			
-			clear.setBackground(SystemColor.activeCaption);
-			clear.setFont(new Font("Arial", Font.BOLD, 22));
-			clear.setBounds(333, 217, 65, 55);
-			getContentPane().add(clear);
-			
-			go.setBackground(SystemColor.activeCaption);
-			go.setFont(new Font("Arial", Font.BOLD, 30));
-			go.setBounds(333, 271, 129, 69);
-			getContentPane().add(go);
-			
-			//Numbers
-			one.setBackground(SystemColor.activeCaption);
-			one.setFont(new Font("Arial", Font.BOLD, 30));
-			one.setBounds(12, 355, 110, 100);
-			getContentPane().add(one);
+			dot.setBackground(SystemColor.activeCaption);
+			dot.setFont(new Font("Arial", Font.BOLD, 30));
+			dot.setBounds(230, 652, 110, 100);
+			getContentPane().add(dot);
 			
 			two.setBackground(SystemColor.activeCaption);
 			two.setOpaque(true);
@@ -113,57 +94,41 @@ public class CalculatorFrame extends JFrame{
 			two.setBounds(121, 355, 110, 100);
 			getContentPane().add(two);
 			
-			three.setBackground(SystemColor.activeCaption);
-			three.setFont(new Font("Arial", Font.BOLD, 30));
-			three.setBounds(230, 355, 110, 100);
-			getContentPane().add(three);
-			
-			four.setBackground(SystemColor.activeCaption);
-			four.setFont(new Font("Arial", Font.BOLD, 30));
-			four.setBounds(12, 454, 110, 100);
-			getContentPane().add(four);
-			
 			five.setBackground(SystemColor.activeCaption);
 			five.setFont(new Font("Arial", Font.BOLD, 30));
 			five.setBounds(121, 454, 110, 100);
 			getContentPane().add(five);
-			
-			six.setBackground(SystemColor.activeCaption);
-			six.setFont(new Font("Arial", Font.BOLD, 30));
-			six.setBounds(230, 454, 110, 100);
-			getContentPane().add(six);
-			
-			seven.setBackground(SystemColor.activeCaption);
-			seven.setFont(new Font("Arial", Font.BOLD, 30));
-			seven.setBounds(12, 553, 110, 100);
-			getContentPane().add(seven);
 			
 			eight.setBackground(SystemColor.activeCaption);
 			eight.setFont(new Font("Arial", Font.BOLD, 30));
 			eight.setBounds(121, 553, 110, 100);
 			getContentPane().add(eight);
 			
-			nine.setBackground(SystemColor.activeCaption);
-			nine.setFont(new Font("Arial", Font.BOLD, 30));
-			nine.setBounds(230, 553, 110, 100);
-			getContentPane().add(nine);
+			zero.setBackground(SystemColor.activeCaption);
+			zero.setFont(new Font("Arial", Font.BOLD, 30));
+			zero.setBounds(121, 652, 110, 100);
+			getContentPane().add(zero);
+			
+			one.setBackground(SystemColor.activeCaption);
+			one.setFont(new Font("Arial", Font.BOLD, 30));
+			one.setBounds(12, 355, 110, 100);
+			getContentPane().add(one);
+			
+			four.setBackground(SystemColor.activeCaption);
+			four.setFont(new Font("Arial", Font.BOLD, 30));
+			four.setBounds(12, 454, 110, 100);
+			getContentPane().add(four);
+			
+			seven.setBackground(SystemColor.activeCaption);
+			seven.setFont(new Font("Arial", Font.BOLD, 30));
+			seven.setBounds(12, 553, 110, 100);
+			getContentPane().add(seven);
 			
 			negation.setBackground(SystemColor.activeCaption);
 			negation.setFont(new Font("Arial", Font.BOLD, 30));
 			negation.setBounds(12, 652, 110, 100);
 			getContentPane().add(negation);
 			
-			zero.setBackground(SystemColor.activeCaption);
-			zero.setFont(new Font("Arial", Font.BOLD, 30));
-			zero.setBounds(121, 652, 110, 100);
-			getContentPane().add(zero);
-			
-			dot.setBackground(SystemColor.activeCaption);
-			dot.setFont(new Font("Arial", Font.BOLD, 30));
-			dot.setBounds(230, 652, 110, 100);
-			getContentPane().add(dot);
-
-			//Operation buttons
 			add.setBackground(SystemColor.activeCaption);
 			add.setFont(new Font("Arial", Font.BOLD, 30));
 			add.setBounds(352, 355, 110, 100);
@@ -183,6 +148,35 @@ public class CalculatorFrame extends JFrame{
 			divide.setFont(new Font("Arial", Font.BOLD, 30));
 			divide.setBounds(352, 652, 110, 100);
 			getContentPane().add(divide);
+			
+			clearAll.setBackground(SystemColor.activeCaption);
+			clearAll.setFont(new Font("Arial", Font.BOLD, 22));
+			clearAll.setBounds(397, 217, 65, 55);
+			getContentPane().add(clearAll);
+			
+			clear.setBackground(SystemColor.activeCaption);
+			clear.setFont(new Font("Arial", Font.BOLD, 22));
+			clear.setBounds(333, 217, 65, 55);
+			getContentPane().add(clear);
+			
+			go.setBackground(SystemColor.activeCaption);
+			go.setFont(new Font("Arial", Font.BOLD, 30));
+			go.setBounds(333, 271, 129, 69);
+			getContentPane().add(go);
+			
+			secondNumber.setOpaque(true);
+			secondNumber.setBackground(SystemColor.inactiveCaptionBorder);
+			secondNumber.setHorizontalAlignment(SwingConstants.CENTER);
+			secondNumber.setFont(new Font("Arial", Font.PLAIN, 25));
+			secondNumber.setBounds(181, 217, 140, 123);
+			getContentPane().add(secondNumber);
+			
+			addition.setOpaque(true);
+			addition.setBackground(SystemColor.inactiveCaptionBorder);
+			addition.setHorizontalAlignment(SwingConstants.CENTER);
+			addition.setFont(new Font("Arial", Font.PLAIN, 25));
+			addition.setBounds(154, 217, 25, 123);
+			getContentPane().add(addition);
 			
 			 //Actions
 	        //Action for each number button
@@ -396,7 +390,7 @@ public class CalculatorFrame extends JFrame{
         }
         
     }
-    
+
 }
 	
 	
