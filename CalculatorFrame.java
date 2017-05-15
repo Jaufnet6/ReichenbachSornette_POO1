@@ -50,7 +50,17 @@ public class CalculatorFrame extends JFrame{
     //Not Visible variables
     private String choice; //Useful for the choice of symbol (sign)
     
-   
+    private GridBagLayout midPartLayout = new GridBagLayout();
+    private GridBagLayout wholeLayout = new GridBagLayout();
+    private GridBagLayout clearsLayout = new GridBagLayout();
+    private GridBagLayout clearsNGoLayout = new GridBagLayout();
+
+    private GridBagConstraints mpLc = new GridBagConstraints();
+    private GridBagConstraints wLc = new GridBagConstraints();
+    private GridBagConstraints cLc = new GridBagConstraints();
+    private GridBagConstraints cNGc = new GridBagConstraints();
+
+
     
     public CalculatorFrame(){
         super("Calculator");
@@ -65,22 +75,42 @@ public class CalculatorFrame extends JFrame{
         fields.add(secondNumber);
         
         //Regrouping the mid part
-        operationsAndGo.setLayout(new GridLayout(1,2));
-        operationsAndGo.add(fields);
-        operationsAndGo.add(clearsAndGo);
-        
+        operationsAndGo.setLayout(midPartLayout);
+        operationsAndGo.setBackground(Color.BLUE);
+        mpLc.gridx = 0;
+        mpLc.gridy = 0;
+        mpLc.weightx = 1.0;
+        mpLc.weighty = 1.0;
+        operationsAndGo.add(fields,mpLc);
+        mpLc.gridx = 1;
+        mpLc.gridy = 0;
+        operationsAndGo.add(clearsAndGo,mpLc);
+             
         //Add the results place
-        resultValue.setFont(new Font("Serif", Font.BOLD, 120));
+  //    resultValue.setFont(new Font("Serif", Font.BOLD, 120));
+        results.setBackground(Color.RED);
         results.add(resultValue, BorderLayout.LINE_END);
 
         //Add both clear buttons to clear Panel
-        clears.setLayout(new GridLayout(1, 2));
-        clears.add(clear);
-        clears.add(clearAll);
+        clears.setLayout(clearsLayout);
+        cLc.gridx = 0;
+        cLc.gridy = 0;
+        cLc.weightx = 1.0;
+        cLc.weighty = 1.0;
+        clears.add(clear,cLc);
+        cLc.gridx = 1;
+        clears.add(clearAll,cLc);
         //Add Clears and Go to ClearsAndGo Panel
-        clearsAndGo.setLayout(new GridLayout(2, 1));
+        clearsAndGo.setLayout(clearsNGoLayout);
+        cNGc.gridx = 0;
+        cNGc.gridy = 0;
+        cNGc.weightx = 1.0;
+        cNGc.weighty = 1.0;
         clearsAndGo.add(clears);
-        clearsAndGo.add(go);    
+        cNGc.gridy = 1;
+        cNGc.gridwidth = 2;
+        cNGc.fill = GridBagConstraints.HORIZONTAL;
+        clearsAndGo.add(go);
 
         //Add the center with all the numbers and signs
         buttons.setLayout(new GridLayout(4,4));
@@ -102,12 +132,21 @@ public class CalculatorFrame extends JFrame{
         buttons.add(divide);
 
         //Puts everything in a panel
-        whole.setLayout(new GridLayout(3,1));
-        whole.add(results);
-        whole.add(operationsAndGo);
-        whole.add(buttons);
+        whole.setLayout(wholeLayout);
+        wLc.gridx = 0;
+        wLc.gridy = 0;
+        wLc.weightx = 1.0;
+        wLc.weighty = 1.0;
+        wLc.fill = GridBagConstraints.BOTH;
+        whole.add(results,wLc);
+        wLc.gridy = 1;
+        whole.add(operationsAndGo,wLc);
+        wLc.gridy = 2;
+        whole.add(buttons,wLc);
+        
         //Add to the main frame
         add(whole);        
+        
         //Actions
         //Action for each number button
         one.addActionListener(new Button_Numbers());
