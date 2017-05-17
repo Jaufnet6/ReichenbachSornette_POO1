@@ -16,7 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JSplitPane;
 
+<<<<<<< HEAD
 public class Frame1 {
+=======
+public class HomeScreen {
+>>>>>>> e0e64137b82c17b86d6710dae698dc3aea6ebbd9
 
     private  Timer tm;
     private static LocalDateTime time;
@@ -46,7 +50,11 @@ public class Frame1 {
         });
     }
 
+<<<<<<< HEAD
     public Frame1() throws InterruptedException, IOException {
+=======
+    public HomeScreen() throws InterruptedException, IOException {
+>>>>>>> e0e64137b82c17b86d6710dae698dc3aea6ebbd9
         frame = new JFrame();
         frame.getContentPane().setLayout(null);
         

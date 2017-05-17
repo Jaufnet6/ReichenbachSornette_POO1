@@ -1,18 +1,18 @@
+import java.io.Serializable;
 
-public class Album {
+public class Album implements Serializable{
 
 	private int IDalbum;
 	private String name;
-	private Picture[] pics;
+	private String[] pics;
 	//Picture which is displayed on gallery to represent the album
 	//is the first picture added OR a default picture if album still is empty
-	private Picture homePic;
+	private String homePic = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Gallery\\defaultPicture\\album.png";
 	
 	public Album(){
 		//Default name
 		this.name="New album";
-		this.pics= new Picture[0];
-		homePic = new defaultAlbumPic();
+		this.pics= new String[0];
 	}
 	
 	public Album(String name) {
@@ -22,8 +22,7 @@ public class Album {
 		} else {
 			this.name = name;
 		}
-		this.pics= new Picture[0];
-		homePic = new defaultAlbumPic();
+		this.pics= new String[0];
 	}
 
 	public int getID() {
@@ -42,11 +41,11 @@ public class Album {
 		this.name = name;
 	}
 	
-	public Picture[] getPics() {
+	public String[] getPics() {
 		return pics;
 	}
 	
-	public void setPics(Picture[] pics){
+	public void setPics(String[] pics){
 		this.pics=pics;
 		homePic=pics[0];
 	}
@@ -56,35 +55,35 @@ public class Album {
 	}
 	
 	
-	public void addPic(Picture newPic){
+	public void addPic(String newPic){
 		//Create a new array of pics with 1 more slot
-		Picture newPics[] = new Picture[getSize()+1];
+		String newPics[] = new String[getSize()+1];
 		//New picture is added at the end of the new array
 		newPics[newPics.length]=newPic;
 		//New array is replacing the previous one
 		setPics(newPics);
 	}
 	
-	public void removePic(Picture deletedPic){
-		Picture[] beforeRemove = getPics();
-		Picture[] afterRemove = new Picture[beforeRemove.length-1];
-		//Searching the pic to remove
-		for(int i=0; i<beforeRemove.length; i++){
-			if(beforeRemove[i].getID() == deletedPic.getID()){
-				beforeRemove[i]=null;
-			}	
-		}
-		//Creating the new album without the deleted pic
-		for(int i=0; i<beforeRemove.length; i++){
-			for(int j=0; j<afterRemove.length; j++){
-				if(beforeRemove[i] != null){
-					afterRemove[j]=beforeRemove[i];
-				}
-			}
-		}
-		//Setting the new array of pics in the current album
-		setPics(afterRemove);
-	}
+//	public void removePic(String deletedPic){
+//		String[] beforeRemove = getPics();
+//		String[] afterRemove = new String[beforeRemove.length-1];
+//		//Searching the pic to remove
+//		for(int i=0; i<beforeRemove.length; i++){
+//			if(beforeRemove[i].getPicName() == deletedPic.getPicName()){
+//				beforeRemove[i]=null;
+//			}	
+//		}
+//		//Creating the new album without the deleted pic
+//		for(int i=0; i<beforeRemove.length; i++){
+//			for(int j=0; j<afterRemove.length; j++){
+//				if(beforeRemove[i] != null){
+//					afterRemove[j]=beforeRemove[i];
+//				}
+//			}
+//		}
+//		//Setting the new array of pics in the current album
+//		setPics(afterRemove);
+//	}
 	
 	
 	

@@ -6,7 +6,7 @@ public class testSmartphone {
 
 //		GalleryFrame test = new GalleryFrame();
 //		test.setVisible(true);
-//		
+		
 		CalculatorFrame testCalc = new CalculatorFrame();
 		testCalc.setVisible(true);
 		
