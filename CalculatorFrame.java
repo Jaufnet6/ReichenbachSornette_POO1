@@ -54,7 +54,7 @@ public class CalculatorFrame extends JFrame{
 			setResizable(false);
 			getContentPane().setLayout(null);
 			
-			//Top part
+			//Top part : result
 			resultValue.setOpaque(true);
 			resultValue.setHorizontalAlignment(SwingConstants.RIGHT);
 			resultValue.setBackground(SystemColor.inactiveCaptionBorder);
@@ -62,7 +62,7 @@ public class CalculatorFrame extends JFrame{
 			resultValue.setBounds(12, 13, 450, 191);
 			getContentPane().add(resultValue);
 			
-			//Mid part
+			//Mid part : operation
 			firstNumber.setOpaque(true);
 			firstNumber.setBackground(SystemColor.inactiveCaptionBorder);
 			firstNumber.setHorizontalAlignment(SwingConstants.CENTER);
@@ -84,6 +84,7 @@ public class CalculatorFrame extends JFrame{
 			secondNumber.setBounds(181, 217, 140, 123);
 			getContentPane().add(secondNumber);
 			
+			//Buttons clears&go
 			clearAll.setBackground(SystemColor.activeCaption);
 			clearAll.setFont(new Font("Arial", Font.BOLD, 22));
 			clearAll.setBounds(397, 217, 65, 55);
@@ -99,7 +100,7 @@ public class CalculatorFrame extends JFrame{
 			go.setBounds(333, 271, 129, 69);
 			getContentPane().add(go);
 			
-			//Bottom part
+			//Bottom part : numbers
 			one.setBackground(SystemColor.activeCaption);
 			one.setFont(new Font("Arial", Font.BOLD, 30));
 			one.setBounds(12, 355, 110, 100);
