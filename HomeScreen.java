@@ -1,71 +1,133 @@
+import java.awt.EventQueue;
 import javax.swing.JFrame;
-/*
-Author :    Jaufray Sornette
-Date :      May 12, 2017
-*/
-import java.awt.BorderLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import javax.swing.Timer;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.JSplitPane;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
+public class HomeScreen {
 
-public class HomeScreen extends JFrame{
-    
-    
-    private static JLabel hours = new JLabel();    
+    private  Timer tm;
     private static LocalDateTime time;
-    private Timer tm;
-    private JPanel up = new JPanel();
-    private JPanel down = new JPanel();
-    private Icon image = new ImageIcon("/Users/black and white/Desktop/tiger.jpg");
-    private JLabel background = new JLabel(image);
-    
-    public HomeScreen() throws InterruptedException, IOException{
-        setSize(480, 800);
-        addWindowListener(new Window_Close());
+    private JLabel statusBar;
+    private JLabel backgroundLbl;
+    private JFrame frame;
+    private JButton contactButton;
+    private JButton galleryButton;
+    private JButton calculatorButton;
+    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/tiger.jpg");
+    private Icon calButtonImage = new ImageIcon("/Users/black and white/Desktop/calc.jpg");
+    private Icon contButtonImage = new ImageIcon("/Users/black and white/Desktop/contact.jpg");
+    private Icon galButtonImgae = new ImageIcon("/Users/black and white/Desktop/gallery.jpg");
+    private JLabel lblContact;
+
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    Frame1 window = new Frame1();
+                    window.frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public HomeScreen() throws InterruptedException, IOException {
+        frame = new JFrame();
+        frame.getContentPane().setLayout(null);
         
-        //Every second changes the hours label
-        tm = new Timer(1000, new ActionListener() {          
+        statusBar = new JLabel("");
+        statusBar.setBackground(new Color(0, 0, 0));
+        statusBar.setForeground(new Color(255, 255, 255));
+        statusBar.setOpaque(true);
+        statusBar.setHorizontalAlignment(SwingConstants.CENTER);
+        statusBar.setBounds(179, 0, 128, 20);
+        frame.getContentPane().add(statusBar);
+        setTime();
+        
+        contactButton = new JButton(contButtonImage);
+        contactButton.setOpaque(false);
+        contactButton.setContentAreaFilled(false);
+        contactButton.setBorderPainted(false);
+        contactButton.setBounds(121, 40, 230, 207);
+        contactButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                time = LocalDateTime.now();
-                hours.setText(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());                
+                JOptionPane.showMessageDialog(null, "APP 1");
             }
         });
         
-        //up.add(hours,BorderLayout.NORTH);
-        add(background, BorderLayout.NORTH);
-        background.setLayout(new FlowLayout());
-        background.add(hours, BorderLayout.NORTH);
+        galleryButton = new JButton(galButtonImgae);
+        galleryButton.setOpaque(false);
+        galleryButton.setContentAreaFilled(false);
+        galleryButton.setBorderPainted(false);
+        galleryButton.setBounds(121, 287, 230, 207);
+        galleryButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "APP 2");
+            }
+        });
+        
+        calculatorButton = new JButton(calButtonImage);
+        calculatorButton.setOpaque(false);
+        calculatorButton.setContentAreaFilled(false);
+        calculatorButton.setBorderPainted(false);
+        calculatorButton.setBounds(121, 522, 230, 207);
+        calculatorButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "APP 3");
+            }
+        });
+        
+        
+        frame.getContentPane().add(contactButton);
+        frame.getContentPane().add(galleryButton);
+        frame.getContentPane().add(calculatorButton);
+        
+        JLabel lblCalculator = new JLabel("Calculator");
+        lblCalculator.setBounds(208, 731, 76, 16);
+        frame.getContentPane().add(lblCalculator);
+        
+        JLabel lblGallery = new JLabel("Gallery");
+        lblGallery.setBounds(208, 494, 76, 16);
+        frame.getContentPane().add(lblGallery);
+        
+        lblContact = new JLabel("Gallery");
+        lblContact.setBounds(208, 259, 76, 16);
+        frame.getContentPane().add(lblContact);
 
-        tm.start();
+        backgroundLbl = new JLabel(backgroundImage);
+        backgroundLbl.setText("Calculator");
+        backgroundLbl.setBounds(0, 0, 480, 778);
+        frame.getContentPane().add(backgroundLbl);
+        frame.setBounds(100, 100, 480, 800);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
     
     
-    
-}
-
-//Want to have all 3 options: 
-//Shutdown
-//Cancel
-//Reboot
-
-class Window_Close extends WindowAdapter{
-    
-    public void windowClosing(WindowEvent e) {           
-        int ret = JOptionPane.showConfirmDialog(null, "Shutdown options");
-        if (ret == JOptionPane.YES_OPTION)
-            System.exit(0);
-        if(ret == JOptionPane.NO_OPTION){
-            System.exit(0);
-        }        
+    //Time on status bar
+    private void setTime(){
+        
+        tm = new Timer(1000, new ActionListener() {          
+            public void actionPerformed(ActionEvent e) {
+                time = LocalDateTime.now();
+                statusBar.setText(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());                
+            }
+        });
+        tm.start();
     }
 }
