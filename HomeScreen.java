@@ -10,51 +10,40 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import javax.swing.Timer;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.JSplitPane;
 
-<<<<<<< HEAD
-public class Frame1 {
-=======
 public class HomeScreen {
->>>>>>> e0e64137b82c17b86d6710dae698dc3aea6ebbd9
 
     private  Timer tm;
     private static LocalDateTime time;
     private JLabel statusBar;
     private JLabel backgroundLbl;
+    private JLabel lblCalculator;
+    private JLabel lblContact;
+    private JLabel lblGallery;
     private JFrame frame;
     private JButton contactButton;
     private JButton galleryButton;
     private JButton calculatorButton;
-    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/tiger.jpg");
-    private Icon calButtonImage = new ImageIcon("/Users/black and white/Desktop/calc.jpg");
-    private Icon contButtonImage = new ImageIcon("/Users/black and white/Desktop/contact.jpg");
-    private Icon galButtonImgae = new ImageIcon("/Users/black and white/Desktop/gallery.jpg");
-    private JLabel lblContact;
+    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/Backgrounds/tiger.jpg");
+    private Icon calButtonImage = new ImageIcon("/Users/black and white/Desktop/Backgrounds/calc.jpg");
+    private Icon contButtonImage = new ImageIcon("/Users/black and white/Desktop/Backgrounds/contact.jpg");
+    private Icon galButtonImgae = new ImageIcon("/Users/black and white/Desktop/Backgrounds/gallery.jpg");
 
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Frame1 window = new Frame1();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        try {
+            Frame1 window = new Frame1();
+            window.frame.setVisible(true);
+            window.frame.setResizable(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-<<<<<<< HEAD
-    public Frame1() throws InterruptedException, IOException {
-=======
     public HomeScreen() throws InterruptedException, IOException {
->>>>>>> e0e64137b82c17b86d6710dae698dc3aea6ebbd9
         frame = new JFrame();
         frame.getContentPane().setLayout(null);
         
@@ -93,7 +82,7 @@ public class HomeScreen {
         calculatorButton.setOpaque(false);
         calculatorButton.setContentAreaFilled(false);
         calculatorButton.setBorderPainted(false);
-        calculatorButton.setBounds(121, 522, 230, 207);
+        calculatorButton.setBounds(115, 532, 230, 207);
         calculatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "APP 3");
@@ -105,20 +94,28 @@ public class HomeScreen {
         frame.getContentPane().add(galleryButton);
         frame.getContentPane().add(calculatorButton);
         
-        JLabel lblCalculator = new JLabel("Calculator");
-        lblCalculator.setBounds(208, 731, 76, 16);
+        lblCalculator = new JLabel("Calculator");
+        lblCalculator.setHorizontalAlignment(SwingConstants.CENTER);
+        lblCalculator.setBackground(new Color(255, 250, 240));
+        lblCalculator.setOpaque(true);
+        lblCalculator.setBounds(195, 741, 76, 16);
         frame.getContentPane().add(lblCalculator);
         
-        JLabel lblGallery = new JLabel("Gallery");
-        lblGallery.setBounds(208, 494, 76, 16);
+        lblGallery = new JLabel("Gallery");
+        lblGallery.setHorizontalAlignment(SwingConstants.CENTER);
+        lblGallery.setBackground(new Color(255, 250, 240));
+        lblGallery.setOpaque(true);
+        lblGallery.setBounds(195, 504, 76, 16);
         frame.getContentPane().add(lblGallery);
         
-        lblContact = new JLabel("Gallery");
-        lblContact.setBounds(208, 259, 76, 16);
+        lblContact = new JLabel("Contact");
+        lblContact.setHorizontalAlignment(SwingConstants.CENTER);
+        lblContact.setOpaque(true);
+        lblContact.setBackground(new Color(255, 250, 240));
+        lblContact.setBounds(195, 245, 76, 16);
         frame.getContentPane().add(lblContact);
 
         backgroundLbl = new JLabel(backgroundImage);
-        backgroundLbl.setText("Calculator");
         backgroundLbl.setBounds(0, 0, 480, 778);
         frame.getContentPane().add(backgroundLbl);
         frame.setBounds(100, 100, 480, 800);
