@@ -4,7 +4,9 @@ import java.io.Serializable;
 public class Contact implements Serializable{
 
     private int[] numbers;
-    private int number;
+    private int mobileNumber;
+    private int homeNumber;
+    private int faxNumber;
     private int counterForNumbers;
     private String firstName;
     private String lastName;
@@ -12,23 +14,25 @@ public class Contact implements Serializable{
     private String email;
     private String birthday;
     private String note;
-
-    public Contact(String firstName, String lastName){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        counterForNumbers = 0;
-    }
     
-    public Contact(String firstName){
-        this.firstName = firstName;
-    }
-
     //Setters and getters
-    public void setNumber(int number){
-        this.number = number;
+    public void setMobileNumber(int number){
+        this.mobileNumber = number;
     }
-    public int getNumber(){
-        return number;
+    public int getMobileNumber(){
+        return mobileNumber;
+    }
+    public void setHomeNumber(int number){
+        this.homeNumber = number;
+    }
+    public int getHomeNumber(){
+        return homeNumber;
+    }
+    public void setFaxNumber(int number){
+        this.faxNumber = number;
+    }
+    public int getFaxNumber(){
+        return faxNumber;
     }
     public void setLastName(String lastName){
         this.lastName = lastName;

@@ -1,7 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,8 +9,6 @@ import java.awt.Color;
 import java.time.LocalDateTime;
 import javax.swing.JTextArea;
 import java.awt.Font;
-import javax.swing.JTextField;
-import java.awt.Component;
 
 
 public class ContactFrame{
@@ -20,11 +16,11 @@ public class ContactFrame{
     private JFrame frame;
     private  Timer tm;
     private static LocalDateTime time;
-    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/Backgrounds/tiger.jpg");
     private JButton editButton;
     private JButton deleteButton;
     private JButton backButton;
     private JButton saveButton;
+    private JButton cancelButton;
     private JLabel statusBar;
     private JLabel picLabel;
     private JLabel lblMobile;
@@ -46,8 +42,6 @@ public class ContactFrame{
     private JTextArea txtCompany;
 
 
-
-
     public static void main(String[] args) {
         try {
             ContactFrame window = new ContactFrame();
@@ -64,7 +58,19 @@ public class ContactFrame{
         frame.getContentPane().setBackground(new Color(255, 255, 255));
         frame.setBounds(100, 100, 480, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+        frame.getContentPane().setLayout(null);        
+        
+        initializeFrame();       
+        
+        editButton.addActionListener(new Edit_Button());
+        backButton.addActionListener(new Back_Button());
+        deleteButton.addActionListener(new Delete_Button());
+        saveButton.addActionListener(new Save_Button());
+        cancelButton.addActionListener(new Cancel_Button());
+        
+        }
+    
+    private void initializeFrame(){
         
         statusBar = new JLabel();
         statusBar.setBackground(new Color(102, 102, 102));
@@ -95,6 +101,12 @@ public class ContactFrame{
         saveButton.setVisible(false);
         saveButton.setBounds(349, 20, 125, 40);
         frame.getContentPane().add(saveButton);    
+        
+        cancelButton = new JButton("Cancel");
+        cancelButton.setVisible(false);
+        cancelButton.setForeground(new Color(102, 102, 102));
+        cancelButton.setBounds(45, 703, 180, 69);
+        frame.getContentPane().add(cancelButton);
         
         picLabel = new JLabel("");
         picLabel.setBounds(80, 95, 100, 100);
@@ -228,15 +240,9 @@ public class ContactFrame{
         txtCompany.setBounds(310, 179, 134, 28);
         frame.getContentPane().add(txtCompany);
         
-        
-        editButton.addActionListener(new Edit_Button());
-        backButton.addActionListener(new Back_Button());
-        deleteButton.addActionListener(new Delete_Button());
-        saveButton.addActionListener(new Save_Button());
-        
-        }
+    }
 
-  //Time on status bar
+    //Time on status bar
     private void setTime(){
         
         tm = new Timer(1000, new ActionListener() {          
@@ -248,10 +254,12 @@ public class ContactFrame{
         tm.start();
     }
     
-    class Edit_Button implements ActionListener{
+    class Edit_Button implements ActionListener{ //sets all Text Area to editable
 
         public void actionPerformed(ActionEvent e) {
             saveButton.setVisible(true);
+            editButton.setVisible(false);
+            cancelButton.setVisible(true);
             txtFirstName.setEditable(true);
             txtLastName.setEditable(true);
             txtCompany.setEditable(true);
@@ -285,20 +293,47 @@ public class ContactFrame{
     
     class Save_Button implements ActionListener{
 
-        public void actionPerformed(ActionEvent e) {
-            saveButton.setVisible(false);
-            txtFirstName.setEditable(false);
-            txtLastName.setEditable(false);
-            txtCompany.setEditable(false);
-            txtMobileNumber.setEditable(false);
-            txtHomeNumber.setEditable(false);
-            txtFaxNumber.setEditable(false);
-            txtEmail.setEditable(false);
-            txtAddress.setEditable(false);
-            txtBirthday.setEditable(false);
-            txtNotes.setEditable(false);
+        public void actionPerformed(ActionEvent e) { //Serialize the new or modified contact and Text areas are set to non editable
+
+            blockingEditableContent();
+            
+            Contact contact = new Contact();
+            contact.setFirstName(txtFirstName.getText());
+            contact.setLastName(txtLastName.getText());
+            contact.setCompanyName(txtCompany.getText());
+            contact.setMobileNumber(Integer.parseInt(txtMobileNumber.getText()));
+            contact.setHomeNumber(Integer.parseInt(txtHomeNumber.getText()));
+            contact.setFaxNumber(Integer.parseInt(txtFaxNumber.getText()));
+            contact.setEmail(txtEmail.getText());
+            contact.setBirthday(txtBirthday.getText());
+            contact.setNote(txtNotes.getText());
             
         }
         
     }
+    
+    class Cancel_Button implements ActionListener{
+
+        public void actionPerformed(ActionEvent e) {            
+            blockingEditableContent();           
+        }
+        
+    }
+    
+    private void blockingEditableContent(){
+        saveButton.setVisible(false);
+        editButton.setVisible(true);
+        cancelButton.setVisible(false);
+        txtFirstName.setEditable(false);
+        txtLastName.setEditable(false);
+        txtCompany.setEditable(false);
+        txtMobileNumber.setEditable(false);
+        txtHomeNumber.setEditable(false);
+        txtFaxNumber.setEditable(false);
+        txtEmail.setEditable(false);
+        txtAddress.setEditable(false);
+        txtBirthday.setEditable(false);
+        txtNotes.setEditable(false);
+    }
+    
 }
