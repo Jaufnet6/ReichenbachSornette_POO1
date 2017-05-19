@@ -1,4 +1,3 @@
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -44,11 +43,11 @@ public class HomeScreen {
     }
 
     public HomeScreen() throws InterruptedException, IOException {
-        frame = new JFrame();
+        frame = new JFrame("Reich Sauron");
         frame.getContentPane().setLayout(null);
         
         statusBar = new JLabel("");
-        statusBar.setBackground(new Color(0, 0, 0));
+        statusBar.setBackground(new Color(102, 102, 102));
         statusBar.setForeground(new Color(255, 255, 255));
         statusBar.setOpaque(true);
         statusBar.setHorizontalAlignment(SwingConstants.CENTER);
@@ -89,31 +88,37 @@ public class HomeScreen {
             }
         });
         
+        lblContact = new JLabel("Contact");
+        lblContact.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
+        lblContact.setForeground(new Color(255, 255, 255));
+        lblContact.setHorizontalAlignment(SwingConstants.CENTER);
+        lblContact.setOpaque(false);
+        lblContact.setBackground(new Color(255, 255, 255));
+        lblContact.setBounds(195, 136, 76, 16);
+        frame.getContentPane().add(lblContact);
+        
         
         frame.getContentPane().add(contactButton);
-        frame.getContentPane().add(galleryButton);
-        frame.getContentPane().add(calculatorButton);
-        
-        lblCalculator = new JLabel("Calculator");
-        lblCalculator.setHorizontalAlignment(SwingConstants.CENTER);
-        lblCalculator.setBackground(new Color(255, 250, 240));
-        lblCalculator.setOpaque(true);
-        lblCalculator.setBounds(195, 741, 76, 16);
-        frame.getContentPane().add(lblCalculator);
         
         lblGallery = new JLabel("Gallery");
+        lblGallery.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
+        lblGallery.setForeground(new Color(102, 102, 102));
         lblGallery.setHorizontalAlignment(SwingConstants.CENTER);
-        lblGallery.setBackground(new Color(255, 250, 240));
-        lblGallery.setOpaque(true);
-        lblGallery.setBounds(195, 504, 76, 16);
+        lblGallery.setBackground(new Color(255, 255, 255));
+        lblGallery.setOpaque(false);
+        lblGallery.setBounds(195, 383, 76, 16);
         frame.getContentPane().add(lblGallery);
+        frame.getContentPane().add(galleryButton);
         
-        lblContact = new JLabel("Contact");
-        lblContact.setHorizontalAlignment(SwingConstants.CENTER);
-        lblContact.setOpaque(true);
-        lblContact.setBackground(new Color(255, 250, 240));
-        lblContact.setBounds(195, 245, 76, 16);
-        frame.getContentPane().add(lblContact);
+        lblCalculator = new JLabel("Calculator");
+        lblCalculator.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
+        lblCalculator.setForeground(new Color(102, 102, 102));
+        lblCalculator.setHorizontalAlignment(SwingConstants.CENTER);
+        lblCalculator.setBackground(new Color(255, 255, 255));
+        lblCalculator.setOpaque(false);
+        lblCalculator.setBounds(195, 562, 76, 16);
+        frame.getContentPane().add(lblCalculator);
+        frame.getContentPane().add(calculatorButton);
 
         backgroundLbl = new JLabel(backgroundImage);
         backgroundLbl.setBounds(0, 0, 480, 778);

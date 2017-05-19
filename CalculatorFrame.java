@@ -45,10 +45,20 @@ public class CalculatorFrame extends JFrame{
     private JButton divide = new JButton("/");
 
     private String choice; //Useful for the choice of symbol (sign)
+
+    
+    public static void main(String[] args) {
+        try {
+            CalculatorFrame window = new CalculatorFrame();
+            window.setVisible(true);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
     
 	public CalculatorFrame() {
 		 super("Calculator");
-		 getContentPane().setBackground(SystemColor.inactiveCaption);
+		 getContentPane().setBackground(new Color(51, 153, 204));
 	        setDefaultCloseOperation(EXIT_ON_CLOSE);
 	        setSize(480, 800);
 			setResizable(false);
@@ -57,28 +67,28 @@ public class CalculatorFrame extends JFrame{
 			//Top part : result
 			resultValue.setOpaque(true);
 			resultValue.setHorizontalAlignment(SwingConstants.RIGHT);
-			resultValue.setBackground(SystemColor.inactiveCaptionBorder);
+			resultValue.setBackground(new Color(255, 255, 255));
 			resultValue.setFont(new Font("Arial Black", Font.BOLD, 40));
 			resultValue.setBounds(12, 13, 450, 191);
 			getContentPane().add(resultValue);
 			
 			//Mid part : operation
 			firstNumber.setOpaque(true);
-			firstNumber.setBackground(SystemColor.inactiveCaptionBorder);
+			firstNumber.setBackground(new Color(255, 255, 255));
 			firstNumber.setHorizontalAlignment(SwingConstants.CENTER);
 			firstNumber.setFont(new Font("Arial", Font.PLAIN, 25));
 			firstNumber.setBounds(12, 217, 140, 123);
 			getContentPane().add(firstNumber);
 			
 			addition.setOpaque(true);
-			addition.setBackground(SystemColor.inactiveCaptionBorder);
+			addition.setBackground(new Color(255, 255, 255));
 			addition.setHorizontalAlignment(SwingConstants.CENTER);
 			addition.setFont(new Font("Arial", Font.PLAIN, 25));
 			addition.setBounds(154, 217, 25, 123);
 			getContentPane().add(addition);
 			
 			secondNumber.setOpaque(true);
-			secondNumber.setBackground(SystemColor.inactiveCaptionBorder);
+			secondNumber.setBackground(new Color(255, 255, 255));
 			secondNumber.setHorizontalAlignment(SwingConstants.CENTER);
 			secondNumber.setFont(new Font("Arial", Font.PLAIN, 25));
 			secondNumber.setBounds(181, 217, 140, 123);
@@ -107,7 +117,6 @@ public class CalculatorFrame extends JFrame{
 			getContentPane().add(one);
 			
 			two.setBackground(SystemColor.activeCaption);
-			two.setOpaque(true);
 			two.setFont(new Font("Arial", Font.BOLD, 30));
 			two.setBounds(121, 355, 110, 100);
 			getContentPane().add(two);

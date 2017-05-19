@@ -1,3 +1,4 @@
+
 import java.io.Serializable;
 
 public class Contact implements Serializable{
@@ -16,6 +17,10 @@ public class Contact implements Serializable{
         this.firstName = firstName;
         this.lastName = lastName;
         counterForNumbers = 0;
+    }
+    
+    public Contact(String firstName){
+        this.firstName = firstName;
     }
 
     //Setters and getters
