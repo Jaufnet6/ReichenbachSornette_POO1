@@ -276,6 +276,9 @@ public class CalculatorFrame extends JFrame{
         public void actionPerformed(ActionEvent e) {
             
             if(resultValue.getText().equals("") == false || firstNumber.getText().equals("") == false){
+                if(firstNumber.getText().equals("-")){
+                    return;
+                }
                 if(resultValue.getText().equals("") == false && firstNumber.getText().equals("")){
                     firstNumber.setText(resultValue.getText());
                 } 
@@ -303,6 +306,7 @@ public class CalculatorFrame extends JFrame{
             } else if(resultValue.getText().equals("") && firstNumber.getText().equals("")){
                 //If user tries to enter a equation sign 
                 //Nothing happens 
+                return;
             }
             
         }
