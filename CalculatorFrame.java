@@ -313,10 +313,12 @@ public class CalculatorFrame extends JFrame{
     class Button_Go implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
-            if((firstNumber.getText().equals("") == false && secondNumber.getText().equals("")) || (firstNumber.getText().equals("") == false && secondNumber.getText().equals("-"))){
+            if((firstNumber.getText().equals("") == false && secondNumber.getText().equals("") && firstNumber.getText().equals("-") == false) || (firstNumber.getText().equals("") == false && secondNumber.getText().equals("-"))){
                 resultValue.setText((double) (Double.parseDouble(firstNumber.getText())) + "");
             } else if(firstNumber.getText().equals("") && addition.getText().equals("")) {
                 resultValue.setText("0.0");
+            } else if (firstNumber.getText().equals("-")){
+                firstNumber.setText("");
             } else {
                 switch(choice){
                 case "+":
