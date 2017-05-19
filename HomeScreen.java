@@ -35,7 +35,7 @@ public class HomeScreen {
 
     public static void main(String[] args) {
         try {
-            Frame1 window = new Frame1();
+            HomeScreen window = new HomeScreen();
             window.frame.setVisible(true);
             window.frame.setResizable(false);
         } catch (Exception e) {
