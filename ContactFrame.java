@@ -1,9 +1,13 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JButton;
@@ -16,11 +20,6 @@ import java.time.LocalDateTime;
 import javax.swing.JTextArea;
 import java.awt.Font;
 
-
-/*
-Author : 	Jaufray Sornette
-Date : 		May 19, 2017
-*/
 
 public class ContactFrame{
 
@@ -51,6 +50,8 @@ public class ContactFrame{
     private JTextArea txtFirstName;
     private JTextArea txtLastName;
     private JTextArea txtCompany;
+    
+    private String path = "/Users/black and white/Desktop/App";
 
 
     public static void main(String[] args) {
@@ -64,7 +65,7 @@ public class ContactFrame{
     }
 
     public ContactFrame() {
-        frame = new JFrame("New Contact");
+        frame = new JFrame("Profile Contact");
         frame.getContentPane().setForeground(new Color(255, 255, 255));
         frame.getContentPane().setBackground(new Color(255, 255, 255));
         frame.setBounds(100, 100, 480, 800);
@@ -227,7 +228,7 @@ public class ContactFrame{
         txtFirstName.setForeground(new Color(102, 102, 102));
         txtFirstName.setEditable(false);
         txtFirstName.setText("First Name");
-        txtFirstName.setBounds(310, 99, 134, 28);
+        txtFirstName.setBounds(310, 99, 134, 20);
         frame.getContentPane().add(txtFirstName);
         txtFirstName.setColumns(10);
         
@@ -238,7 +239,7 @@ public class ContactFrame{
         txtLastName.setEditable(false);
         txtLastName.setText("Last Name");
         txtLastName.setColumns(10);
-        txtLastName.setBounds(310, 139, 134, 28);
+        txtLastName.setBounds(310, 139, 134, 20);
         frame.getContentPane().add(txtLastName);
         
         txtCompany = new JTextArea();
@@ -248,7 +249,7 @@ public class ContactFrame{
         txtCompany.setEditable(false);
         txtCompany.setText("Company");
         txtCompany.setColumns(10);
-        txtCompany.setBounds(310, 179, 134, 28);
+        txtCompany.setBounds(310, 179, 134, 20);
         frame.getContentPane().add(txtCompany);
         
     }
@@ -268,27 +269,38 @@ public class ContactFrame{
     class Edit_Button implements ActionListener{ //sets all Text Area to editable
 
         public void actionPerformed(ActionEvent e) {
-            saveButton.setVisible(true);
-            editButton.setVisible(false);
-            cancelButton.setVisible(true);
-            txtFirstName.setEditable(true);
-            txtLastName.setEditable(true);
-            txtCompany.setEditable(true);
-            txtMobileNumber.setEditable(true);
-            txtHomeNumber.setEditable(true);
-            txtFaxNumber.setEditable(true);
-            txtEmail.setEditable(true);
-            txtAddress.setEditable(true);
-            txtBirthday.setEditable(true);
-            txtNotes.setEditable(true);
+            
+            allowingEditableContent();
 
         }
         
     }
     
-    class Delete_Button implements ActionListener{
+    class Delete_Button implements ActionListener{ //Delete saved File of the person 
 
+        Contact person;
+        File file;
+        
         public void actionPerformed(ActionEvent e) {
+            
+            try {
+                if((new File(path + "/" + txtLastName + ".txt")).exists() == true){
+                    person = readFile();
+                    if(person.getFirstName().equals("")){
+                        file = new File(path + "/" + txtLastName + ".txt");
+                        file.delete();
+                    } 
+                    else if(person.getLastName().equals("")){
+                        file = new File(path + "/" + person.getFirstName() + ".txt");
+                        file.delete();
+                    }  
+                }                 
+                
+                resetTextArea();
+                    
+            } catch (ClassNotFoundException | IOException e1) {
+                e1.getMessage();
+            }
             
         }
         
@@ -302,9 +314,9 @@ public class ContactFrame{
         
     }
     
-    class Save_Button implements ActionListener{
+    class Save_Button implements ActionListener{ //Serialize the new or modifiy contact and Text areas are set to non editable
 
-        public void actionPerformed(ActionEvent e) { //Serialize the new or modified contact and Text areas are set to non editable
+        public void actionPerformed(ActionEvent e) { 
 
             blockingEditableContent();
             
@@ -320,6 +332,13 @@ public class ContactFrame{
             contact.setNote(txtNotes.getText());
             
             try {
+                
+                createDirectory();
+                if(txtFirstName.getText().equals("First Name") || txtLastName.getText().equals("Last Name")){ //If firstname and lastname not entered cannot save
+                    allowingEditableContent();
+                    return;
+                }
+                
                 if(txtLastName.getText().equals(""))
                     saveInFile(contact, txtFirstName.getText());
                 else if(txtLastName.getText().equals("") && txtFaxNumber.getText().equals(""))
@@ -334,21 +353,107 @@ public class ContactFrame{
         
     }
     
-    class Cancel_Button implements ActionListener{
+    class Cancel_Button implements ActionListener { //Blocks editable content and resets all text areas
 
         public void actionPerformed(ActionEvent e) {            
-            blockingEditableContent();           
+            blockingEditableContent();    
+            try {
+                resetTextArea();
+            } catch (FileNotFoundException e1) {
+                e1.getMessage();
+            } catch (ClassNotFoundException e1) {
+                e1.getMessage();
+            } catch (IOException e1) {
+                e1.getMessage();
+            }
         }
         
     }
     
-    private void saveInFile(Contact contact, String lastname) throws IOException{
+    private void createDirectory(){ //Create directory App where is stocked the contacts
+        File contactFolder = new File(path);
+        contactFolder.mkdir();
+    }
+    
+    private void saveInFile(Contact contact, String name) throws IOException{ //Serialize in folder the contact
         
-        FileOutputStream fichier = new FileOutputStream("/Users/black and white/Desktop/App/" + lastname +".txt");  
+        FileOutputStream fichier = new FileOutputStream(path + "/" + name +".txt");  
         BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
         ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
         obfichier.writeObject(contact);
         obfichier.close();
+    }
+    
+    private Contact readFile() throws ClassNotFoundException, IOException{  //Read a already saved contact
+        FileInputStream fichier;
+        Contact person;
+        
+        if(txtLastName.getText().equals("") == false){
+            fichier = new FileInputStream(path + "/" + txtLastName + ".txt");
+        }
+        else{
+            fichier = new FileInputStream(path + "/" + txtFirstName + ".txt");
+        }
+        BufferedInputStream bfichier = new BufferedInputStream(fichier);
+        ObjectInputStream obfichier = new ObjectInputStream(bfichier);
+        person = (Contact) obfichier.readObject();
+        obfichier.close();
+        System.out.println(person);
+        return person;
+    }
+    
+    private void resetTextArea() throws IOException, ClassNotFoundException{ //Resets to previous conditions: if new contact all clear else original information
+        
+        Contact person;
+        
+        if(txtFirstName.getText().equals("First Name") && txtLastName.getText().equals("Last Name")){
+            deleteAll();
+            txtFirstName.setText("First Name");
+            txtLastName.setText("Last Name");
+        } else {
+            person = readFile();
+            txtFirstName.setText(person.getFirstName());
+            txtLastName.setText(person.getFirstName());
+            txtCompany.setText(person.getFirstName());
+            txtMobileNumber.setText(person.getFirstName());
+            txtHomeNumber.setText(person.getFirstName());
+            txtFaxNumber.setText(person.getFirstName());
+            txtEmail.setText(person.getFirstName());
+            txtAddress.setText(person.getFirstName());
+            txtBirthday.setText(person.getFirstName());
+            txtNotes.setText(person.getFirstName());
+
+        }
+        
+    }
+    
+    private void deleteAll(){
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtCompany.setText("");
+        txtMobileNumber.setText("");
+        txtHomeNumber.setText("");
+        txtFaxNumber.setText("");
+        txtEmail.setText("");
+        txtAddress.setText("");
+        txtBirthday.setText("");
+        txtNotes.setText("");
+    }
+    
+    private void allowingEditableContent(){
+        saveButton.setVisible(true);
+        editButton.setVisible(false);
+        cancelButton.setVisible(true);
+        txtFirstName.setEditable(true);
+        txtLastName.setEditable(true);
+        txtCompany.setEditable(true);
+        txtMobileNumber.setEditable(true);
+        txtHomeNumber.setEditable(true);
+        txtFaxNumber.setEditable(true);
+        txtEmail.setEditable(true);
+        txtAddress.setEditable(true);
+        txtBirthday.setEditable(true);
+        txtNotes.setEditable(true);
     }
     
     private void blockingEditableContent(){
