@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,11 +23,6 @@ import java.time.LocalDateTime;
 import javax.swing.JTextArea;
 import java.awt.Font;
 
-
-/*
-Author : 	Jaufray Sornette
-Date : 		May 19, 2017
-*/
 
 public class ContactFrame{
 
@@ -57,6 +55,7 @@ public class ContactFrame{
     private JTextArea txtCompany;
     
     private String path = "/Users/black and white/Desktop/App";
+    private Icon contactPic = new ImageIcon("/Users/black and white/Desktop/1.png");
 
 
     public static void main(String[] args) {
@@ -69,7 +68,7 @@ public class ContactFrame{
         }
     }
 
-    public ContactFrame() {
+    public ContactFrame(){
         frame = new JFrame("Profile Contact");
         frame.getContentPane().setForeground(new Color(255, 255, 255));
         frame.getContentPane().setBackground(new Color(255, 255, 255));
@@ -125,8 +124,8 @@ public class ContactFrame{
         cancelButton.setBounds(45, 703, 180, 69);
         frame.getContentPane().add(cancelButton);
         
-        picLabel = new JLabel("");
-        picLabel.setBounds(80, 95, 100, 100);
+        picLabel = new JLabel(contactPic);
+        picLabel.setBounds(80, 95, 145, 126);
         frame.getContentPane().add(picLabel);
         
         lblMobile = new JLabel("Mobile:");
@@ -257,6 +256,7 @@ public class ContactFrame{
         txtCompany.setBounds(310, 179, 134, 20);
         frame.getContentPane().add(txtCompany);
         
+        
     }
 
     //Time on status bar
@@ -270,13 +270,11 @@ public class ContactFrame{
         });
         tm.start();
     }
-    
+        
     class Edit_Button implements ActionListener{ //sets all Text Area to editable
 
         public void actionPerformed(ActionEvent e) {
-            
             allowingEditableContent();
-
         }
         
     }
@@ -462,7 +460,7 @@ public class ContactFrame{
         txtEmail.setEditable(true);
         txtAddress.setEditable(true);
         txtBirthday.setEditable(true);
-        txtNotes.setEditable(true);
+        txtNotes.setEditable(true); 
     }
     
     private void blockingEditableContent(){
