@@ -21,6 +21,11 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 
 
+/*
+Author : 	Jaufray Sornette
+Date : 		May 19, 2017
+*/
+
 public class ContactFrame{
 
     private JFrame frame;
@@ -284,8 +289,9 @@ public class ContactFrame{
         public void actionPerformed(ActionEvent e) {
             
             try {
-                if((new File(path + "/" + txtLastName + ".txt")).exists() == true){
+                if((new File(path + "/" + txtLastName + ".txt")).exists() == true || (new File(path + "/" + txtFirstName + ".txt")).exists()){
                     person = readFile();
+                    System.out.println(person);
                     if(person.getFirstName().equals("")){
                         file = new File(path + "/" + txtLastName + ".txt");
                         file.delete();
@@ -296,7 +302,9 @@ public class ContactFrame{
                     }  
                 }                 
                 
-                resetTextArea();
+                deleteAll();
+                txtFirstName.setText("First Name");
+                txtLastName.setText("Last Name");
                     
             } catch (ClassNotFoundException | IOException e1) {
                 e1.getMessage();
@@ -334,6 +342,7 @@ public class ContactFrame{
             try {
                 
                 createDirectory();
+                
                 if(txtFirstName.getText().equals("First Name") || txtLastName.getText().equals("Last Name")){ //If firstname and lastname not entered cannot save
                     allowingEditableContent();
                     return;
@@ -341,7 +350,7 @@ public class ContactFrame{
                 
                 if(txtLastName.getText().equals(""))
                     saveInFile(contact, txtFirstName.getText());
-                else if(txtLastName.getText().equals("") && txtFaxNumber.getText().equals(""))
+                else if(txtLastName.getText().equals("") && txtFirstName.getText().equals(""))
                     return;
                 else
                     saveInFile(contact, txtLastName.getText());
