@@ -1,5 +1,11 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,6 +16,11 @@ import java.time.LocalDateTime;
 import javax.swing.JTextArea;
 import java.awt.Font;
 
+
+/*
+Author : 	Jaufray Sornette
+Date : 		May 19, 2017
+*/
 
 public class ContactFrame{
 
@@ -53,7 +64,7 @@ public class ContactFrame{
     }
 
     public ContactFrame() {
-        frame = new JFrame("Contact");
+        frame = new JFrame("New Contact");
         frame.getContentPane().setForeground(new Color(255, 255, 255));
         frame.getContentPane().setBackground(new Color(255, 255, 255));
         frame.setBounds(100, 100, 480, 800);
@@ -301,12 +312,23 @@ public class ContactFrame{
             contact.setFirstName(txtFirstName.getText());
             contact.setLastName(txtLastName.getText());
             contact.setCompanyName(txtCompany.getText());
-            contact.setMobileNumber(Integer.parseInt(txtMobileNumber.getText()));
-            contact.setHomeNumber(Integer.parseInt(txtHomeNumber.getText()));
-            contact.setFaxNumber(Integer.parseInt(txtFaxNumber.getText()));
+            contact.setMobileNumber(txtMobileNumber.getText());
+            contact.setHomeNumber(txtHomeNumber.getText());
+            contact.setFaxNumber(txtFaxNumber.getText());
             contact.setEmail(txtEmail.getText());
             contact.setBirthday(txtBirthday.getText());
             contact.setNote(txtNotes.getText());
+            
+            try {
+                if(txtLastName.getText().equals(""))
+                    saveInFile(contact, txtFirstName.getText());
+                else if(txtLastName.getText().equals("") && txtFaxNumber.getText().equals(""))
+                    return;
+                else
+                    saveInFile(contact, txtLastName.getText());
+            } catch (IOException e1) {
+                e1.getMessage();
+            }
             
         }
         
@@ -318,6 +340,15 @@ public class ContactFrame{
             blockingEditableContent();           
         }
         
+    }
+    
+    private void saveInFile(Contact contact, String lastname) throws IOException{
+        
+        FileOutputStream fichier = new FileOutputStream("/Users/black and white/Desktop/App/" + lastname +".txt");  
+        BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
+        ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
+        obfichier.writeObject(contact);
+        obfichier.close();
     }
     
     private void blockingEditableContent(){

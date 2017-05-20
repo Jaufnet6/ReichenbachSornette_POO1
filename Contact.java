@@ -3,10 +3,10 @@ import java.io.Serializable;
 
 public class Contact implements Serializable{
 
-    private int[] numbers;
-    private int mobileNumber;
-    private int homeNumber;
-    private int faxNumber;
+    private String[] numbers;
+    private String mobileNumber;
+    private String homeNumber;
+    private String faxNumber;
     private int counterForNumbers;
     private String firstName;
     private String lastName;
@@ -16,22 +16,22 @@ public class Contact implements Serializable{
     private String note;
     
     //Setters and getters
-    public void setMobileNumber(int number){
+    public void setMobileNumber(String number){
         this.mobileNumber = number;
     }
-    public int getMobileNumber(){
+    public String getMobileNumber(){
         return mobileNumber;
     }
-    public void setHomeNumber(int number){
+    public void setHomeNumber(String number){
         this.homeNumber = number;
     }
-    public int getHomeNumber(){
+    public String getHomeNumber(){
         return homeNumber;
     }
-    public void setFaxNumber(int number){
+    public void setFaxNumber(String number){
         this.faxNumber = number;
     }
-    public int getFaxNumber(){
+    public String getFaxNumber(){
         return faxNumber;
     }
     public void setLastName(String lastName){
@@ -72,10 +72,10 @@ public class Contact implements Serializable{
     }
 
     //Adds a new number in the contact
-    public void addNewPhoneNumber(int newNumber){
+    public void addNewPhoneNumber(String newNumber){
         counterForNumbers++;
-        int[] beforeAdding = numbers;
-        int[] afterAdding = new int[counterForNumbers];
+        String[] beforeAdding = numbers;
+        String[] afterAdding = new String[counterForNumbers];
 
         for(int i = 0; i < beforeAdding.length; i++){
             afterAdding[i] = beforeAdding[i];
@@ -86,22 +86,22 @@ public class Contact implements Serializable{
     }
 
     //Removes a number in the contact
-    public void removePhoneNumber(int deletedNumber){
+    public void removePhoneNumber(String deletedNumber){
         counterForNumbers--;
-        int[] beforeAdding = numbers;
-        int[] afterAdding = new int[counterForNumbers];
+        String[] beforeAdding = numbers;
+        String[] afterAdding = new String[counterForNumbers];
 
         //deletes the number in the array
         for(int i = 0; i < beforeAdding.length; i++){
             if(beforeAdding[i] == deletedNumber)
-                beforeAdding[i] = 0;
+                beforeAdding[i] = "";
         }
 
         //copies the values of the old array in the new one.
         for(int i = 0; i < beforeAdding.length; i++){
             for(int j = 0; j < afterAdding.length; i++){
-                if(afterAdding[j] == 0){
-                    if(beforeAdding[i] != 0)
+                if(afterAdding[j] == ""){
+                    if(beforeAdding[i] != "")
                         afterAdding[j] = beforeAdding[i];
                 }
             }
