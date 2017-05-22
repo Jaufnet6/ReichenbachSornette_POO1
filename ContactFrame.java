@@ -59,8 +59,8 @@ public class ContactFrame extends JFrame{
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact
     private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact";
     // Mac : /Users/black and white/Desktop/1.png
-    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact\\defaultPic\\contact.png
-    private Icon contactPic = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact\\defaultPic\\contact.png");
+    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\contact.png
+    private Icon contactPic = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\contact.png");
 
 
     public static void main(String[] args) {

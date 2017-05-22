@@ -11,8 +11,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
@@ -65,8 +67,8 @@ public class PicturesFrame extends JFrame{
 
 	
 	public void loadPics() throws IOException{
-		FileReader fr = new FileReader(path);
-		BufferedReader bfr = new BufferedReader(fr);
+		FileInputStream fr;
+		BufferedInputStream bfr;
 		File picFolder = new File(path);
 		Icon[] images = new ImageIcon[(int) picFolder.length()];
 		JButton[] buttons = new JButton[(int) picFolder.length()];
@@ -76,7 +78,9 @@ public class PicturesFrame extends JFrame{
 		int cptX=0;
 		String imgPath;
 		
-		for(int i=0;i<(int)picFolder.length();i++){
+		for(int i=0;i<images.length;i++){
+			fr = new FileInputStream(path+"\\"+Integer.toString(i)+".jpg");
+			bfr = new BufferedInputStream(fr);
 			imgPath=path+"\\"+Integer.toString(i)+".jpg";
 			images[i] = new ImageIcon(imgPath);
 			buttons[i] = new JButton(images[i]);
@@ -100,8 +104,8 @@ public class PicturesFrame extends JFrame{
 				cptX=0;
 				y += 162;
 			}
+			bfr.close();
 		}
-		bfr.close();
 	}
 
 }
