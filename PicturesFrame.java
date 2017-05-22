@@ -1,4 +1,5 @@
 import java.awt.Button;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
 
@@ -8,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
@@ -18,40 +20,28 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JToolBar;
+import javax.swing.JList;
+import javax.swing.ScrollPaneConstants;
 
 public class PicturesFrame extends JFrame{
 
 	private JFrame frame;
+	private JPanel picturesPanel = new JPanel();
+	private JScrollPane scroll;
 	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PicturesFrame window = new PicturesFrame();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 * @throws IOException 
-	 */
 	public PicturesFrame() throws IOException {
+		super("Pictures");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(480, 800);
 		setResizable(false);
 		getContentPane().setLayout(null);
-		loadPics();
+		picturesPanel=loadPics();
 		
+		//Bottom buttons
 		JButton albums = new JButton("ALBUMS");
 		albums.setBackground(SystemColor.inactiveCaption);
 		albums.setBounds(236, 679, 238, 86);
@@ -63,49 +53,60 @@ public class PicturesFrame extends JFrame{
 		pictures.setHorizontalAlignment(SwingConstants.CENTER);
 		pictures.setBounds(0, 679, 238, 86);
 		getContentPane().add(pictures);
+		
+		//My pictures
+        scroll = new JScrollPane(picturesPanel);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.setBounds(0, 0, 476, 675);
+        add(scroll);
 	}
 
 	
-	public void loadPics() throws IOException{
+	private JPanel loadPics() throws IOException{
+		JPanel myPanel = new JPanel();
 		FileInputStream fr;
 		BufferedInputStream bfr;
 		File picFolder = new File(path);
-		Icon[] images = new ImageIcon[(int) picFolder.length()];
-		JButton[] buttons = new JButton[(int) picFolder.length()];
-		//Position for the first image
-		int x=12;
-		int y=51;
-		int cptX=0;
+		Icon[] images = new ImageIcon[picFolder.listFiles().length];
+		JButton[] buttons = new JButton[picFolder.listFiles().length];
 		String imgPath;
+
+		//Position for the first image
+		int x=22;
+		int y=20;
+		int cptX=0;
 		
 		for(int i=0;i<images.length;i++){
-			fr = new FileInputStream(path+"\\"+Integer.toString(i)+".jpg");
-			bfr = new BufferedInputStream(fr);
 			imgPath=path+"\\"+Integer.toString(i)+".jpg";
+			fr = new FileInputStream(imgPath);
+			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);
 			buttons[i] = new JButton(images[i]);
-			
+
 			switch (cptX){
 			case 0:
 				buttons[i].setBounds(x, y, 125, 125);
-				getContentPane().add(buttons[i]);
+				myPanel.add(buttons[i]);
 				break;
 			case 1:
-				buttons[i].setBounds(x+162, y, 125, 125);
-				getContentPane().add(buttons[i]);
+				buttons[i].setBounds(x+143, y, 125, 125);
+				myPanel.add(buttons[i]);
 				break;
 			case 2:
-				buttons[i].setBounds(x+325, y, 125, 125);
-				getContentPane().add(buttons[i]);
+				buttons[i].setBounds(x+287, y, 125, 125);
+				myPanel.add(buttons[i]);
 				break;
 			}
 			cptX++;
 			if(cptX==3){
 				cptX=0;
-				y += 162;
+				y += 143;
 			}
 			bfr.close();
 		}
+		myPanel.setLayout(null);
+		//y+145 => y(total y size)+125(img size)+20(initial border)
+		myPanel.setPreferredSize(new Dimension(450,y+145));
+		return myPanel;
 	}
-
 }

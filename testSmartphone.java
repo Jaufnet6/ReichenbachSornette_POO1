@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 
 public class testSmartphone {
@@ -17,6 +18,8 @@ public class testSmartphone {
 //		ContactFrame testContact = new ContactFrame();
 //		testContact.setVisible(true);
 		
+	
 	}
+
 
 }
