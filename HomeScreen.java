@@ -26,10 +26,18 @@ public class HomeScreen {
     private JButton contactButton;
     private JButton galleryButton;
     private JButton calculatorButton;
-    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/Backgrounds/tiger.jpg");
-    private Icon calButtonImage = new ImageIcon("/Users/black and white/Desktop/Backgrounds/calc.jpg");
-    private Icon contButtonImage = new ImageIcon("/Users/black and white/Desktop/Backgrounds/contact.jpg");
-    private Icon galButtonImgae = new ImageIcon("/Users/black and white/Desktop/Backgrounds/gallery.jpg");
+    // Mac : /Users/black and white/Desktop/Backgrounds/tiger.jpg
+    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg
+    private Icon backgroundImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg");
+    // Mac : /Users/black and white/Desktop/Backgrounds/calc.jpg
+    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\calc.jpg
+    private Icon calButtonImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\calc.jpg");
+    // Mac : /Users/black and white/Desktop/Backgrounds/contact.jpg
+    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\contact.png
+    private Icon contButtonImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\contact.jpg");
+    // Mac : /Users/black and white/Desktop/Backgrounds/gallery.jpg
+    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\gallery.jpg
+    private Icon galButtonImgae = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\gallery.jpg");
 
 
     public static void main(String[] args) {

@@ -24,7 +24,7 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 
 
-public class ContactFrame{
+public class ContactFrame extends JFrame{
 
     private JFrame frame;
     private  Timer tm;
@@ -54,8 +54,13 @@ public class ContactFrame{
     private JTextArea txtLastName;
     private JTextArea txtCompany;
     
-    private String path = "/Users/black and white/Desktop/App";
-    private Icon contactPic = new ImageIcon("/Users/black and white/Desktop/1.png");
+    
+    // Mac : /Users/black and white/Desktop/App
+    //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact
+    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact";
+    // Mac : /Users/black and white/Desktop/1.png
+    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact\\defaultPic\\contact.png
+    private Icon contactPic = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact\\defaultPic\\contact.png");
 
 
     public static void main(String[] args) {
@@ -287,15 +292,15 @@ public class ContactFrame{
         public void actionPerformed(ActionEvent e) {
             
             try {
-                if((new File(path + "/" + txtLastName + ".txt")).exists() == true || (new File(path + "/" + txtFirstName + ".txt")).exists()){
+                if((new File(path + "\\" + txtLastName + ".txt")).exists() == true || (new File(path + "\\" + txtFirstName + ".txt")).exists()){
                     person = readFile();
                     System.out.println(person);
                     if(person.getFirstName().equals("")){
-                        file = new File(path + "/" + txtLastName + ".txt");
+                        file = new File(path + "\\" + txtLastName + ".txt");
                         file.delete();
                     } 
                     else if(person.getLastName().equals("")){
-                        file = new File(path + "/" + person.getFirstName() + ".txt");
+                        file = new File(path + "\\" + person.getFirstName() + ".txt");
                         file.delete();
                     }  
                 }                 
@@ -384,7 +389,7 @@ public class ContactFrame{
     
     private void saveInFile(Contact contact, String name) throws IOException{ //Serialize in folder the contact
         
-        FileOutputStream fichier = new FileOutputStream(path + "/" + name +".txt");  
+        FileOutputStream fichier = new FileOutputStream(path + "\\" + name +".txt");  
         BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
         ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
         obfichier.writeObject(contact);
@@ -396,10 +401,10 @@ public class ContactFrame{
         Contact person;
         
         if(txtLastName.getText().equals("") == false){
-            fichier = new FileInputStream(path + "/" + txtLastName + ".txt");
+            fichier = new FileInputStream(path + "\\" + txtLastName + ".txt");
         }
         else{
-            fichier = new FileInputStream(path + "/" + txtFirstName + ".txt");
+            fichier = new FileInputStream(path + "\\" + txtFirstName + ".txt");
         }
         BufferedInputStream bfichier = new BufferedInputStream(fichier);
         ObjectInputStream obfichier = new ObjectInputStream(bfichier);

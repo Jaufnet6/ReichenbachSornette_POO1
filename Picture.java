@@ -1,8 +1,10 @@
+import javax.swing.Icon;
 
 public class Picture {
 
 	private int IDpic;
 	private String path;
+	private Icon image;
 	
 	public Picture(int iDpic, String path) {
 		super();
