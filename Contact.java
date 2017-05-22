@@ -14,6 +14,7 @@ public class Contact implements Serializable{
     private String email;
     private String birthday;
     private String note;
+    private String address;
     
     //Setters and getters
     public void setMobileNumber(String number){
@@ -70,6 +71,13 @@ public class Contact implements Serializable{
     public String getNote(){
         return note;
     }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
 
 //    //Adds a new number in the contact
 //    public void addNewPhoneNumber(String newNumber){

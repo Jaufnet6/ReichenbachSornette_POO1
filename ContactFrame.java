@@ -24,7 +24,7 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 
 
-public class ContactFrame extends JFrame{
+public class ContactFrame{
 
     private JFrame frame;
     private  Timer tm;
@@ -54,13 +54,8 @@ public class ContactFrame extends JFrame{
     private JTextArea txtLastName;
     private JTextArea txtCompany;
     
-    
-    // Mac : /Users/black and white/Desktop/App
-    //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact
-    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\contact";
-    // Mac : /Users/black and white/Desktop/1.png
-    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\contact.png
-    private Icon contactPic = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\contact.png");
+    private String path = "/Users/black and white/Desktop/App/Contacts";
+    private Icon contactPic = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/contactPic.png");
 
 
     public static void main(String[] args) {
@@ -130,7 +125,7 @@ public class ContactFrame extends JFrame{
         frame.getContentPane().add(cancelButton);
         
         picLabel = new JLabel(contactPic);
-        picLabel.setBounds(80, 95, 145, 126);
+        picLabel.setBounds(45, 85, 145, 126);
         frame.getContentPane().add(picLabel);
         
         lblMobile = new JLabel("Mobile:");
@@ -237,7 +232,7 @@ public class ContactFrame extends JFrame{
         txtFirstName.setForeground(new Color(102, 102, 102));
         txtFirstName.setEditable(false);
         txtFirstName.setText("First Name");
-        txtFirstName.setBounds(310, 99, 134, 20);
+        txtFirstName.setBounds(276, 100, 134, 20);
         frame.getContentPane().add(txtFirstName);
         txtFirstName.setColumns(10);
         
@@ -248,7 +243,7 @@ public class ContactFrame extends JFrame{
         txtLastName.setEditable(false);
         txtLastName.setText("Last Name");
         txtLastName.setColumns(10);
-        txtLastName.setBounds(310, 139, 134, 20);
+        txtLastName.setBounds(276, 140, 134, 20);
         frame.getContentPane().add(txtLastName);
         
         txtCompany = new JTextArea();
@@ -258,7 +253,7 @@ public class ContactFrame extends JFrame{
         txtCompany.setEditable(false);
         txtCompany.setText("Company");
         txtCompany.setColumns(10);
-        txtCompany.setBounds(310, 179, 134, 20);
+        txtCompany.setBounds(276, 180, 134, 20);
         frame.getContentPane().add(txtCompany);
         
         
@@ -292,15 +287,18 @@ public class ContactFrame extends JFrame{
         public void actionPerformed(ActionEvent e) {
             
             try {
-                if((new File(path + "\\" + txtLastName + ".txt")).exists() == true || (new File(path + "\\" + txtFirstName + ".txt")).exists()){
+                //System.out.println(path + "/" + txtLastName.getText() + ".txt");
+                if((new File(path + "/" + txtLastName.getText() + ".txt")).exists() || (new File(path + "/" + txtFirstName.getText() + ".txt")).exists()){
                     person = readFile();
-                    System.out.println(person);
-                    if(person.getFirstName().equals("")){
-                        file = new File(path + "\\" + txtLastName + ".txt");
+                    System.out.println(path + "/" + txtLastName.getText() + ".txt");
+
+                    if(!person.getLastName().isEmpty()){
+                        file = new File(path + "/" + txtLastName.getText() + ".txt");
+                        System.out.println(path + "/" + txtLastName.getText() + ".txt");
                         file.delete();
                     } 
                     else if(person.getLastName().equals("")){
-                        file = new File(path + "\\" + person.getFirstName() + ".txt");
+                        file = new File(path + "/" + person.getFirstName() + ".txt");
                         file.delete();
                     }  
                 }                 
@@ -308,6 +306,8 @@ public class ContactFrame extends JFrame{
                 deleteAll();
                 txtFirstName.setText("First Name");
                 txtLastName.setText("Last Name");
+                txtCompany.setText("Company");
+                
                     
             } catch (ClassNotFoundException | IOException e1) {
                 e1.getMessage();
@@ -339,6 +339,7 @@ public class ContactFrame extends JFrame{
             contact.setHomeNumber(txtHomeNumber.getText());
             contact.setFaxNumber(txtFaxNumber.getText());
             contact.setEmail(txtEmail.getText());
+            contact.setAddress(txtAddress.getText());
             contact.setBirthday(txtBirthday.getText());
             contact.setNote(txtNotes.getText());
             
@@ -389,7 +390,7 @@ public class ContactFrame extends JFrame{
     
     private void saveInFile(Contact contact, String name) throws IOException{ //Serialize in folder the contact
         
-        FileOutputStream fichier = new FileOutputStream(path + "\\" + name +".txt");  
+        FileOutputStream fichier = new FileOutputStream(path + "/" + name +".txt");  
         BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
         ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
         obfichier.writeObject(contact);
@@ -401,16 +402,16 @@ public class ContactFrame extends JFrame{
         Contact person;
         
         if(txtLastName.getText().equals("") == false){
-            fichier = new FileInputStream(path + "\\" + txtLastName + ".txt");
+            fichier = new FileInputStream(path + "/" + txtLastName.getText() + ".txt");
         }
         else{
-            fichier = new FileInputStream(path + "\\" + txtFirstName + ".txt");
+            fichier = new FileInputStream(path + "/" + txtFirstName.getText() + ".txt");
         }
         BufferedInputStream bfichier = new BufferedInputStream(fichier);
         ObjectInputStream obfichier = new ObjectInputStream(bfichier);
         person = (Contact) obfichier.readObject();
         obfichier.close();
-        System.out.println(person);
+        //System.out.println(person);
         return person;
     }
     
@@ -425,15 +426,15 @@ public class ContactFrame extends JFrame{
         } else {
             person = readFile();
             txtFirstName.setText(person.getFirstName());
-            txtLastName.setText(person.getFirstName());
-            txtCompany.setText(person.getFirstName());
-            txtMobileNumber.setText(person.getFirstName());
-            txtHomeNumber.setText(person.getFirstName());
-            txtFaxNumber.setText(person.getFirstName());
-            txtEmail.setText(person.getFirstName());
-            txtAddress.setText(person.getFirstName());
-            txtBirthday.setText(person.getFirstName());
-            txtNotes.setText(person.getFirstName());
+            txtLastName.setText(person.getLastName());
+            txtCompany.setText(person.getCompanyName());
+            txtMobileNumber.setText(person.getMobileNumber());
+            txtHomeNumber.setText(person.getHomeNumber());
+            txtFaxNumber.setText(person.getFaxNumber());
+            txtEmail.setText(person.getEmail());
+            txtAddress.setText(person.getAddress());
+            txtBirthday.setText(person.getBirthday());
+            txtNotes.setText(person.getNote());
 
         }
         
