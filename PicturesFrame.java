@@ -29,7 +29,6 @@ import javax.swing.ScrollPaneConstants;
 
 public class PicturesFrame extends JFrame{
 
-	private JFrame frame;
 	private JPanel picturesPanel = new JPanel();
 	private JScrollPane scroll;
 	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
@@ -43,10 +42,11 @@ public class PicturesFrame extends JFrame{
 		picturesPanel=loadPics();
 		
 		//Bottom buttons
-		JButton albums = new JButton("ALBUMS");
-		albums.setBackground(SystemColor.inactiveCaption);
-		albums.setBounds(236, 679, 238, 86);
-		getContentPane().add(albums);
+		JButton switchToAlbums = new JButton("ALBUMS");
+		switchToAlbums.addActionListener(new AlbumButtonListener());
+		switchToAlbums.setBackground(SystemColor.inactiveCaption);
+		switchToAlbums.setBounds(236, 679, 238, 86);
+		getContentPane().add(switchToAlbums);
 		
 		JLabel pictures = new JLabel("PICTURES");
 		pictures.setBackground(SystemColor.textHighlight);
@@ -62,7 +62,16 @@ public class PicturesFrame extends JFrame{
         add(scroll);
 	}
 	
-	class ButtonListener implements ActionListener{
+	class AlbumButtonListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg0) {
+			DefaultGalleryFrame albumFrame = new DefaultGalleryFrame();
+			albumFrame.setVisible(true);
+		}
+		
+	}
+	
+	class PictureButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
 			Icon img = ((AbstractButton) e.getSource()).getIcon();
@@ -104,7 +113,7 @@ public class PicturesFrame extends JFrame{
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);
 			buttons[i] = new JButton(images[i]);
-			buttons[i].addActionListener(new ButtonListener());
+			buttons[i].addActionListener(new PictureButtonListener());
 			
 			switch (cptX){
 			case 0:

@@ -53,3 +53,11 @@
 /ContactApp.class
 /PicFrame.class
 /PicturesFrame$ButtonListener.class
+/PicturesFrame$AlbumButtonListener.class
+/PicturesFrame$PictureButtonListener.class
+/PictureException.class
+/DefaultGalleryFrame$PicturesButtonListener.class
+/AlbumCreationFrame.class
+/AlbumCreationFrame$1.class
+/AlbumCreationFrame$AddPicsToAlbum.class
+/AlbumCreationFrame$SaveListener.class

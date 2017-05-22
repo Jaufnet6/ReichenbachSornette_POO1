@@ -1,18 +1,27 @@
 import java.io.Serializable;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 public class Album implements Serializable{
 
 	private int IDalbum;
+	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Gallery";
 	private String name;
-	private String[] pics;
+	private String[] pics = null;
 	//Picture which is displayed on gallery to represent the album
 	//is the first picture added OR a default picture if album still is empty
-	private String homePic = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Gallery\\defaultPicture\\album.png";
+	private String homePicPath = path+"\\defaultPicture\\album.png";
 	
 	public Album(){
 		//Default name
 		this.name="New album";
-		this.pics= new String[0];
+		if(pics != null){
+			Icon homePic = new ImageIcon(path+"\\"+pics[0]+".png");
+		}
+		else{
+			Icon homePic = new ImageIcon(homePicPath);
+		}
 	}
 	
 	public Album(String name) {
@@ -35,7 +44,7 @@ public class Album implements Serializable{
 	public String getName() {
 		return name;
 	}
-	
+		
 	//Setter
 	public void renameAlbum(String name) {
 		this.name = name;
@@ -47,7 +56,7 @@ public class Album implements Serializable{
 	
 	public void setPics(String[] pics){
 		this.pics=pics;
-		homePic=pics[0];
+		Icon homePic = new ImageIcon(path+"\\"+pics[0]+".png");
 	}
 	
 	public int getSize(){

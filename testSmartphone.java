@@ -9,14 +9,17 @@ public class testSmartphone {
 //		DefaultGalleryFrame test = new DefaultGalleryFrame();
 //		test.setVisible(true);
 		
-		PicturesFrame testPictures = new PicturesFrame();
-		testPictures.setVisible(true);
+//		PicturesFrame testPictures = new PicturesFrame();
+//		testPictures.setVisible(true);
 		
 //		CalculatorFrame testCalc = new CalculatorFrame();
 //		testCalc.setVisible(true);
 		
 //		ContactFrame testContact = new ContactFrame();
 //		testContact.setVisible(true);
+		
+		AlbumCreationFrame acf = new AlbumCreationFrame();
+		acf.setVisible(true);
 		
 	
 	}
