@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
 
+import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -60,7 +61,28 @@ public class PicturesFrame extends JFrame{
         scroll.setBounds(0, 0, 476, 675);
         add(scroll);
 	}
+	
+	class ButtonListener implements ActionListener{
 
+		public void actionPerformed(ActionEvent e) {
+			Icon img = ((AbstractButton) e.getSource()).getIcon();
+			
+			JLabel image = new JLabel(img);
+			image.setBounds(10, 55, 452, 697);
+			JButton back = new JButton("BACK");
+			back.setBackground(SystemColor.textHighlight);
+			back.setBounds(0, 0, 97, 42);
+			JFrame bigPic = new JFrame();
+			bigPic.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			bigPic.setSize(480, 800);
+			bigPic.setResizable(false);	
+			bigPic.setLayout(null);
+			bigPic.add(image);
+			bigPic.add(back);
+			bigPic.setVisible(true);
+			}
+			
+		}
 	
 	private JPanel loadPics() throws IOException{
 		JPanel myPanel = new JPanel();
@@ -82,7 +104,8 @@ public class PicturesFrame extends JFrame{
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);
 			buttons[i] = new JButton(images[i]);
-
+			buttons[i].addActionListener(new ButtonListener());
+			
 			switch (cptX){
 			case 0:
 				buttons[i].setBounds(x, y, 125, 125);
