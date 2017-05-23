@@ -1,11 +1,15 @@
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import javax.swing.Timer;
@@ -26,18 +30,20 @@ public class HomeScreen {
     private JButton contactButton;
     private JButton galleryButton;
     private JButton calculatorButton;
-    // Mac : /Users/black and white/Desktop/Backgrounds/tiger.jpg
+    
+    private File folder = new File("/Users/black and white/Desktop/App/Backgrounds/");
+    // Mac : /Users/black and white/Desktop/App/Backgrounds/tiger.jpg
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg
-    private Icon backgroundImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg");
+    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/tiger.jpg");
     // Mac : /Users/black and white/Desktop/Backgrounds/calc.jpg
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\calc.jpg
-    private Icon calButtonImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\calc.jpg");
-    // Mac : /Users/black and white/Desktop/Backgrounds/contact.jpg
+    //private Icon calButtonImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/calc.jpg");
+    // Mac : /Users/black and white/Desktop/App/Backgrounds/contact.jpg
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\contact.png
-    private Icon contButtonImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\contact.jpg");
-    // Mac : /Users/black and white/Desktop/Backgrounds/gallery.jpg
+    //private Icon contButtonImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/contact.jpg");
+    // Mac : /Users/black and white/Desktop/App/Backgrounds/gallery.jpg
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\gallery.jpg
-    private Icon galButtonImgae = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\gallery.jpg");
+    //private Icon galButtonImgae = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/gallery.jpg");
 
 
     public static void main(String[] args) {
@@ -63,7 +69,10 @@ public class HomeScreen {
         frame.getContentPane().add(statusBar);
         setTime();
         
-        contactButton = new JButton(contButtonImage);
+        BufferedImage bcontact = resizePhotos("contact");
+        ImageIcon contactButtonImage= new ImageIcon(bcontact);
+        
+        contactButton = new JButton(contactButtonImage);
         contactButton.setOpaque(false);
         contactButton.setContentAreaFilled(false);
         contactButton.setBorderPainted(false);
@@ -74,7 +83,10 @@ public class HomeScreen {
             }
         });
         
-        galleryButton = new JButton(galButtonImgae);
+        BufferedImage bgal = resizePhotos("gallery");
+        ImageIcon galButtonImage= new ImageIcon(bgal);
+        
+        galleryButton = new JButton(galButtonImage);
         galleryButton.setOpaque(false);
         galleryButton.setContentAreaFilled(false);
         galleryButton.setBorderPainted(false);
@@ -84,6 +96,9 @@ public class HomeScreen {
                 JOptionPane.showMessageDialog(null, "APP 2");
             }
         });
+        
+        BufferedImage bcalc = resizePhotos("calc");
+        ImageIcon calButtonImage= new ImageIcon(bcalc);
         
         calculatorButton = new JButton(calButtonImage);
         calculatorButton.setOpaque(false);
@@ -147,5 +162,18 @@ public class HomeScreen {
             }
         });
         tm.start();
+    }
+   
+    private BufferedImage resizePhotos(String path) throws IOException{
+        BufferedImage img = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
+        img.createGraphics().drawImage(ImageIO.read(new File(folder, path+ ".jpg")).getScaledInstance(200, 200, Image.SCALE_SMOOTH),0,0,null);
+
+        /*for(int i = 1; i <= folder.length()-1; i++){
+            
+            Code for completely writing the image resized
+            ImageIO.write(img, "jpg", new File("/Users/black and white/Desktop/Photos/" + i + "0" + ".jpg"));
+
+        }*/
+        return img;
     }
 }
