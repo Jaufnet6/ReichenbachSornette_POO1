@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 public class DefaultGalleryFrame extends JFrame{
 
@@ -98,6 +99,108 @@ public class DefaultGalleryFrame extends JFrame{
 		}
 	}
 	
+	class AlbumButtonListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			JButton button = (JButton)e.getSource();
+			String name = button.getName();
+			Album currentAlbum = new Album();
+			Icon[] albumImages = new ImageIcon[10];
+			File albFolder = new File(path);
+			Album[] albums = new Album[albFolder.listFiles().length];
+			String albPath;
+			int cpt=0;
+			//Searching for the album i clicked
+			File[] files = new File(path).listFiles();
+			for(File file : files){
+				if(file.isFile()){
+					albPath=file.getAbsolutePath();
+					try {
+						albums[cpt] = readFile(albPath);
+					} catch (ClassNotFoundException | IOException e1) {
+						e1.printStackTrace();
+					}
+					if(albums[cpt].getName().equals(name)){
+						currentAlbum = albums[cpt];
+						break;
+					}
+				}
+				cpt++;
+			}
+			//Getting my album images
+			albumImages = currentAlbum.getPics();
+			
+			//New Frame, which is displaying my pics
+			JLabel albumName = new JLabel(currentAlbum.getName());
+			albumName.setFont(new Font("Tahoma", Font.BOLD, 20));
+			albumName.setHorizontalAlignment(SwingConstants.CENTER);
+			albumName.setBounds(97, 0, 377, 42);
+			
+			JButton back = new JButton("BACK");
+			back.setBackground(SystemColor.textHighlight);
+			back.setBounds(0, 0, 97, 42);
+			
+			JPanel picturesPanel = new JPanel();
+			JScrollPane scroll;
+			
+			try {
+				picturesPanel = loadAlbumPics(currentAlbum);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			JFrame albumFrame = new JFrame();
+			albumFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			albumFrame.setSize(480, 800);
+			albumFrame.setResizable(false);	
+			albumFrame.setLayout(null);
+			albumFrame.add(albumFrame);
+			albumFrame.add(back);
+			scroll = new JScrollPane(picturesPanel);
+			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scroll.setBounds (0, 50, 476, 750);
+			albumFrame.add(scroll);
+		}
+		
+	}
+	
+	private JPanel loadAlbumPics(Album a) throws IOException{
+		JPanel myPanel = new JPanel();
+		Icon[] albImages = new ImageIcon[a.getPics().length];
+		albImages=a.getPics();
+		JLabel[] labels = new JLabel[albImages.length];
+		
+		int x=22;
+		int y=20;
+		int cptX=0;
+		
+		for(int i=0; i<albImages.length;i++){
+			labels[i] = new JLabel(albImages[i]);
+			
+			switch (cptX){
+			case 0:
+				labels[i].setBounds(x, y, 125, 125);
+				myPanel.add(labels[i]);
+				break;
+			case 1:
+				labels[i].setBounds(x+143, y, 125, 125);
+				myPanel.add(labels[i]);
+				break;
+			case 2:
+				labels[i].setBounds(x+287, y, 125, 125);
+				myPanel.add(labels[i]);
+				break;
+			}
+			cptX++;
+			if(cptX==3){
+				cptX=0;
+				y+=143;
+			}
+		}
+		myPanel.setLayout(null);
+		myPanel.setPreferredSize(new Dimension(450,y+145));
+		return myPanel;
+	}
+	
 	private JPanel loadAlbums() throws ClassNotFoundException, IOException{
 		JPanel myPanel = new JPanel();
 		File albFolder = new File(path);
@@ -121,11 +224,11 @@ public class DefaultGalleryFrame extends JFrame{
 			albums[cpt] = readFile(albPath);
 			albumIcons[cpt] = albums[cpt].getHomePic();
 			buttons[cpt] = new JButton(albumIcons[cpt]);
-//			buttons[cpt].addActionListener(new AlbumButtonListener());
+			buttons[cpt].setName(albums[cpt].getName()+"Button");
+			buttons[cpt].addActionListener(new AlbumButtonListener());
 			albumNames[cpt] = new JLabel(albums[cpt].getName());
 			albumNames[cpt].setHorizontalAlignment(SwingConstants.CENTER);
 
-			
 			switch(cptX){
 			case 0:
 				buttons[cpt].setBounds(x,yAlb,175,175);

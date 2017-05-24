@@ -10,7 +10,7 @@ public class Album implements Serializable{
 	
 	
 	private String name;
-	private Icon[] pics = null;
+	private Icon[] pics = new ImageIcon[10];
 	//Picture which is displayed on gallery to represent the album
 	//is the first picture added OR a default picture if album still is empty
 	private Icon homePic = new ImageIcon(homePicPath);

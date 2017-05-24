@@ -83,10 +83,11 @@ public class PicturesFrame extends JFrame{
 			
 			JLabel image = new JLabel(img);
 			image.setBounds(10, 55, 452, 697);
-			JButton back = new JButton("BACK");
 			
+			JButton back = new JButton("BACK");
 			back.setBackground(SystemColor.textHighlight);
 			back.setBounds(0, 0, 97, 42);
+		
 			JFrame bigPic = new JFrame();
 			bigPic.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			bigPic.setSize(480, 800);

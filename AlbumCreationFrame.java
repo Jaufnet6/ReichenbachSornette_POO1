@@ -46,7 +46,7 @@ import java.awt.Font;
 public class AlbumCreationFrame extends JFrame{
 
 	private Album newAlbum = new Album();
-	private Icon pics[] = new Icon[10];
+	private Icon[] pics = new ImageIcon[10];
 	private JTextField albumNameTxt;
 	private JLabel nameError = new JLabel("");
 	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet";
@@ -158,17 +158,17 @@ public class AlbumCreationFrame extends JFrame{
 	class AddPicsToAlbum implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			int cpt=0;
-			//Copy the clicked button
+			//Copy the clicked button and his img
 			JButton button = (JButton) e.getSource();
+//			Icon img = ((JButton)e.getSource());
 			//Stock pictures in an array
-			while(cpt<10){
-				pics[cpt]=button.getIcon();
-				cpt++;
+			Icon[] newAddedPics = new ImageIcon[pics.length];
+			for(int i=0;i<pics.length;i++){
+				newAddedPics[i]=pics[i];
 			}
-			if (cpt==0){
-				pics=null;
-			}
+			newAddedPics[newAddedPics.length-1]=img;
+			pics=newAddedPics;
+			
 			newAlbum.setPics(pics);
 			newAlbum.setHomePic(pics[0]);
 			
