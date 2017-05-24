@@ -10,7 +10,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,9 +45,10 @@ import java.awt.Font;
 
 public class AlbumCreationFrame extends JFrame{
 
-	private static Album newAlbum = new Album();
+	private Album newAlbum = new Album();
 	private Icon pics[] = new Icon[10];
 	private JTextField albumNameTxt;
+	private JLabel nameError = new JLabel("");
 	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet";
 	private JPanel picturesPanel = new JPanel();
 	private JScrollPane scroll;
@@ -69,6 +72,7 @@ public class AlbumCreationFrame extends JFrame{
 		albumNameTxt.setColumns(10);
 		
 		JButton CancelButton = new JButton("Cancel");
+		CancelButton.addActionListener(new CancelListener());
 		CancelButton.setBackground(SystemColor.activeCaption);
 		CancelButton.setBounds(0, 679, 238, 86);
 		getContentPane().add(CancelButton);
@@ -79,41 +83,85 @@ public class AlbumCreationFrame extends JFrame{
 		OKButton.setBounds(236, 679, 238, 86);
 		getContentPane().add(OKButton);
 		
-		JLabel lblChoseThePictures = new JLabel("Add pictures in your album (max : 10)");
-		lblChoseThePictures.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblChoseThePictures.setBounds(12, 146, 450, 58);
-		getContentPane().add(lblChoseThePictures);
+		JLabel maxPic = new JLabel("Add pictures in your album (max : 10)");
+		maxPic.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		maxPic.setBounds(12, 146, 450, 58);
+		getContentPane().add(maxPic);
 		
         scroll = new JScrollPane(picturesPanel);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(0, 200, 476, 471);
 		getContentPane().add(scroll);
+		
+		nameError.setForeground(Color.RED);
+		nameError.setFont(new Font("Tahoma", Font.BOLD, 15));
+		nameError.setHorizontalAlignment(SwingConstants.CENTER);
+		nameError.setBounds(12, 97, 450, 36);
+		getContentPane().add(nameError);
+	}
+	
+	class CancelListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			setVisible(false);
+		}
+		
 	}
 	
 	class SaveListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
+			
+			File albFolder = new File(path+"\\albums");
+			Album[] albums = new Album[albFolder.listFiles().length];
+			File[] files = new File(path+"\\albums").listFiles();
+			String albPath;
+			int cpt=0;
+
 			if(albumNameTxt.getText().equals("")){
-				newAlbum.renameAlbum("New album");
+				//User must choose a name
+				nameError.setText("Error : please choose a name.");
 			}
-			else{
-			newAlbum.renameAlbum(albumNameTxt.getText());
-			}
-			try {
-				saveInFile(albumNameTxt.getText());
-			} catch (IOException e1) {
-				e1.printStackTrace();
+			else {
+				
+				for(File file : files){
+					  if(file.isFile()){
+						  albPath=file.getAbsolutePath();
+						  try {
+							  albums[cpt] = readFile(albPath);
+						  } catch (ClassNotFoundException | IOException e1) {
+							  e1.printStackTrace();
+						  }
+					  }
+					  //User can't have 2 albums with the same name
+					  if(albumNameTxt.getText().equals(albums[cpt].getName())){
+							nameError.setText("Error : "+albums[cpt].getName()+" already exists.");
+							albumNameTxt.setText("");
+					  }
+					  cpt++;
+					}
+				if(albumNameTxt.getText().equals("")==false){
+					newAlbum.renameAlbum(albumNameTxt.getText());
+					newAlbum.setPics(pics);
+					try {
+						saveInFile(newAlbum.getName());
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					setVisible(false);
+				}
 			}
 		}
-
 	}
+
 	
 	class AddPicsToAlbum implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
 			int cpt=0;
+			//Copy the clicked button
 			JButton button = (JButton) e.getSource();
-
+			//Stock pictures in an array
 			while(cpt<10){
 				pics[cpt]=button.getIcon();
 				cpt++;
@@ -129,6 +177,17 @@ public class AlbumCreationFrame extends JFrame{
 		}
 	}
 	
+	//Read a already saved album
+	private Album readFile(String path) throws ClassNotFoundException, IOException{  
+		Album alb;
+		FileInputStream fichier = new FileInputStream(path);
+	    BufferedInputStream bfichier = new BufferedInputStream(fichier);
+	    ObjectInputStream obfichier = new ObjectInputStream(bfichier);
+	    alb = (Album) obfichier.readObject();
+	    obfichier.close();
+	    return alb;
+	 }
+	
 	//Serialize in folder the album
     private void saveInFile(String name) throws IOException{ 
     	 	
@@ -137,6 +196,8 @@ public class AlbumCreationFrame extends JFrame{
         ObjectOutputStream obfos = new ObjectOutputStream(bfos);
         obfos.writeObject(newAlbum);
         obfos.close();
+        
+        
     }
 	
 	private JPanel loadPics() throws IOException{

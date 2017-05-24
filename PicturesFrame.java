@@ -70,7 +70,6 @@ public class PicturesFrame extends JFrame{
 				albumFrame = new DefaultGalleryFrame();
 				albumFrame.setVisible(true);
 			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -85,6 +84,7 @@ public class PicturesFrame extends JFrame{
 			JLabel image = new JLabel(img);
 			image.setBounds(10, 55, 452, 697);
 			JButton back = new JButton("BACK");
+			
 			back.setBackground(SystemColor.textHighlight);
 			back.setBounds(0, 0, 97, 42);
 			JFrame bigPic = new JFrame();
@@ -94,6 +94,11 @@ public class PicturesFrame extends JFrame{
 			bigPic.setLayout(null);
 			bigPic.add(image);
 			bigPic.add(back);
+			back.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					bigPic.setVisible(false);
+				}
+			});
 			bigPic.setVisible(true);
 			}
 			

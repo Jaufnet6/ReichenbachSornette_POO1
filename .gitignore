@@ -64,3 +64,5 @@
 /testFrame$1.class
 /testFrame.class
 /DefaultGalleryFrame$AddAlbumListener.class
+/AlbumCreationFrame$CancelListener.class
+/PicturesFrame$PictureButtonListener$1.class

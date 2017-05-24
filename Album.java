@@ -17,11 +17,10 @@ public class Album implements Serializable{
 	
 	public Album(){
 		//Default name
-		this.name="New album";
+		this.name="New album ";
 	}
 	
 	public Album(String name) {
-		//Useful for addAlbum method in Gallery class
 		if(name==""){
 			this.name="New album";
 		} else {

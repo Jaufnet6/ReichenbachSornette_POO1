@@ -5,11 +5,11 @@ public class testSmartphone {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-		DefaultGalleryFrame test = new DefaultGalleryFrame();
-		test.setVisible(true);
+//		DefaultGalleryFrame test = new DefaultGalleryFrame();
+//		test.setVisible(true);
 		
-//		PicturesFrame testPictures = new PicturesFrame();
-//		testPictures.setVisible(true);
+		PicturesFrame testPictures = new PicturesFrame();
+		testPictures.setVisible(true);
 		
 //		CalculatorFrame testCalc = new CalculatorFrame();
 //		testCalc.setVisible(true);
@@ -19,7 +19,6 @@ public class testSmartphone {
 		
 //		AlbumCreationFrame acf = new AlbumCreationFrame();
 //		acf.setVisible(true);
-		
 	
 	}
 
