@@ -70,7 +70,7 @@ public class Gallery {
 		Album[] afterRemove = new Album[beforeRemove.length-1];
 		//Searching the album to remove
 		for(int i=0; i<beforeRemove.length; i++){
-			if(beforeRemove[i].getID() == deletedAlbum.getID()){
+			if(beforeRemove[i].getName() == deletedAlbum.getName()){
 				beforeRemove[i]=null;
 			}	
 		}

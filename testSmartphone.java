@@ -3,11 +3,10 @@ import java.io.IOException;
 
 public class testSmartphone {
 
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-//		DefaultGalleryFrame test = new DefaultGalleryFrame();
-//		test.setVisible(true);
+		DefaultGalleryFrame test = new DefaultGalleryFrame();
+		test.setVisible(true);
 		
 //		PicturesFrame testPictures = new PicturesFrame();
 //		testPictures.setVisible(true);
@@ -18,8 +17,8 @@ public class testSmartphone {
 //		ContactFrame testContact = new ContactFrame();
 //		testContact.setVisible(true);
 		
-		AlbumCreationFrame acf = new AlbumCreationFrame();
-		acf.setVisible(true);
+//		AlbumCreationFrame acf = new AlbumCreationFrame();
+//		acf.setVisible(true);
 		
 	
 	}

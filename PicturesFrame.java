@@ -65,8 +65,14 @@ public class PicturesFrame extends JFrame{
 	class AlbumButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
-			DefaultGalleryFrame albumFrame = new DefaultGalleryFrame();
-			albumFrame.setVisible(true);
+			DefaultGalleryFrame albumFrame;
+			try {
+				albumFrame = new DefaultGalleryFrame();
+				albumFrame.setVisible(true);
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -132,7 +138,7 @@ public class PicturesFrame extends JFrame{
 			cptX++;
 			if(cptX==3){
 				cptX=0;
-				y += 143;
+				y+=143;
 			}
 			bfr.close();
 		}

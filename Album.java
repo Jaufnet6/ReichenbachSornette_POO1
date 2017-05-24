@@ -5,23 +5,19 @@ import javax.swing.ImageIcon;
 
 public class Album implements Serializable{
 
-	private int IDalbum;
-	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Gallery";
+	private final String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Gallery";
+	private final String homePicPath = path+"\\defaultPicture\\album.png";
+	
+	
 	private String name;
-	private String[] pics = null;
+	private Icon[] pics = null;
 	//Picture which is displayed on gallery to represent the album
 	//is the first picture added OR a default picture if album still is empty
-	private String homePicPath = path+"\\defaultPicture\\album.png";
+	private Icon homePic = new ImageIcon(homePicPath);
 	
 	public Album(){
 		//Default name
 		this.name="New album";
-		if(pics != null){
-			Icon homePic = new ImageIcon(path+"\\"+pics[0]+".png");
-		}
-		else{
-			Icon homePic = new ImageIcon(homePicPath);
-		}
 	}
 	
 	public Album(String name) {
@@ -31,16 +27,8 @@ public class Album implements Serializable{
 		} else {
 			this.name = name;
 		}
-		this.pics= new String[0];
 	}
 
-	public int getID() {
-		return IDalbum;
-	}
-	public void setID(int iD) {
-		IDalbum = iD;
-	}
-	
 	public String getName() {
 		return name;
 	}
@@ -50,13 +38,13 @@ public class Album implements Serializable{
 		this.name = name;
 	}
 	
-	public String[] getPics() {
+	public Icon[] getPics() {
 		return pics;
 	}
 	
-	public void setPics(String[] pics){
+	public void setPics(Icon[] pics){
 		this.pics=pics;
-		Icon homePic = new ImageIcon(path+"\\"+pics[0]+".png");
+//		setHomePic();
 	}
 	
 	public int getSize(){
@@ -64,13 +52,21 @@ public class Album implements Serializable{
 	}
 	
 	
-	public void addPic(String newPic){
+	public void addPic(Icon newPic){
 		//Create a new array of pics with 1 more slot
-		String newPics[] = new String[getSize()+1];
+		Icon newPics[] = new Icon[getSize()+1];
 		//New picture is added at the end of the new array
 		newPics[newPics.length]=newPic;
 		//New array is replacing the previous one
 		setPics(newPics);
+	}
+
+	public Icon getHomePic() {
+		return homePic;
+	}
+
+	public void setHomePic(Icon homePic) {
+		this.homePic = homePic;
 	}
 	
 //	public void removePic(String deletedPic){

@@ -43,13 +43,12 @@ import java.awt.Font;
 
 public class AlbumCreationFrame extends JFrame{
 
+	private static Album newAlbum = new Album();
+	private Icon pics[] = new Icon[10];
 	private JTextField albumNameTxt;
 	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet";
 	private JPanel picturesPanel = new JPanel();
 	private JScrollPane scroll;
-	private String pics[] = new String[10];
-	private int cpt=0;
-
 	
 	public AlbumCreationFrame() throws IOException {
 		super("New Album");
@@ -94,12 +93,14 @@ public class AlbumCreationFrame extends JFrame{
 	class SaveListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-					
-			Album album = new Album();
-			album.renameAlbum(albumNameTxt.getText());
-			
+			if(albumNameTxt.getText().equals("")){
+				newAlbum.renameAlbum("New album");
+			}
+			else{
+			newAlbum.renameAlbum(albumNameTxt.getText());
+			}
 			try {
-				saveInFile(album, albumNameTxt.getText());
+				saveInFile(albumNameTxt.getText());
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -110,23 +111,31 @@ public class AlbumCreationFrame extends JFrame{
 	class AddPicsToAlbum implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
+			int cpt=0;
+			JButton button = (JButton) e.getSource();
+
 			while(cpt<10){
-				pics[cpt]=path+"\\gallery\\"+((AbstractButton) e.getSource()).getIcon();
+				pics[cpt]=button.getIcon();
 				cpt++;
 			}
-			JButton button = (JButton) e.getSource();
-			Icon img = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\done.png");
-			button.setIcon(img);
+			if (cpt==0){
+				pics=null;
+			}
+			newAlbum.setPics(pics);
+			newAlbum.setHomePic(pics[0]);
+			
+			//Mark already used pictures when clicked
+			button.setEnabled(false);
 		}
 	}
 	
 	//Serialize in folder the album
-    private void saveInFile(Album album, String name) throws IOException{ 
+    private void saveInFile(String name) throws IOException{ 
     	 	
         FileOutputStream fos = new FileOutputStream(path+"\\albums\\"+name+".txt");  
         BufferedOutputStream bfos = new BufferedOutputStream(fos);
         ObjectOutputStream obfos = new ObjectOutputStream(bfos);
-        obfos.writeObject(album);
+        obfos.writeObject(newAlbum);
         obfos.close();
     }
 	
