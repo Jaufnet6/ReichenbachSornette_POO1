@@ -10,14 +10,17 @@ public class Album implements Serializable{
 	
 	
 	private String name;
-	private Icon[] pics = new ImageIcon[10];
+	private String[] pics = new String[0];
 	//Picture which is displayed on gallery to represent the album
 	//is the first picture added OR a default picture if album still is empty
-	private Icon homePic = new ImageIcon(homePicPath);
+	private String homePic = new String(homePicPath);
 	
 	public Album(){
 		//Default name
 		this.name="New album ";
+//		for (int i = 0; i < pics.length; i++) {
+//			this.pics[i]="C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\albumPic.png";
+//		}
 	}
 	
 	public Album(String name) {
@@ -26,6 +29,9 @@ public class Album implements Serializable{
 		} else {
 			this.name = name;
 		}
+//		for (int i = 0; i < pics.length; i++) {
+//			this.pics[i]="C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\albumPic.png";
+//		}
 	}
 
 	public String getName() {
@@ -37,13 +43,12 @@ public class Album implements Serializable{
 		this.name = name;
 	}
 	
-	public Icon[] getPics() {
+	public String[] getPics() {
 		return pics;
 	}
 	
-	public void setPics(Icon[] pics){
+	public void setPics(String[] pics){
 		this.pics=pics;
-//		setHomePic();
 	}
 	
 	public int getSize(){
@@ -51,20 +56,20 @@ public class Album implements Serializable{
 	}
 	
 	
-	public void addPic(Icon newPic){
-		//Create a new array of pics with 1 more slot
-		Icon newPics[] = new Icon[getSize()+1];
-		//New picture is added at the end of the new array
-		newPics[newPics.length]=newPic;
-		//New array is replacing the previous one
-		setPics(newPics);
-	}
+//	public void addPic(Icon newPic){
+//		//Create a new array of pics with 1 more slot
+//		Icon newPics[] = new Icon[getSize()+1];
+//		//New picture is added at the end of the new array
+//		newPics[newPics.length]=newPic;
+//		//New array is replacing the previous one
+//		setPics(newPics);
+//	}
 
-	public Icon getHomePic() {
+	public String getHomePic() {
 		return homePic;
 	}
 
-	public void setHomePic(Icon homePic) {
+	public void setHomePic(String homePic) {
 		this.homePic = homePic;
 	}
 	

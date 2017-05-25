@@ -46,7 +46,6 @@ import java.awt.Font;
 public class AlbumCreationFrame extends JFrame{
 
 	private Album newAlbum = new Album();
-	private Icon[] pics = new ImageIcon[10];
 	private JTextField albumNameTxt;
 	private JLabel nameError = new JLabel("");
 	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet";
@@ -114,6 +113,7 @@ public class AlbumCreationFrame extends JFrame{
 			
 			File albFolder = new File(path+"\\albums");
 			Album[] albums = new Album[albFolder.listFiles().length];
+			String[] newPics = new String[10];
 			File[] files = new File(path+"\\albums").listFiles();
 			String albPath;
 			int cpt=0;
@@ -142,7 +142,6 @@ public class AlbumCreationFrame extends JFrame{
 					}
 				if(albumNameTxt.getText().equals("")==false){
 					newAlbum.renameAlbum(albumNameTxt.getText());
-					newAlbum.setPics(pics);
 					try {
 						saveInFile(newAlbum.getName());
 					} catch (IOException e1) {
@@ -160,18 +159,15 @@ public class AlbumCreationFrame extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			//Copy the clicked button and his img
 			JButton button = (JButton) e.getSource();
-//			Icon img = ((JButton)e.getSource());
 			//Stock pictures in an array
-			Icon[] newAddedPics = new ImageIcon[pics.length];
-			for(int i=0;i<pics.length;i++){
-				newAddedPics[i]=pics[i];
+			String[] newAddedPics = new String[newAlbum.getPics().length+1];
+			String img = button.getName();
+			for(int i=0;i<newAlbum.getPics().length;i++){
+				newAddedPics[i]=newAlbum.getPics()[i];
 			}
-			newAddedPics[newAddedPics.length-1]=img;
-			pics=newAddedPics;
-			
-			newAlbum.setPics(pics);
-			newAlbum.setHomePic(pics[0]);
-			
+			newAddedPics[newAlbum.getPics().length] = img;
+			newAlbum.setPics(newAddedPics);
+			newAlbum.setHomePic(img);
 			//Mark already used pictures when clicked
 			button.setEnabled(false);
 		}
@@ -220,6 +216,7 @@ public class AlbumCreationFrame extends JFrame{
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);
 			buttons[i] = new JButton(images[i]);
+			buttons[i].setName(imgPath);
 			buttons[i].addActionListener(new AddPicsToAlbum());
 			
 			switch (cptX){

@@ -105,12 +105,12 @@ public class DefaultGalleryFrame extends JFrame{
 			JButton button = (JButton)e.getSource();
 			String name = button.getName();
 			Album currentAlbum = new Album();
-			Icon[] albumImages = new ImageIcon[10];
 			File albFolder = new File(path);
 			Album[] albums = new Album[albFolder.listFiles().length];
 			String albPath;
 			int cpt=0;
-			//Searching for the album i clicked
+			
+			//Searching for the album user clicked
 			File[] files = new File(path).listFiles();
 			for(File file : files){
 				if(file.isFile()){
@@ -127,54 +127,69 @@ public class DefaultGalleryFrame extends JFrame{
 				}
 				cpt++;
 			}
+			
+			for (int i = 0; i < currentAlbum.getPics().length; i++) {
+				System.out.println("First image path : "+currentAlbum.getPics()[i]);
+			}
+			
 			//Getting my album images
-			albumImages = currentAlbum.getPics();
+			Icon[] albumImages = new ImageIcon[currentAlbum.getPics().length];
+			for (int i = 0; i < currentAlbum.getPics().length; i++) {
+				albumImages[i] = new ImageIcon(currentAlbum.getPics()[i]);
+			}
 			
 			//New Frame, which is displaying my pics
-			JLabel albumName = new JLabel(currentAlbum.getName());
+			JLabel albumName = new JLabel();
+			albumName.setText(currentAlbum.getName());
 			albumName.setFont(new Font("Tahoma", Font.BOLD, 20));
 			albumName.setHorizontalAlignment(SwingConstants.CENTER);
 			albumName.setBounds(97, 0, 377, 42);
 			
-			JButton back = new JButton("BACK");
-			back.setBackground(SystemColor.textHighlight);
-			back.setBounds(0, 0, 97, 42);
-			
 			JPanel picturesPanel = new JPanel();
-			JScrollPane scroll;
-			
 			try {
-				picturesPanel = loadAlbumPics(currentAlbum);
+				picturesPanel = loadAlbumPics(albumImages);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+			
+			JScrollPane scroll;
+			
 			JFrame albumFrame = new JFrame();
+			
+			JButton back = new JButton("BACK");
+			back.setBackground(SystemColor.textHighlight);
+			back.setBounds(0, 0, 97, 42);
+			back.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					albumFrame.setVisible(false);
+				}
+			});
 			albumFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			albumFrame.setSize(480, 800);
 			albumFrame.setResizable(false);	
 			albumFrame.setLayout(null);
-			albumFrame.add(albumFrame);
 			albumFrame.add(back);
+			albumFrame.add(albumName);
 			scroll = new JScrollPane(picturesPanel);
 			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 			scroll.setBounds (0, 50, 476, 750);
 			albumFrame.add(scroll);
+			albumFrame.setVisible(true);
+			
 		}
-		
+			
 	}
 	
-	private JPanel loadAlbumPics(Album a) throws IOException{
+	private JPanel loadAlbumPics(Icon[] a) throws IOException{
 		JPanel myPanel = new JPanel();
-		Icon[] albImages = new ImageIcon[a.getPics().length];
-		albImages=a.getPics();
-		JLabel[] labels = new JLabel[albImages.length];
+		JLabel[] labels = new JLabel[a.length];
 		
 		int x=22;
 		int y=20;
 		int cptX=0;
 		
-		for(int i=0; i<albImages.length;i++){
-			labels[i] = new JLabel(albImages[i]);
+		for(int i=0; i<a.length;i++){
+			labels[i] = new JLabel(a[i]);
 			
 			switch (cptX){
 			case 0:
@@ -207,8 +222,9 @@ public class DefaultGalleryFrame extends JFrame{
 		Album[] albums = new Album[albFolder.listFiles().length];
 		JButton[] buttons = new JButton[albFolder.listFiles().length];
 		JLabel[] albumNames = new JLabel[albFolder.listFiles().length];
-		Icon[] albumIcons = new Icon[albFolder.listFiles().length];
+		String[] albumIcons = new String[albFolder.listFiles().length];
 		String albPath;
+		Icon buttonImg;
 		int cpt = 0;
 		int x = 40;
 		//Position for the first album
@@ -223,8 +239,9 @@ public class DefaultGalleryFrame extends JFrame{
 		    albPath=file.getAbsolutePath();
 			albums[cpt] = readFile(albPath);
 			albumIcons[cpt] = albums[cpt].getHomePic();
-			buttons[cpt] = new JButton(albumIcons[cpt]);
-			buttons[cpt].setName(albums[cpt].getName()+"Button");
+			buttonImg = new ImageIcon(albumIcons[cpt]);
+			buttons[cpt] = new JButton(buttonImg);
+			buttons[cpt].setName(albums[cpt].getName());
 			buttons[cpt].addActionListener(new AlbumButtonListener());
 			albumNames[cpt] = new JLabel(albums[cpt].getName());
 			albumNames[cpt].setHorizontalAlignment(SwingConstants.CENTER);
