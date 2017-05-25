@@ -26,13 +26,9 @@ public class ContactApp extends JFrame{
     private  Timer tm;
     private static LocalDateTime time;
     private JLabel statusBar;
-    private JLabel lblFirstName;
-    private JLabel lblLastName;
-    private JLabel lblData;
     private JLabel lblOneInfo;
     private JScrollPane scroll;
     private JPanel contactPanel;
-    private JButton profileButton;
     private JButton addButton;
     private JButton homeButton;
     private Icon addIcon = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/plus.png");
@@ -68,32 +64,6 @@ public class ContactApp extends JFrame{
         contactPanel.setLayout(null);
         */
         contactPanel = loadContacts();
-        //.getContentPane().add(contactPanel);
-        
-        profileButton = new JButton("");
-        profileButton.setBounds(350, 5, 100, 100);
-        contactPanel.add(profileButton);
-        
-        lblFirstName = new JLabel("Jaufray");
-        lblFirstName.setForeground(new Color(102, 102, 102));
-        lblFirstName.setHorizontalAlignment(SwingConstants.CENTER);
-        lblFirstName.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
-        lblFirstName.setBounds(40, 25, 100, 20);
-        contactPanel.add(lblFirstName);
-        
-        lblLastName = new JLabel("Sornette");
-        lblLastName.setForeground(new Color(102, 102, 102));
-        lblLastName.setHorizontalAlignment(SwingConstants.CENTER);
-        lblLastName.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
-        lblLastName.setBounds(40, 55, 100, 20);
-        contactPanel.add(lblLastName);
-        
-        lblData = new JLabel("079 137 87 98");
-        lblData.setForeground(new Color(102, 102, 102));
-        lblData.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
-        lblData.setHorizontalAlignment(SwingConstants.CENTER);
-        lblData.setBounds(170, 45, 100, 20);
-        contactPanel.add(lblData);
         
         lblOneInfo = new JLabel("");
         lblOneInfo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -102,7 +72,7 @@ public class ContactApp extends JFrame{
         contactPanel.add(lblOneInfo);
         
         scroll = new JScrollPane(contactPanel);
-        scroll.setBounds(0, 0, 15, 778);
+        scroll.setBounds(0,46,480,642);
         getContentPane().add(scroll);
         
         addButton = new JButton(addIcon);
@@ -164,44 +134,47 @@ public class ContactApp extends JFrame{
         
         File[] files = new File(path).listFiles();
         for(File file : files){
-          if(file.isFile()){
-            contactPath=file.getAbsolutePath();
-            contacts[cpt] = readFile(contactPath);
-            
-            buttons[cpt] = new JButton(); //still have to put the photos            
-            buttons[cpt].setBounds(xButton,yButton,100,100);
-            buttons[cpt].setOpaque(true);
-            myPanel.add(buttons[cpt]);
-            
-            
-            if(!contactPath.contains(".DS_Store")){
-              //If both first name and last name are present
-                if(!contacts[cpt].getFirstName().equals("") && !contacts[cpt].getLastName().equals("")){
-                    lblfirstNames[cpt] = new JLabel(contacts[cpt].getFirstName());
-                    lblfirstNames[cpt].setBounds(xLabelFirstName,yLabelFirstName, 100, 20);
-                    lbllastName[cpt] = new JLabel(contacts[cpt].getLastName());
-                    lblfirstNames[cpt].setBounds(xLabelLastName,yLabelLastName, 100, 20);
-                    //if only first name is present
-                } else if(!contacts[cpt].getFirstName().equals("")){
-                    lblOneInfo[cpt] = new JLabel(contacts[cpt].getFirstName());
-                    lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
-                    //if only last name is present
-                } else if(!contacts[cpt].getLastName().equals("")){
-                    lblOneInfo[cpt] = new JLabel(contacts[cpt].getLastName());
-                    lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
-                }  
-            }
-          
-            yButton += 105;
-            yLabelFirstName += 105;
-            yLabelLastName += 105;
-            yLabelOneInfo += 105;
-            cpt++;
-          }
+            if(file.isFile()){
+                contactPath=file.getAbsolutePath();
+                contacts[cpt] = readFile(contactPath);
+                
+                
+                if(!contactPath.contains(".DS_Store")){
+                    buttons[cpt] = new JButton(); //still have to put the photos            
+                    buttons[cpt].setBounds(xButton,yButton,100,100);
+                    buttons[cpt].setOpaque(true);
+                    myPanel.add(buttons[cpt]);
+                  //If both first name and last name are present
+                    if(!contacts[cpt].getFirstName().equals("") && !contacts[cpt].getLastName().equals("")){
+                        lblfirstNames[cpt] = new JLabel(contacts[cpt].getFirstName());
+                        lblfirstNames[cpt].setBounds(xLabelFirstName,yLabelFirstName, 100, 20);
+                        lbllastName[cpt] = new JLabel(contacts[cpt].getLastName());
+                        lbllastName[cpt].setBounds(xLabelLastName,yLabelLastName, 100, 20);
+                        myPanel.add(lblfirstNames[cpt]);
+                        myPanel.add(lbllastName[cpt]);
+                        //if only first name is present
+                    } else if(contacts[cpt].getFirstName().equals("")){
+                        lblOneInfo[cpt] = new JLabel(contacts[cpt].getLastName());
+                        lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
+                        myPanel.add(lblOneInfo[cpt]);
+                        //if only last name is present
+                    } else if(contacts[cpt].getLastName().equals("")){
+                        lblOneInfo[cpt] = new JLabel(contacts[cpt].getFirstName());
+                        lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
+                        myPanel.add(lblOneInfo[cpt]);
+                    } 
+                    yButton += 105;
+                    yLabelFirstName += 105;
+                    yLabelLastName += 105;
+                    yLabelOneInfo += 105;
+                    cpt++;
+                }         
+    
+             }
         }
         
         myPanel.setLayout(null);
-        myPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        //myPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         myPanel.setBounds(18, 45, 455, 650);
         myPanel.setBackground(Color.WHITE);
         myPanel.setPreferredSize(new Dimension(455,yButton+220));
