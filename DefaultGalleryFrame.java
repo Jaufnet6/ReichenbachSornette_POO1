@@ -99,6 +99,7 @@ public class DefaultGalleryFrame extends JFrame{
 		}
 	}
 	
+	//Clicking on an album display its pictures
 	class AlbumButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -126,10 +127,6 @@ public class DefaultGalleryFrame extends JFrame{
 					}
 				}
 				cpt++;
-			}
-			
-			for (int i = 0; i < currentAlbum.getPics().length; i++) {
-				System.out.println("First image path : "+currentAlbum.getPics()[i]);
 			}
 			
 			//Getting my album images
@@ -172,7 +169,7 @@ public class DefaultGalleryFrame extends JFrame{
 			albumFrame.add(albumName);
 			scroll = new JScrollPane(picturesPanel);
 			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-			scroll.setBounds (0, 50, 476, 750);
+			scroll.setBounds (0, 50, 476, 775);
 			albumFrame.add(scroll);
 			albumFrame.setVisible(true);
 			
@@ -212,10 +209,11 @@ public class DefaultGalleryFrame extends JFrame{
 			}
 		}
 		myPanel.setLayout(null);
-		myPanel.setPreferredSize(new Dimension(450,y+145));
+		myPanel.setPreferredSize(new Dimension(450,y+200));
 		return myPanel;
 	}
 	
+	//Loading albums already created
 	private JPanel loadAlbums() throws ClassNotFoundException, IOException{
 		JPanel myPanel = new JPanel();
 		File albFolder = new File(path);
