@@ -8,16 +8,19 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 import java.awt.SystemColor;
 
 public class CalculatorFrame extends JFrame{
 
 	 //Area number written
+    private JLabel statusBar;
     private JLabel firstNumber = new JLabel();
     private JLabel addition = new JLabel();
     private JLabel secondNumber = new JLabel();
@@ -43,18 +46,10 @@ public class CalculatorFrame extends JFrame{
     private JButton substract = new JButton("-");
     private JButton multiply = new JButton("x");
     private JButton divide = new JButton("/");
-
-    private String choice; //Useful for the choice of symbol (sign)
-
     
-    public static void main(String[] args) {
-        try {
-            CalculatorFrame window = new CalculatorFrame();
-            window.setVisible(true);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-    }
+    private  Timer tm;
+    private static LocalDateTime time;
+    private String choice; //Useful for the choice of symbol (sign)
     
 	public CalculatorFrame() {
 		 super("Calculator");
@@ -64,12 +59,21 @@ public class CalculatorFrame extends JFrame{
 			setResizable(false);
 			getContentPane().setLayout(null);
 			
+			statusBar = new JLabel("");
+	        statusBar.setBackground(new Color(255, 255, 255));
+	        statusBar.setForeground(new Color(102, 102, 102));
+	        statusBar.setOpaque(true);
+	        statusBar.setHorizontalAlignment(SwingConstants.CENTER);
+	        statusBar.setBounds(179, 0, 128, 20);
+	        getContentPane().add(statusBar);
+	        setTime();
+			
 			//Top part : result
 			resultValue.setOpaque(true);
 			resultValue.setHorizontalAlignment(SwingConstants.RIGHT);
 			resultValue.setBackground(new Color(255, 255, 255));
 			resultValue.setFont(new Font("Arial Black", Font.BOLD, 40));
-			resultValue.setBounds(12, 13, 450, 191);
+			resultValue.setBounds(12, 48, 450, 156);
 			getContentPane().add(resultValue);
 			
 			//Mid part : operation
@@ -191,6 +195,15 @@ public class CalculatorFrame extends JFrame{
 			divide.setFont(new Font("Arial", Font.BOLD, 30));
 			divide.setBounds(352, 652, 110, 100);
 			getContentPane().add(divide);
+			
+			JButton btnBack = new JButton("Back");
+			btnBack.addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent e) {
+			        setVisible(false);
+			    }
+			});
+			btnBack.setBounds(10, 5, 75, 41);
+			getContentPane().add(btnBack);
 		
 			 //Actions
 	        //Action for each number button
@@ -218,6 +231,17 @@ public class CalculatorFrame extends JFrame{
 	        divide.addActionListener(new Button_Signs());
 	        
 	}
+	
+    private void setTime(){
+        
+        tm = new Timer(1000, new ActionListener() {          
+            public void actionPerformed(ActionEvent e) {
+                time = LocalDateTime.now();
+                statusBar.setText(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());                
+            }
+        });
+        tm.start();
+    }
 	
     //Listener for all the button for the numbers
     class Button_Numbers implements ActionListener{
@@ -410,7 +434,6 @@ public class CalculatorFrame extends JFrame{
         }
         
     }
-
 }
 	
 	
