@@ -33,6 +33,9 @@ public class ContactApp extends JFrame{
     private JButton homeButton;
     private Icon addIcon = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/plus.png");
     private String path = "/Users/black and white/Desktop/App/Contacts";
+    Contact[] contacts;
+    JButton[] buttons;
+    File contactFolder = new File(path);
 
 
 
@@ -106,18 +109,18 @@ public class ContactApp extends JFrame{
     
     private JPanel loadContacts() throws ClassNotFoundException, IOException{
         JPanel myPanel = new JPanel();
-        File contactFolder = new File(path);
-        Contact[] contacts = new Contact[contactFolder.listFiles().length];
-        JButton[] buttons = new JButton[contactFolder.listFiles().length];
+        contacts = new Contact[contactFolder.listFiles().length];
+        buttons = new JButton[contactFolder.listFiles().length];
         JLabel[] lblfirstNames = new JLabel[contactFolder.listFiles().length];
         JLabel[] lbllastName = new JLabel[contactFolder.listFiles().length];
         JLabel[] lblOneInfo = new JLabel[contactFolder.listFiles().length];
+        JLabel[] lblInfo = new JLabel[contactFolder.listFiles().length]; 
 
 
         String contactPath;
         
         int cpt = 0;
-        //Position for the first Button
+        //Position for the first Button 
         int xButton = 350;
         int yButton = 5;
         //Position for the first name label
@@ -130,6 +133,9 @@ public class ContactApp extends JFrame{
         //Position for the OneInfo label
         int xLabelOneInfo = 40;
         int yLabelOneInfo = 45;
+        //Position for the infos Label
+        int xlblInfo = 160;
+        int ylblInfo = 45;
         
         
         File[] files = new File(path).listFiles();
@@ -144,6 +150,7 @@ public class ContactApp extends JFrame{
                     buttons[cpt].setBounds(xButton,yButton,100,100);
                     buttons[cpt].setOpaque(true);
                     myPanel.add(buttons[cpt]);
+                    buttons[cpt].addActionListener(new Contact_Button());
                   //If both first name and last name are present
                     if(!contacts[cpt].getFirstName().equals("") && !contacts[cpt].getLastName().equals("")){
                         lblfirstNames[cpt] = new JLabel(contacts[cpt].getFirstName());
@@ -163,10 +170,26 @@ public class ContactApp extends JFrame{
                         lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
                         myPanel.add(lblOneInfo[cpt]);
                     } 
+                    //display one info on between number, home number and email
+                    if(!contacts[cpt].getMobileNumber().equals("")){
+                        lblInfo[cpt] = new JLabel(contacts[cpt].getMobileNumber());
+                        lblInfo[cpt].setBounds(xlblInfo,ylblInfo, 150, 20);
+                        myPanel.add(lblInfo[cpt]);
+                    } else if(!contacts[cpt].getHomeNumber().equals("")){
+                        lblInfo[cpt] = new JLabel(contacts[cpt].getHomeNumber());
+                        lblInfo[cpt].setBounds(xlblInfo,ylblInfo, 150, 20);
+                        myPanel.add(lblInfo[cpt]);
+                    } else if(!contacts[cpt].getEmail().equals("")){
+                        lblInfo[cpt] = new JLabel(contacts[cpt].getEmail());
+                        lblInfo[cpt].setBounds(xlblInfo,ylblInfo, 150, 20);
+                        myPanel.add(lblInfo[cpt]);
+                    }
+                    
                     yButton += 105;
                     yLabelFirstName += 105;
                     yLabelLastName += 105;
                     yLabelOneInfo += 105;
+                    ylblInfo += 105;
                     cpt++;
                 }         
     
@@ -174,7 +197,6 @@ public class ContactApp extends JFrame{
         }
         
         myPanel.setLayout(null);
-        //myPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         myPanel.setBounds(18, 45, 455, 650);
         myPanel.setBackground(Color.WHITE);
         myPanel.setPreferredSize(new Dimension(455,yButton+220));
@@ -196,6 +218,17 @@ public class ContactApp extends JFrame{
         return null;
     }
     
+    class Contact_Button implements ActionListener{
+
+        public void actionPerformed(ActionEvent e) {
+            
+            ContactFrame newContact = new ContactFrame();
+            //newContact.setName(contact[]);
+            
+        }
+        
+    }
+    
     class Add_Button implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
@@ -215,5 +248,4 @@ public class ContactApp extends JFrame{
         }
         
     }
-    
 }
