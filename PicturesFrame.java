@@ -69,6 +69,7 @@ public class PicturesFrame extends JFrame{
 			try {
 				albumFrame = new DefaultGalleryFrame();
 				albumFrame.setVisible(true);
+				setVisible(false);
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();
 			}
@@ -98,9 +99,11 @@ public class PicturesFrame extends JFrame{
 			back.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					bigPic.setVisible(false);
+					setVisible(true);
 				}
 			});
 			bigPic.setVisible(true);
+			setVisible(false);
 			}
 			
 		}

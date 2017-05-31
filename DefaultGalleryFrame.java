@@ -44,7 +44,7 @@ public class DefaultGalleryFrame extends JFrame{
 		
 		txtSearch = new JTextField();
 		txtSearch.setHorizontalAlignment(SwingConstants.RIGHT);
-		txtSearch.setText("Search an album...");
+		txtSearch.setText("Search for an album...");
 		txtSearch.setBounds(59, 0, 365, 59);
 		getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
@@ -96,14 +96,14 @@ public class DefaultGalleryFrame extends JFrame{
 					}
 					if(albums[cpt].getName().contains(request)){
 						albumsFound[cptFound] = albums[cpt];
-						System.out.println("Album name : "+albumsFound[cptFound].getName());
+	//					System.out.println("Album name : "+albumsFound[cptFound].getName());
 						cptFound++;
 					}
 				}
 				cpt++;
 			}
 			
-			//Display the albums
+			//Creating the panel that displays the searched albums
 			JPanel searchedAlbumsPanel = new JPanel();
 			JButton[] buttons = new JButton[cptFound];
 			JLabel[] albumNames = new JLabel[cptFound];
@@ -149,7 +149,47 @@ public class DefaultGalleryFrame extends JFrame{
 			searchedAlbumsPanel.setLayout(null);
 			searchedAlbumsPanel.setPreferredSize(new Dimension(450,yAlb+220));
 			
+			//Creating the new frame, which is the same than DefaultGalleryFrame but only with good albums
+			JFrame searchedAlbumsFrame = new JFrame();
+			searchedAlbumsFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			searchedAlbumsFrame.setSize(480, 800);
+			searchedAlbumsFrame.setResizable(false);
+			searchedAlbumsFrame.setLayout(null);
 			
+			JButton back = new JButton("BACK");
+			back.setBackground(Color.RED);
+			back.setBounds(0, 0, 98, 59);
+			back.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					searchedAlbumsFrame.setVisible(false);
+					txtSearch.setText("Search for an album...");
+					setVisible(true);
+				}
+			});
+			searchedAlbumsFrame.add(back);
+			
+			JLabel requestLabel = new JLabel();
+			requestLabel.setText("Current research : "+request);
+			requestLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			requestLabel.setBounds(59, 0, 364, 59);
+			searchedAlbumsFrame.add(requestLabel);
+			
+			JLabel nothing = new JLabel("No album matching.");
+			nothing.setHorizontalAlignment(SwingConstants.CENTER);
+			nothing.setBounds(0,60,474,616);
+					
+			JScrollPane scroll = new JScrollPane(searchedAlbumsPanel);
+			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scroll.setBounds(0,60,474,616);
+			
+			//Checking if something has been found
+			if(cptFound==0)
+			searchedAlbumsFrame.add(nothing);
+			else
+			searchedAlbumsFrame.add(scroll);
+			
+			searchedAlbumsFrame.setVisible(true);
+			setVisible(false);
 		}
 		
 	}
@@ -175,6 +215,7 @@ public class DefaultGalleryFrame extends JFrame{
 			try {
 				picFrame = new PicturesFrame();
 				picFrame.setVisible(true);
+				setVisible(false);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -241,6 +282,7 @@ public class DefaultGalleryFrame extends JFrame{
 			back.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					albumFrame.setVisible(false);
+					setVisible(true);
 				}
 			});
 			
@@ -268,6 +310,7 @@ public class DefaultGalleryFrame extends JFrame{
 			scroll.setBounds (0, 50, 476, 775);
 			albumFrame.add(scroll);
 			albumFrame.setVisible(true);
+			setVisible(false);
 			
 		}
 			
