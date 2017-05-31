@@ -45,6 +45,9 @@ public class HomeScreen {
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\gallery.jpg
     //private Icon galButtonImgae = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/gallery.jpg");
 
+    private ContactApp contacts;
+    private CalculatorFrame calculator;
+    
 
     public static void main(String[] args) {
         try {
@@ -56,7 +59,7 @@ public class HomeScreen {
         }
     }
 
-    public HomeScreen() throws InterruptedException, IOException {
+    public HomeScreen() throws InterruptedException, IOException, ClassNotFoundException {
         frame = new JFrame("Reich Sauron");
         frame.getContentPane().setLayout(null);
         
@@ -79,7 +82,7 @@ public class HomeScreen {
         contactButton.setBounds(121, 40, 230, 207);
         contactButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "APP 1");
+                contacts.setVisible(true);
             }
         });
         
@@ -107,7 +110,7 @@ public class HomeScreen {
         calculatorButton.setBounds(115, 532, 230, 207);
         calculatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "APP 3");
+                calculator.setVisible(true);
             }
         });
         
@@ -148,6 +151,9 @@ public class HomeScreen {
         frame.getContentPane().add(backgroundLbl);
         frame.setBounds(100, 100, 480, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        contacts = new ContactApp();
+        calculator = new CalculatorFrame();
         
     }
     

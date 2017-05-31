@@ -24,9 +24,8 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 
 
-public class ContactFrame{
+public class ContactFrame extends JFrame{
 
-    private JFrame frame;
     private  Timer tm;
     private static LocalDateTime time;
     private JButton editButton;
@@ -58,23 +57,14 @@ public class ContactFrame{
     private Icon contactPic = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/contactPic.png");
 
 
-    public static void main(String[] args) {
-        try {
-            ContactFrame window = new ContactFrame();
-            window.frame.setVisible(true);
-            window.frame.setResizable(false);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-    }
-
     public ContactFrame(){
-        frame = new JFrame("Profile Contact");
-        frame.getContentPane().setForeground(new Color(255, 255, 255));
-        frame.getContentPane().setBackground(new Color(255, 255, 255));
-        frame.setBounds(100, 100, 480, 800);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);        
+        super("Profile Contact");
+        setForeground(new Color(255, 255, 255));
+        setResizable(false);
+        getContentPane().setBackground(new Color(255, 255, 255));
+        setBounds(100, 100, 480, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);        
         
         initializeFrame();       
         
@@ -94,137 +84,137 @@ public class ContactFrame{
         statusBar.setOpaque(true);
         statusBar.setHorizontalAlignment(SwingConstants.CENTER);
         statusBar.setBounds(179, 0, 128, 20);
-        frame.getContentPane().add(statusBar);
+        getContentPane().add(statusBar);
         setTime();
         
         editButton = new JButton("Edit");
         editButton.setForeground(new Color(102, 102, 102));
         editButton.setBounds(45, 703, 180, 69);
-        frame.getContentPane().add(editButton);
+        getContentPane().add(editButton);
         
         deleteButton = new JButton("Delete");
         deleteButton.setForeground(new Color(102, 102, 102));
         deleteButton.setBounds(255, 703, 180, 69);
-        frame.getContentPane().add(deleteButton);
+        getContentPane().add(deleteButton);
         
         backButton = new JButton("Back");
         backButton.setForeground(new Color(102, 102, 102));
         backButton.setBounds(6, 20, 125, 40);
-        frame.getContentPane().add(backButton);
+        getContentPane().add(backButton);
         
         saveButton = new JButton("Save");
         saveButton.setForeground(new Color(102, 102, 102));
         saveButton.setVisible(false);
         saveButton.setBounds(349, 20, 125, 40);
-        frame.getContentPane().add(saveButton);    
+        getContentPane().add(saveButton);    
         
         cancelButton = new JButton("Cancel");
         cancelButton.setVisible(false);
         cancelButton.setForeground(new Color(102, 102, 102));
         cancelButton.setBounds(45, 703, 180, 69);
-        frame.getContentPane().add(cancelButton);
+        getContentPane().add(cancelButton);
         
         picLabel = new JLabel(contactPic);
         picLabel.setBounds(45, 85, 145, 126);
-        frame.getContentPane().add(picLabel);
+        getContentPane().add(picLabel);
         
         lblMobile = new JLabel("Mobile:");
         lblMobile.setForeground(new Color(102, 102, 102));
         lblMobile.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         lblMobile.setHorizontalAlignment(SwingConstants.LEFT);
         lblMobile.setBounds(80, 250, 61, 16);
-        frame.getContentPane().add(lblMobile);
+        getContentPane().add(lblMobile);
         
         lblHome = new JLabel("Home:");
         lblHome.setForeground(new Color(102, 102, 102));
         lblHome.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         lblHome.setHorizontalAlignment(SwingConstants.LEFT);
         lblHome.setBounds(80, 291, 61, 16);
-        frame.getContentPane().add(lblHome);
+        getContentPane().add(lblHome);
         
         lblFax = new JLabel("Fax:");
         lblFax.setForeground(new Color(102, 102, 102));
         lblFax.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         lblFax.setHorizontalAlignment(SwingConstants.LEFT);
         lblFax.setBounds(80, 331, 61, 16);
-        frame.getContentPane().add(lblFax);
+        getContentPane().add(lblFax);
         
         txtMobileNumber = new JTextArea();
         txtMobileNumber.setForeground(new Color(255, 255, 255));
         txtMobileNumber.setBackground(new Color(102, 102, 102));
         txtMobileNumber.setEditable(false);
         txtMobileNumber.setBounds(184, 250, 216, 16);
-        frame.getContentPane().add(txtMobileNumber);
+        getContentPane().add(txtMobileNumber);
         
         txtHomeNumber = new JTextArea();
         txtHomeNumber.setForeground(new Color(255, 255, 255));
         txtHomeNumber.setBackground(new Color(102, 102, 102));
         txtHomeNumber.setEditable(false);
         txtHomeNumber.setBounds(184, 291, 216, 16);
-        frame.getContentPane().add(txtHomeNumber);
+        getContentPane().add(txtHomeNumber);
         
         txtFaxNumber = new JTextArea();
         txtFaxNumber.setForeground(new Color(255, 255, 255));
         txtFaxNumber.setBackground(new Color(102, 102, 102));
         txtFaxNumber.setEditable(false);
         txtFaxNumber.setBounds(184, 331, 216, 16);
-        frame.getContentPane().add(txtFaxNumber);
+        getContentPane().add(txtFaxNumber);
         
         lblEmail = new JLabel("Email:");
         lblEmail.setForeground(new Color(102, 102, 102));
         lblEmail.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         lblEmail.setHorizontalAlignment(SwingConstants.LEFT);
         lblEmail.setBounds(80, 370, 61, 16);
-        frame.getContentPane().add(lblEmail);
+        getContentPane().add(lblEmail);
         
         txtEmail = new JTextArea();
         txtEmail.setForeground(new Color(255, 255, 255));
         txtEmail.setBackground(new Color(102, 102, 102));
         txtEmail.setEditable(false);
         txtEmail.setBounds(184, 370, 216, 16);
-        frame.getContentPane().add(txtEmail);
+        getContentPane().add(txtEmail);
         
         lblAddress = new JLabel("Address:");
         lblAddress.setForeground(new Color(102, 102, 102));
         lblAddress.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         lblAddress.setHorizontalAlignment(SwingConstants.LEFT);
         lblAddress.setBounds(80, 411, 61, 16);
-        frame.getContentPane().add(lblAddress);
+        getContentPane().add(lblAddress);
         
         txtAddress = new JTextArea();
         txtAddress.setForeground(new Color(255, 255, 255));
         txtAddress.setBackground(new Color(102, 102, 102));
         txtAddress.setEditable(false);
         txtAddress.setBounds(184, 411, 216, 16);
-        frame.getContentPane().add(txtAddress);
+        getContentPane().add(txtAddress);
         
         lblBirthday = new JLabel("Birthday:");
         lblBirthday.setForeground(new Color(102, 102, 102));
         lblBirthday.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         lblBirthday.setHorizontalAlignment(SwingConstants.LEFT);
         lblBirthday.setBounds(80, 453, 61, 16);
-        frame.getContentPane().add(lblBirthday);
+        getContentPane().add(lblBirthday);
         
         txtBirthday = new JTextArea();
         txtBirthday.setForeground(new Color(255, 255, 255));
         txtBirthday.setBackground(new Color(102, 102, 102));
         txtBirthday.setEditable(false);
         txtBirthday.setBounds(184, 453, 216, 16);
-        frame.getContentPane().add(txtBirthday);
+        getContentPane().add(txtBirthday);
         
         lblNotes = new JLabel("Notes:");
         lblNotes.setForeground(new Color(102, 102, 102));
         lblNotes.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         lblNotes.setHorizontalAlignment(SwingConstants.LEFT);
         lblNotes.setBounds(80, 498, 61, 16);
-        frame.getContentPane().add(lblNotes);
+        getContentPane().add(lblNotes);
         
         txtNotes = new JTextArea();
         txtNotes.setForeground(new Color(255, 255, 255));
         txtNotes.setBackground(new Color(102, 102, 102));
         txtNotes.setEditable(false);
         txtNotes.setBounds(80, 543, 320, 114);
-        frame.getContentPane().add(txtNotes);
+        getContentPane().add(txtNotes);
         
         txtFirstName = new JTextArea();
         txtFirstName.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
@@ -233,7 +223,7 @@ public class ContactFrame{
         txtFirstName.setEditable(false);
         txtFirstName.setText("First Name");
         txtFirstName.setBounds(276, 100, 134, 20);
-        frame.getContentPane().add(txtFirstName);
+        getContentPane().add(txtFirstName);
         txtFirstName.setColumns(10);
         
         txtLastName = new JTextArea();
@@ -244,7 +234,7 @@ public class ContactFrame{
         txtLastName.setText("Last Name");
         txtLastName.setColumns(10);
         txtLastName.setBounds(276, 140, 134, 20);
-        frame.getContentPane().add(txtLastName);
+        getContentPane().add(txtLastName);
         
         txtCompany = new JTextArea();
         txtCompany.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
@@ -254,7 +244,7 @@ public class ContactFrame{
         txtCompany.setText("Company");
         txtCompany.setColumns(10);
         txtCompany.setBounds(276, 180, 134, 20);
-        frame.getContentPane().add(txtCompany);
+        getContentPane().add(txtCompany);
         
         
     }
@@ -321,6 +311,8 @@ public class ContactFrame{
 
         public void actionPerformed(ActionEvent e) {
             
+            setVisible(false);
+            
         }
         
     }
@@ -383,7 +375,7 @@ public class ContactFrame{
         
     }
     
-    private void createDirectory(){ //Create directory App where is stocked the contacts
+    private void createDirectory(){ //Create directory Contacts where is stocked the contacts
         File contactFolder = new File(path);
         contactFolder.mkdir();
     }
