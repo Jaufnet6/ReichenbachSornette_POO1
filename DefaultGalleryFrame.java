@@ -51,6 +51,7 @@ public class DefaultGalleryFrame extends JFrame{
 		
 		JButton search = new JButton("New button");
 		search.setBounds(420, 0, 54, 59);
+		search.addActionListener(new SearchAlbumListener());
 		getContentPane().add(search);
 		
 		JButton switchToPictures = new JButton("PICTURES");
@@ -70,6 +71,87 @@ public class DefaultGalleryFrame extends JFrame{
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scroll.setBounds(0,60,474,616);
 		getContentPane().add(scroll);
+	}
+	
+	class SearchAlbumListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg0) {
+			String request = txtSearch.getText();
+			String albPath;
+			File albFolder = new File(path);
+			Album albums[] = new Album[albFolder.listFiles().length];
+			Album albumsFound[] = new Album[albums.length];
+			int cpt=0;
+			int cptFound=0;
+			
+			//Search if each album contains the requested string and stock them if they do
+			File[] files = new File(path).listFiles();
+			for(File file : files){
+				if(file.isFile()){
+					albPath=file.getAbsolutePath();
+					try {
+						albums[cpt] = readFile(albPath);
+					} catch (ClassNotFoundException | IOException e1) {
+						e1.printStackTrace();
+					}
+					if(albums[cpt].getName().contains(request)){
+						albumsFound[cptFound] = albums[cpt];
+						System.out.println("Album name : "+albumsFound[cptFound].getName());
+						cptFound++;
+					}
+				}
+				cpt++;
+			}
+			
+			//Display the albums
+			JPanel searchedAlbumsPanel = new JPanel();
+			JButton[] buttons = new JButton[cptFound];
+			JLabel[] albumNames = new JLabel[cptFound];
+			String[] albumIcons = new String[cptFound];
+			Icon buttonImg;
+			int x = 40;
+			//Position for the first album
+			int yAlb = 20;
+			//Position for the first label
+			int yLab = 200;
+			int cptX = 0;
+			
+			for (int i = 0; i < cptFound; i++) {
+				albumIcons[i] = albumsFound[i].getHomePic();
+				buttonImg = new ImageIcon(albumIcons[i]);
+				buttons[i] = new JButton(buttonImg);
+				buttons[i].setName(albumsFound[i].getName());
+				buttons[i].addActionListener(new AlbumButtonListener());
+				albumNames[i] = new JLabel(albumsFound[i].getName());
+				albumNames[i].setHorizontalAlignment(SwingConstants.CENTER);
+				
+				switch(cptX){
+				case 0:
+					buttons[i].setBounds(x,yAlb,175,175);
+					albumNames[i].setBounds(x,yLab,175,20);
+					searchedAlbumsPanel.add(buttons[i]);
+					searchedAlbumsPanel.add(albumNames[i]);
+					break;
+				case 1:
+					buttons[i].setBounds(x+199,yAlb,175,175);
+					albumNames[i].setBounds(x+199,yLab,175,20);
+					searchedAlbumsPanel.add(buttons[i]);
+					searchedAlbumsPanel.add(albumNames[i]);
+					break;
+				}
+				cptX++;
+				if(cptX==2){
+					cptX=0;
+					yAlb+=220;
+					yLab+=220;
+				}
+			}
+			searchedAlbumsPanel.setLayout(null);
+			searchedAlbumsPanel.setPreferredSize(new Dimension(450,yAlb+220));
+			
+			
+		}
+		
 	}
 	
 	class AddAlbumListener implements ActionListener{
@@ -140,7 +222,7 @@ public class DefaultGalleryFrame extends JFrame{
 			albumName.setText(currentAlbum.getName());
 			albumName.setFont(new Font("Tahoma", Font.BOLD, 20));
 			albumName.setHorizontalAlignment(SwingConstants.CENTER);
-			albumName.setBounds(97, 0, 377, 42);
+			albumName.setBounds(97, 0, 280, 42);
 			
 			JPanel picturesPanel = new JPanel();
 			try {
@@ -161,11 +243,25 @@ public class DefaultGalleryFrame extends JFrame{
 					albumFrame.setVisible(false);
 				}
 			});
+			
+			//Deleting the current album
+			JButton delete = new JButton("DELETE");
+			delete.setBackground(Color.RED);
+			delete.setBounds(377, 0, 97, 42);
+			delete.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					
+					albumFrame.setVisible(false);
+				}
+			});
+			
 			albumFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			albumFrame.setSize(480, 800);
 			albumFrame.setResizable(false);	
 			albumFrame.setLayout(null);
 			albumFrame.add(back);
+			albumFrame.add(delete);
 			albumFrame.add(albumName);
 			scroll = new JScrollPane(picturesPanel);
 			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);

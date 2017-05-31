@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Color;
 
 public class DisplayAlbumFrame extends JFrame{
 	
@@ -32,8 +33,12 @@ public class DisplayAlbumFrame extends JFrame{
 		
 		albumName.setFont(new Font("Tahoma", Font.BOLD, 20));
 		albumName.setHorizontalAlignment(SwingConstants.CENTER);
-		albumName.setBounds(97, 0, 377, 42);
+		albumName.setBounds(97, 0, 280, 42);
 		getContentPane().add(albumName);
+		
+		JButton deleteButton = new JButton("DELETE");
+		deleteButton.setBackground(Color.RED);
+		deleteButton.setBounds(377, 0, 97, 42);
+		getContentPane().add(deleteButton);
 	}
-
 }
