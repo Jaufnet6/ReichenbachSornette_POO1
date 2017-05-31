@@ -65,9 +65,8 @@ public class PicturesFrame extends JFrame{
 	class AlbumButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
-			DefaultGalleryFrame albumFrame;
 			try {
-				albumFrame = new DefaultGalleryFrame();
+				DefaultGalleryFrame albumFrame = new DefaultGalleryFrame();
 				albumFrame.setVisible(true);
 				setVisible(false);
 			} catch (ClassNotFoundException | IOException e) {
@@ -80,6 +79,7 @@ public class PicturesFrame extends JFrame{
 	class PictureButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
+			//Getting pic from the pressed button
 			Icon img = ((AbstractButton) e.getSource()).getIcon();
 			
 			JLabel image = new JLabel(img);
@@ -88,7 +88,8 @@ public class PicturesFrame extends JFrame{
 			JButton back = new JButton("BACK");
 			back.setBackground(SystemColor.textHighlight);
 			back.setBounds(0, 0, 97, 42);
-		
+			
+			//Frame that displays the pic in big
 			JFrame bigPic = new JFrame();
 			bigPic.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			bigPic.setSize(480, 800);

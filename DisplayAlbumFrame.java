@@ -4,6 +4,7 @@ import java.awt.SystemColor;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -21,14 +22,22 @@ public class DisplayAlbumFrame extends JFrame{
         setSize(480, 800);
 		setResizable(false);
 		getContentPane().setLayout(null);	
-		back.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
 		
 		back.setBackground(SystemColor.textHighlight);
 		back.setBounds(0, 0, 97, 42);
+		back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultGalleryFrame dgf;
+				try {
+					dgf = new DefaultGalleryFrame();
+					dgf.setVisible(true);
+					setVisible(false);
+				} catch (ClassNotFoundException | IOException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		getContentPane().add(back);
 		
 		albumName.setFont(new Font("Tahoma", Font.BOLD, 20));

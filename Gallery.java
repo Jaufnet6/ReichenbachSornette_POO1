@@ -30,10 +30,6 @@ public class Gallery {
 		return picsPath;
 	}
 	
-//	public String getPicName() throws IOException{
-//		
-//	}
-
 	public void setPics(String[] picsPath) {
 		this.picsPath = picsPath;
 	}
@@ -48,42 +44,5 @@ public class Gallery {
 		}
 		return picsPath;
 	}
-	
-//	public void addAlbum(String newAlbumName){
-//		Album newAlbum;
-//		//if user types nothing : default name
-//		if(newAlbumName==""){
-//			newAlbum = new Album("New album");
-//		} else {
-//			newAlbum = new Album(newAlbumName);
-//		}
-//		//Create a new array of albums with 1 more slot
-//		Album newAlbums[] = new Album[getAlbums().length+1];
-//		//New album is added at the end of the new array
-//		newAlbums[newAlbums.length]=newAlbum;
-//		//New array is replacing the previous one
-//		setAlbums(newAlbums);
-//	}
-//	
-//	public void removeAlbum(Album deletedAlbum){
-//		Album[] beforeRemove = getAlbums();
-//		Album[] afterRemove = new Album[beforeRemove.length-1];
-//		//Searching the album to remove
-//		for(int i=0; i<beforeRemove.length; i++){
-//			if(beforeRemove[i].getName() == deletedAlbum.getName()){
-//				beforeRemove[i]=null;
-//			}	
-//		}
-//		//Creating the new gallery without the deleted album
-//		for(int i=0; i<beforeRemove.length; i++){
-//			for(int j=0; j<afterRemove.length; j++){
-//				if(beforeRemove[i] != null){
-//					afterRemove[j]=beforeRemove[i];
-//				}
-//			}
-//		}
-//		//Setting the new array of album in the current gallery
-//		setAlbums(afterRemove);
-//	}
 	
 }

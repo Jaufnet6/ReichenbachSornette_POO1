@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -36,12 +37,14 @@ public class DefaultGalleryFrame extends JFrame{
 		getContentPane().setLayout(null);
 		albumsPanel=loadAlbums();
 		
+		//Top part of the frame
 		JButton addAlbum = new JButton("Add album");
 		addAlbum.addActionListener(new AddAlbumListener());
 		addAlbum.setBackground(Color.GREEN);
 		addAlbum.setBounds(0, 0, 60, 59);
 		getContentPane().add(addAlbum);
 		
+		//Research components
 		txtSearch = new JTextField();
 		txtSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtSearch.setText("Search for an album...");
@@ -54,6 +57,7 @@ public class DefaultGalleryFrame extends JFrame{
 		search.addActionListener(new SearchAlbumListener());
 		getContentPane().add(search);
 		
+		//Bottom part
 		JButton switchToPictures = new JButton("PICTURES");
 		switchToPictures.addActionListener(new PicturesButtonListener());
 		switchToPictures.setBackground(SystemColor.activeCaption);
@@ -66,7 +70,8 @@ public class DefaultGalleryFrame extends JFrame{
 		albums.setHorizontalAlignment(SwingConstants.CENTER);
 		albums.setBounds(237, 679, 237, 86);
 		getContentPane().add(albums);
-			
+		
+		//Middle part
 		scroll = new JScrollPane(albumsPanel);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scroll.setBounds(0,60,474,616);
@@ -116,6 +121,7 @@ public class DefaultGalleryFrame extends JFrame{
 			int yLab = 200;
 			int cptX = 0;
 			
+			//Filling the panel
 			for (int i = 0; i < cptFound; i++) {
 				albumIcons[i] = albumsFound[i].getHomePic();
 				buttonImg = new ImageIcon(albumIcons[i]);
@@ -201,6 +207,7 @@ public class DefaultGalleryFrame extends JFrame{
 			try {
 				acf = new AlbumCreationFrame();
 				acf.setVisible(true);
+				setVisible(false);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -225,6 +232,8 @@ public class DefaultGalleryFrame extends JFrame{
 	//Clicking on an album display its pictures
 	class AlbumButtonListener implements ActionListener{
 
+		String albName;
+		
 		public void actionPerformed(ActionEvent e) {
 			JButton button = (JButton)e.getSource();
 			String name = button.getName();
@@ -246,6 +255,7 @@ public class DefaultGalleryFrame extends JFrame{
 					}
 					if(albums[cpt].getName().equals(name)){
 						currentAlbum = albums[cpt];
+						albName = currentAlbum.getName();
 						break;
 					}
 				}
@@ -265,6 +275,7 @@ public class DefaultGalleryFrame extends JFrame{
 			albumName.setHorizontalAlignment(SwingConstants.CENTER);
 			albumName.setBounds(97, 0, 280, 42);
 			
+			//Filling the panel
 			JPanel picturesPanel = new JPanel();
 			try {
 				picturesPanel = loadAlbumPics(albumImages);
@@ -291,10 +302,21 @@ public class DefaultGalleryFrame extends JFrame{
 			delete.setBackground(Color.RED);
 			delete.setBounds(377, 0, 97, 42);
 			delete.addActionListener(new ActionListener() {
-
 				public void actionPerformed(ActionEvent e) {
-					
-					albumFrame.setVisible(false);
+					File file = new File(path+"\\"+albName+".txt");
+					try {					
+						//Confirmation
+						int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete "+albName+" ?");
+						if(option==JOptionPane.YES_OPTION){
+							file.delete();
+							//Opening a new Gallery frame after deleting the album
+							DefaultGalleryFrame dgf = new DefaultGalleryFrame();
+							albumFrame.setVisible(false);
+							dgf.setVisible(true);
+						}
+					} catch (ClassNotFoundException | IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			});
 			
@@ -371,6 +393,7 @@ public class DefaultGalleryFrame extends JFrame{
 		int cptX = 0;
 	
 		File[] files = new File(path).listFiles();
+		//Filling the panel
 		for(File file : files){
 		  if(file.isFile()){
 		    albPath=file.getAbsolutePath();
@@ -412,7 +435,7 @@ public class DefaultGalleryFrame extends JFrame{
 		return myPanel;
 	}
 	
-	//Read a already saved album
+	//Read an already saved album
 	private Album readFile(String path) throws ClassNotFoundException, IOException{  
         Album alb;
 		FileInputStream fichier = new FileInputStream(path);

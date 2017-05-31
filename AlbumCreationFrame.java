@@ -60,6 +60,7 @@ public class AlbumCreationFrame extends JFrame{
 		getContentPane().setLayout(null);		
 		picturesPanel=loadPics();
 
+		//Top part of the frame
 		JLabel albumName = new JLabel("Album name :");
 		albumName.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		albumName.setBounds(12, 35, 155, 49);
@@ -70,6 +71,7 @@ public class AlbumCreationFrame extends JFrame{
 		getContentPane().add(albumNameTxt);
 		albumNameTxt.setColumns(10);
 		
+		//Bottom part of the frame
 		JButton CancelButton = new JButton("Cancel");
 		CancelButton.addActionListener(new CancelListener());
 		CancelButton.setBackground(SystemColor.activeCaption);
@@ -82,16 +84,18 @@ public class AlbumCreationFrame extends JFrame{
 		OKButton.setBounds(236, 679, 238, 86);
 		getContentPane().add(OKButton);
 		
-		JLabel maxPic = new JLabel("Add pictures in your album (max : 10)");
-		maxPic.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		maxPic.setBounds(12, 146, 450, 58);
-		getContentPane().add(maxPic);
+		//Pics part
+		JLabel addPic = new JLabel("Add pictures in your album");
+		addPic.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		addPic.setBounds(12, 146, 450, 58);
+		getContentPane().add(addPic);
 		
         scroll = new JScrollPane(picturesPanel);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(0, 200, 476, 471);
 		getContentPane().add(scroll);
 		
+		//Error
 		nameError.setForeground(Color.RED);
 		nameError.setFont(new Font("Tahoma", Font.BOLD, 15));
 		nameError.setHorizontalAlignment(SwingConstants.CENTER);
@@ -102,7 +106,15 @@ public class AlbumCreationFrame extends JFrame{
 	class CancelListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			setVisible(false);
+			try {
+				DefaultGalleryFrame dgf = new DefaultGalleryFrame();
+				dgf.setVisible(true);
+				setVisible(false);
+			} catch (ClassNotFoundException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 		}
 		
 	}
@@ -148,18 +160,27 @@ public class AlbumCreationFrame extends JFrame{
 						e1.printStackTrace();
 					}
 					setVisible(false);
+					DefaultGalleryFrame dgf;
+					try {
+						dgf = new DefaultGalleryFrame();
+						dgf.setVisible(true);
+
+					} catch (ClassNotFoundException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		}
 	}
-
 	
 	class AddPicsToAlbum implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			//Copy the clicked button and his img
+			//Copy the clicked button
 			JButton button = (JButton) e.getSource();
-			//Stock pictures in an array
+			//Stock pictures paths in an array
 			String[] newAddedPics = new String[newAlbum.getPics().length+1];
 			String img = button.getName();
 			for(int i=0;i<newAlbum.getPics().length;i++){
