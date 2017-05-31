@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-public class HomeScreen {
+public class HomeScreen extends JFrame{
 
     private  Timer tm;
     private static LocalDateTime time;
@@ -35,33 +35,13 @@ public class HomeScreen {
     // Mac : /Users/black and white/Desktop/App/Backgrounds/tiger.jpg
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg
     private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/tiger.jpg");
-    // Mac : /Users/black and white/Desktop/Backgrounds/calc.jpg
-    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\calc.jpg
-    //private Icon calButtonImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/calc.jpg");
-    // Mac : /Users/black and white/Desktop/App/Backgrounds/contact.jpg
-    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\contact.png
-    //private Icon contButtonImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/contact.jpg");
-    // Mac : /Users/black and white/Desktop/App/Backgrounds/gallery.jpg
-    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\gallery.jpg
-    //private Icon galButtonImgae = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/gallery.jpg");
 
     private ContactApp contacts;
     private CalculatorFrame calculator;
     
-
-    public static void main(String[] args) {
-        try {
-            HomeScreen window = new HomeScreen();
-            window.frame.setVisible(true);
-            window.frame.setResizable(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public HomeScreen() throws InterruptedException, IOException, ClassNotFoundException {
-        frame = new JFrame("Reich Sauron");
-        frame.getContentPane().setLayout(null);
+        super("Reich Sauron");
+        getContentPane().setLayout(null);
         
         statusBar = new JLabel("");
         statusBar.setBackground(new Color(102, 102, 102));
@@ -69,7 +49,7 @@ public class HomeScreen {
         statusBar.setOpaque(true);
         statusBar.setHorizontalAlignment(SwingConstants.CENTER);
         statusBar.setBounds(179, 0, 128, 20);
-        frame.getContentPane().add(statusBar);
+        getContentPane().add(statusBar);
         setTime();
         
         BufferedImage bcontact = resizePhotos("contact");
@@ -83,6 +63,7 @@ public class HomeScreen {
         contactButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 contacts.setVisible(true);
+                setVisible(false);
             }
         });
         
@@ -96,7 +77,15 @@ public class HomeScreen {
         galleryButton.setBounds(121, 287, 230, 207);
         galleryButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "APP 2");
+                /*DefaultGalleryFrame test;
+                try {
+                    test = new DefaultGalleryFrame();
+                    test.setVisible(true);
+
+                } catch (ClassNotFoundException | IOException e1) {
+                    e1.printStackTrace();
+                }*/
+                JOptionPane.showConfirmDialog(null, "App2");
             }
         });
         
@@ -111,6 +100,7 @@ public class HomeScreen {
         calculatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 calculator.setVisible(true);
+                setVisible(false);
             }
         });
         
@@ -121,10 +111,10 @@ public class HomeScreen {
         lblContact.setOpaque(false);
         lblContact.setBackground(new Color(255, 255, 255));
         lblContact.setBounds(195, 136, 76, 16);
-        frame.getContentPane().add(lblContact);
+        getContentPane().add(lblContact);
         
         
-        frame.getContentPane().add(contactButton);
+        getContentPane().add(contactButton);
         
         lblGallery = new JLabel("Gallery");
         lblGallery.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
@@ -133,8 +123,8 @@ public class HomeScreen {
         lblGallery.setBackground(new Color(255, 255, 255));
         lblGallery.setOpaque(false);
         lblGallery.setBounds(195, 383, 76, 16);
-        frame.getContentPane().add(lblGallery);
-        frame.getContentPane().add(galleryButton);
+        getContentPane().add(lblGallery);
+        getContentPane().add(galleryButton);
         
         lblCalculator = new JLabel("Calculator");
         lblCalculator.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
@@ -143,14 +133,14 @@ public class HomeScreen {
         lblCalculator.setBackground(new Color(255, 255, 255));
         lblCalculator.setOpaque(false);
         lblCalculator.setBounds(195, 562, 76, 16);
-        frame.getContentPane().add(lblCalculator);
-        frame.getContentPane().add(calculatorButton);
+        getContentPane().add(lblCalculator);
+        getContentPane().add(calculatorButton);
 
         backgroundLbl = new JLabel(backgroundImage);
         backgroundLbl.setBounds(0, 0, 480, 778);
-        frame.getContentPane().add(backgroundLbl);
-        frame.setBounds(100, 100, 480, 800);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().add(backgroundLbl);
+        setBounds(100, 100, 480, 800);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         contacts = new ContactApp();
         calculator = new CalculatorFrame();

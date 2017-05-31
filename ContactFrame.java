@@ -16,8 +16,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.xml.transform.OutputKeys;
+
 import java.awt.Color;
 import java.time.LocalDateTime;
 import javax.swing.JTextArea;
@@ -260,7 +263,99 @@ public class ContactFrame extends JFrame{
         });
         tm.start();
     }
-        
+           
+    //getters and setters for txtAreas
+    public String getTxtMobileNumber() {
+        return txtMobileNumber.getText();
+    }
+
+    public void setTxtMobileNumber(String txtMobileNumber) {
+        this.txtMobileNumber.setText(txtMobileNumber);
+    }
+
+    public String getTxtHomeNumber() {
+        return txtHomeNumber.getText();
+    }
+
+    public void setTxtHomeNumber(String txtHomeNumber) {
+        this.txtHomeNumber.setText(txtHomeNumber);
+    }
+
+    public String getTxtFaxNumber() {
+        return txtFaxNumber.getText();
+    }
+
+    public void setTxtFaxNumber(String txtFaxNumber) {
+        this.txtFaxNumber.setText(txtFaxNumber);
+    }
+
+    public String getTxtEmail() {
+        return txtEmail.getText();
+    }
+
+    public void setTxtEmail(String txtEmail) {
+        this.txtEmail.setText(txtEmail);
+    }
+
+    public String getTxtAddress() {
+        return txtAddress.getText();
+    }
+
+    public void setTxtAddress(String txtAddress) {
+        this.txtAddress.setText(txtAddress);
+    }
+
+    public String getTxtBirthday() {
+        return txtBirthday.getText();
+    }
+
+    public void setTxtBirthday(String txtBirthday) {
+        this.txtBirthday.setText(txtBirthday);
+    }
+
+    public String getTxtNotes() {
+        return txtNotes.getText();
+    }
+
+    public void setTxtNotes(String txtNotes) {
+        this.txtNotes.setText(txtNotes);
+    }
+
+    public String getTxtFirstName() {
+        return txtFirstName.getText();
+    }
+
+    public void setTxtFirstName(String txtFirstName) {
+        this.txtFirstName.setText(txtFirstName);
+    }
+
+    public String getTxtLastName() {
+        return txtLastName.getText();
+    }
+
+    public void setTxtLastName(String txtLastName) {
+        this.txtLastName.setText(txtLastName);
+    }
+
+    public String getTxtCompany() {
+        return txtCompany.getText();
+    }
+
+    public void setTxtCompany(String txtCompany) {
+        this.txtCompany.setText(txtCompany);
+    }
+
+    public Icon getContactPic() {
+        return contactPic;
+    }
+
+    public void setContactPic(Icon contactPic) {
+        this.contactPic = contactPic;
+    }
+
+
+
+
     class Edit_Button implements ActionListener{ //sets all Text Area to editable
 
         public void actionPerformed(ActionEvent e) {
@@ -269,7 +364,7 @@ public class ContactFrame extends JFrame{
         
     }
     
-    class Delete_Button implements ActionListener{ //Delete saved File of the person 
+    class Delete_Button implements ActionListener{ //Delete saved File of the person and returns to the ContactApp frame
 
         Contact person;
         File file;
@@ -277,27 +372,27 @@ public class ContactFrame extends JFrame{
         public void actionPerformed(ActionEvent e) {
             
             try {
-                //System.out.println(path + "/" + txtLastName.getText() + ".txt");
-                if((new File(path + "/" + txtLastName.getText() + ".txt")).exists() || (new File(path + "/" + txtFirstName.getText() + ".txt")).exists()){
-                    person = readFile();
-                    System.out.println(path + "/" + txtLastName.getText() + ".txt");
-
-                    if(!person.getLastName().isEmpty()){
-                        file = new File(path + "/" + txtLastName.getText() + ".txt");
+                
+                int ret = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?");
+                if (ret == JOptionPane.YES_OPTION){
+                    if((new File(path + "/" + txtLastName.getText() + ".txt")).exists() || (new File(path + "/" + txtFirstName.getText() + ".txt")).exists()){
+                        person = readFile();
                         System.out.println(path + "/" + txtLastName.getText() + ".txt");
-                        file.delete();
+
+                        if(!person.getLastName().isEmpty()){
+                            file = new File(path + "/" + txtLastName.getText() + ".txt");
+                            System.out.println(path + "/" + txtLastName.getText() + ".txt");
+                            file.delete();
+                        } 
+                        else if(person.getLastName().equals("")){
+                            file = new File(path + "/" + person.getFirstName() + ".txt");
+                            file.delete();
+                        }  
                     } 
-                    else if(person.getLastName().equals("")){
-                        file = new File(path + "/" + person.getFirstName() + ".txt");
-                        file.delete();
-                    }  
-                }                 
-                
-                deleteAll();
-                txtFirstName.setText("First Name");
-                txtLastName.setText("Last Name");
-                txtCompany.setText("Company");
-                
+                }
+            ContactApp contactapp = new ContactApp();
+            contactapp.setVisible(true);
+            setVisible(false);
                     
             } catch (ClassNotFoundException | IOException e1) {
                 e1.getMessage();
@@ -307,11 +402,18 @@ public class ContactFrame extends JFrame{
         
     }
     
-    class Back_Button implements ActionListener{
+    class Back_Button implements ActionListener{ //shuts down this frame and goes back to the contactapp frame
 
         public void actionPerformed(ActionEvent e) {
-            
-            setVisible(false);
+            ContactApp contactapp;
+            try {
+                contactapp = new ContactApp();
+                contactapp.setVisible(true);
+                setVisible(false);
+            } catch (ClassNotFoundException | IOException e1) {
+                e1.printStackTrace();
+            }
+
             
         }
         
@@ -352,6 +454,16 @@ public class ContactFrame extends JFrame{
                     saveInFile(contact, txtLastName.getText());
             } catch (IOException e1) {
                 e1.getMessage();
+            }
+            
+            
+            try {
+                ContactApp cont = new ContactApp();
+                cont.setVisible(true);
+                setVisible(false);
+                
+            } catch (ClassNotFoundException | IOException e1) {
+                e1.printStackTrace();
             }
             
         }

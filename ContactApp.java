@@ -13,31 +13,30 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.naming.RefAddr;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import java.awt.Font;
-import javax.swing.border.EtchedBorder;
 
 public class ContactApp extends JFrame{
 
     private  Timer tm;
     private static LocalDateTime time;
     private JLabel statusBar;
-    private JLabel lblOneInfo;
     private JScrollPane scroll;
     private JPanel contactPanel;
     private JButton addButton;
     private JButton homeButton;
     private Icon addIcon = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/plus.png");
     private String path = "/Users/black and white/Desktop/App/Contacts";
-    Contact[] contacts;
-    JButton[] buttons;
-    File contactFolder = new File(path);
-
-
+    private Contact[] contacts;
+    private JButton[] buttons;
+    private JLabel[] lblfirstNames;
+    private JLabel[] lbllastName;
+    private JLabel[] lblOneInfo;
+    private JLabel[] lblInfo;
+    private File contactFolder = new File(path);
 
     public ContactApp() throws ClassNotFoundException, IOException {
         initialize();
@@ -45,7 +44,7 @@ public class ContactApp extends JFrame{
 
     private void initialize() throws ClassNotFoundException, IOException {
         setResizable(false);
-        getContentPane().setBackground(new Color(255, 255, 255));
+        getContentPane().setBackground(new Color(153, 204, 255));
         setBounds(100, 100, 480, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);        
@@ -59,20 +58,8 @@ public class ContactApp extends JFrame{
         getContentPane().add(statusBar);
         setTime();       
  
-        /*
-        contactPanel = new JPanel();
-        contactPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-        contactPanel.setBackground(Color.WHITE);
-        contactPanel.setBounds(18, 45, 455, 650);
-        contactPanel.setLayout(null);
-        */
         contactPanel = loadContacts();
         
-        lblOneInfo = new JLabel("");
-        lblOneInfo.setHorizontalAlignment(SwingConstants.CENTER);
-        lblOneInfo.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
-        lblOneInfo.setBounds(40, 45, 100, 20);
-        contactPanel.add(lblOneInfo);
         
         scroll = new JScrollPane(contactPanel);
         scroll.setBounds(0,46,480,642);
@@ -88,7 +75,7 @@ public class ContactApp extends JFrame{
         getContentPane().add(addButton);
         
         homeButton = new JButton("Home");
-        homeButton.setBounds(18, 700, 455, 70);
+        homeButton.setBounds(6, 700, 470, 70);
         getContentPane().add(homeButton);
         
         addButton.addActionListener(new Add_Button());  
@@ -111,10 +98,10 @@ public class ContactApp extends JFrame{
         JPanel myPanel = new JPanel();
         contacts = new Contact[contactFolder.listFiles().length];
         buttons = new JButton[contactFolder.listFiles().length];
-        JLabel[] lblfirstNames = new JLabel[contactFolder.listFiles().length];
-        JLabel[] lbllastName = new JLabel[contactFolder.listFiles().length];
-        JLabel[] lblOneInfo = new JLabel[contactFolder.listFiles().length];
-        JLabel[] lblInfo = new JLabel[contactFolder.listFiles().length]; 
+        lblfirstNames = new JLabel[contactFolder.listFiles().length];
+        lbllastName = new JLabel[contactFolder.listFiles().length];
+        lblOneInfo = new JLabel[contactFolder.listFiles().length];
+        lblInfo = new JLabel[contactFolder.listFiles().length]; 
 
 
         String contactPath;
@@ -134,7 +121,7 @@ public class ContactApp extends JFrame{
         int xLabelOneInfo = 40;
         int yLabelOneInfo = 45;
         //Position for the infos Label
-        int xlblInfo = 160;
+        int xlblInfo;
         int ylblInfo = 45;
         
         
@@ -144,13 +131,14 @@ public class ContactApp extends JFrame{
                 contactPath=file.getAbsolutePath();
                 contacts[cpt] = readFile(contactPath);
                 
+                xlblInfo = 200;
                 
-                if(!contactPath.contains(".DS_Store")){
+                if(!contactPath.contains(".DS_Store")){ //only for mac but still works on windows
                     buttons[cpt] = new JButton(); //still have to put the photos            
                     buttons[cpt].setBounds(xButton,yButton,100,100);
                     buttons[cpt].setOpaque(true);
                     myPanel.add(buttons[cpt]);
-                    buttons[cpt].addActionListener(new Contact_Button());
+                    buttons[cpt].addActionListener(new Contact_Button(ylblInfo-10)); // button to enter each contact's details (getting the position of the Infolbl
                   //If both first name and last name are present
                     if(!contacts[cpt].getFirstName().equals("") && !contacts[cpt].getLastName().equals("")){
                         lblfirstNames[cpt] = new JLabel(contacts[cpt].getFirstName());
@@ -173,17 +161,17 @@ public class ContactApp extends JFrame{
                     //display one info on between number, home number and email
                     if(!contacts[cpt].getMobileNumber().equals("")){
                         lblInfo[cpt] = new JLabel(contacts[cpt].getMobileNumber());
-                        lblInfo[cpt].setBounds(xlblInfo,ylblInfo, 150, 20);
-                        myPanel.add(lblInfo[cpt]);
                     } else if(!contacts[cpt].getHomeNumber().equals("")){
                         lblInfo[cpt] = new JLabel(contacts[cpt].getHomeNumber());
-                        lblInfo[cpt].setBounds(xlblInfo,ylblInfo, 150, 20);
-                        myPanel.add(lblInfo[cpt]);
                     } else if(!contacts[cpt].getEmail().equals("")){
                         lblInfo[cpt] = new JLabel(contacts[cpt].getEmail());
-                        lblInfo[cpt].setBounds(xlblInfo,ylblInfo, 150, 20);
-                        myPanel.add(lblInfo[cpt]);
+                        xlblInfo = 160;
                     }
+                    else 
+                        lblInfo[cpt] = new JLabel("No Info");
+
+                    lblInfo[cpt].setBounds(xlblInfo,ylblInfo, 150, 20);
+                    myPanel.add(lblInfo[cpt]);
                     
                     yButton += 105;
                     yLabelFirstName += 105;
@@ -198,8 +186,8 @@ public class ContactApp extends JFrame{
         
         myPanel.setLayout(null);
         myPanel.setBounds(18, 45, 455, 650);
-        myPanel.setBackground(Color.WHITE);
-        myPanel.setPreferredSize(new Dimension(455,yButton+220));
+        myPanel.setBackground(new Color(102, 153, 204));
+        myPanel.setPreferredSize(new Dimension(455,yButton));
     
         return myPanel;
     }
@@ -218,14 +206,53 @@ public class ContactApp extends JFrame{
         return null;
     }
     
-    class Contact_Button implements ActionListener{
+    class Contact_Button implements ActionListener{ //open the contact connected to the button
+        
+        private int position;
+        
+        public Contact_Button(int position){
+            this.position = position;
+        }
+        
+        
 
         public void actionPerformed(ActionEvent e) {
-            
-            ContactFrame newContact = new ContactFrame();
-            //newContact.setName(contact[]);
-            
-        }
+            Contact readContact = null;
+            ContactFrame contact = new ContactFrame();
+
+            try {
+                for(int i = 0; i < lblOneInfo.length; i++){ //search for the right infolabel that is at the same height as the pressed button
+                    System.out.println(lblOneInfo[i]);                                                                                                  //returns Null for some reason (need to modifiy)
+                    if(lblOneInfo[i].getY() == position){
+                        if(!lblOneInfo[i].getText().equals("")){
+                            readContact = readFile(path + "/" + lblOneInfo[i].getText() + ".txt");
+                        } else {
+                            readContact = readFile(path + "/" + lbllastName[i].getText() + ".txt");
+                        }
+                            
+                    }
+                    
+                } 
+                
+                contact.setTxtFirstName(readContact.getFirstName());
+                contact.setTxtLastName(readContact.getLastName());
+                contact.setTxtCompany(readContact.getCompanyName());
+                contact.setTxtMobileNumber(readContact.getMobileNumber());
+                contact.setTxtHomeNumber(readContact.getHomeNumber());
+                contact.setTxtEmail(readContact.getEmail());
+                contact.setTxtFaxNumber(readContact.getFaxNumber());
+                contact.setTxtAddress(readContact.getAddress());
+                contact.setTxtBirthday(readContact.getBirthday());
+                contact.setTxtNotes(readContact.getNote());
+                
+                contact.setVisible(true);
+                setVisible(false);
+                
+            } catch (ClassNotFoundException | IOException e1) {
+                System.out.println(e1);;
+            }
+                    
+        }   
         
     }
     
@@ -235,6 +262,7 @@ public class ContactApp extends JFrame{
 
             ContactFrame newContact = new ContactFrame();
             newContact.setVisible(true);
+            setVisible(false);
             
         }
         
@@ -243,7 +271,14 @@ public class ContactApp extends JFrame{
     class Home_Button implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
-            setVisible(false);
+            try{
+                HomeScreen homescreen = new HomeScreen();
+                homescreen.setVisible(true);
+                setVisible(false);
+            } catch(Exception e1){
+                System.out.println(e1);
+            }
+
             
         }
         

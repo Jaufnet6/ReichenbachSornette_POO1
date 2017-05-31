@@ -8,6 +8,9 @@ public class testSmartphone {
 		DefaultGalleryFrame test = new DefaultGalleryFrame();
 		test.setVisible(true);
 		
+		HomeScreen homescreen = new HomeScreen();
+        homescreen.setVisible(true);
+		
 //		PicturesFrame testPictures = new PicturesFrame();
 //		testPictures.setVisible(true);
 		

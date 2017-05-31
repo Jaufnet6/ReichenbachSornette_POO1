@@ -8,6 +8,7 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -19,7 +20,8 @@ import java.awt.SystemColor;
 
 public class CalculatorFrame extends JFrame{
 
-	 //Area number written
+    private static final long serialVersionUID = 1L;
+    //Area number written
     private JLabel statusBar;
     private JLabel firstNumber = new JLabel();
     private JLabel addition = new JLabel();
@@ -199,7 +201,16 @@ public class CalculatorFrame extends JFrame{
 			JButton btnBack = new JButton("Back");
 			btnBack.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent e) {
-			        setVisible(false);
+			        HomeScreen homescreen;
+                    try {
+                        homescreen = new HomeScreen();
+                        homescreen.setVisible(true);
+                        setVisible(false);
+
+                    } catch (ClassNotFoundException | InterruptedException | IOException e1) {
+                        e1.printStackTrace();
+                    }
+			        
 			    }
 			});
 			btnBack.setBounds(10, 5, 75, 41);
