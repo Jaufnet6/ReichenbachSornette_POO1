@@ -32,10 +32,8 @@ public class ContactApp extends JFrame{
     private String path = "/Users/black and white/Desktop/App/Contacts";
     private Contact[] contacts;
     private JButton[] buttons;
-    private JLabel[] lblfirstNames;
-    private JLabel[] lbllastName;
-    private JLabel[] lblOneInfo;
-    private JLabel[] lblInfo;
+    private JLabel[] lbllastNameOut;
+    private JLabel[] lblOneInfoOut;
     private File contactFolder = new File(path);
 
     public ContactApp() throws ClassNotFoundException, IOException {
@@ -70,7 +68,7 @@ public class ContactApp extends JFrame{
         addButton.setBackground(new Color(255, 255, 255));
         addButton.setOpaque(true);
         addButton.setContentAreaFilled(false);
-        addButton.setBorderPainted(false);
+        addButton.setBorderPainted(true);
         addButton.setBounds(400, 2, 40, 40);
         getContentPane().add(addButton);
         
@@ -98,12 +96,10 @@ public class ContactApp extends JFrame{
         JPanel myPanel = new JPanel();
         contacts = new Contact[contactFolder.listFiles().length];
         buttons = new JButton[contactFolder.listFiles().length];
-        lblfirstNames = new JLabel[contactFolder.listFiles().length];
-        lbllastName = new JLabel[contactFolder.listFiles().length];
-        lblOneInfo = new JLabel[contactFolder.listFiles().length];
-        lblInfo = new JLabel[contactFolder.listFiles().length]; 
-
-
+        JLabel[]lblfirstNames = new JLabel[contactFolder.listFiles().length];
+        JLabel[]lbllastName = new JLabel[contactFolder.listFiles().length];
+        JLabel[]lblOneInfo = new JLabel[contactFolder.listFiles().length];
+        JLabel[]lblInfo = new JLabel[contactFolder.listFiles().length]; 
         String contactPath;
         
         int cpt = 0;
@@ -134,7 +130,7 @@ public class ContactApp extends JFrame{
                 xlblInfo = 200;
                 
                 if(!contactPath.contains(".DS_Store")){ //only for mac but still works on windows
-                    buttons[cpt] = new JButton(); //still have to put the photos            
+                    buttons[cpt] = new JButton();             
                     buttons[cpt].setBounds(xButton,yButton,100,100);
                     buttons[cpt].setOpaque(true);
                     myPanel.add(buttons[cpt]);
@@ -158,7 +154,7 @@ public class ContactApp extends JFrame{
                         lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
                         myPanel.add(lblOneInfo[cpt]);
                     } 
-                    //display one info on between number, home number and email
+                    //display one info between number, home number and email (depending what information has been entered)
                     if(!contacts[cpt].getMobileNumber().equals("")){
                         lblInfo[cpt] = new JLabel(contacts[cpt].getMobileNumber());
                     } else if(!contacts[cpt].getHomeNumber().equals("")){
@@ -173,6 +169,7 @@ public class ContactApp extends JFrame{
                     lblInfo[cpt].setBounds(xlblInfo,ylblInfo, 150, 20);
                     myPanel.add(lblInfo[cpt]);
                     
+                    //Sets the position for the next labels and buttons
                     yButton += 105;
                     yLabelFirstName += 105;
                     yLabelLastName += 105;
@@ -183,6 +180,9 @@ public class ContactApp extends JFrame{
     
              }
         }
+        //get the JLabel[] to get it out later
+        lblOneInfoOut = lblOneInfo;
+        lbllastNameOut = lbllastName;
         
         myPanel.setLayout(null);
         myPanel.setBounds(18, 45, 455, 650);
@@ -213,25 +213,19 @@ public class ContactApp extends JFrame{
         public Contact_Button(int position){
             this.position = position;
         }
-        
-        
 
         public void actionPerformed(ActionEvent e) {
             Contact readContact = null;
             ContactFrame contact = new ContactFrame();
+            int realposition = position / 105;
 
-            try {
-                for(int i = 0; i < lblOneInfo.length; i++){ //search for the right infolabel that is at the same height as the pressed button
-                    System.out.println(lblOneInfo[i]);                                                                                                  //returns Null for some reason (need to modifiy)
-                    if(lblOneInfo[i].getY() == position){
-                        if(!lblOneInfo[i].getText().equals("")){
-                            readContact = readFile(path + "/" + lblOneInfo[i].getText() + ".txt");
-                        } else {
-                            readContact = readFile(path + "/" + lbllastName[i].getText() + ".txt");
-                        }
-                            
-                    }
-                    
+            try{
+
+                if(lbllastNameOut[realposition] != null){
+                    readContact = readFile(path + "/" + lbllastNameOut[realposition].getText() + ".txt");
+                }
+                else {
+                    readContact = readFile(path + "/" + lblOneInfoOut[realposition].getText() + ".txt");
                 } 
                 
                 contact.setTxtFirstName(readContact.getFirstName());
@@ -247,11 +241,10 @@ public class ContactApp extends JFrame{
                 
                 contact.setVisible(true);
                 setVisible(false);
-                
-            } catch (ClassNotFoundException | IOException e1) {
+            }catch (ClassNotFoundException | IOException e1){
                 System.out.println(e1);;
             }
-                    
+              
         }   
         
     }

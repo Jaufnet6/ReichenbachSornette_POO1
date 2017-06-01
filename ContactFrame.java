@@ -377,11 +377,11 @@ public class ContactFrame extends JFrame{
                 if (ret == JOptionPane.YES_OPTION){
                     if((new File(path + "/" + txtLastName.getText() + ".txt")).exists() || (new File(path + "/" + txtFirstName.getText() + ".txt")).exists()){
                         person = readFile();
-                        System.out.println(path + "/" + txtLastName.getText() + ".txt");
+                        //System.out.println(path + "/" + txtLastName.getText() + ".txt");
 
                         if(!person.getLastName().isEmpty()){
                             file = new File(path + "/" + txtLastName.getText() + ".txt");
-                            System.out.println(path + "/" + txtLastName.getText() + ".txt");
+                            //System.out.println(path + "/" + txtLastName.getText() + ".txt");
                             file.delete();
                         } 
                         else if(person.getLastName().equals("")){
