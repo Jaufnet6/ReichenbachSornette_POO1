@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -26,6 +27,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JToolBar;
 import javax.swing.JList;
 import javax.swing.ScrollPaneConstants;
+import java.awt.Color;
 
 public class PicturesFrame extends JFrame{
 
@@ -45,21 +47,44 @@ public class PicturesFrame extends JFrame{
 		JButton switchToAlbums = new JButton("ALBUMS");
 		switchToAlbums.addActionListener(new AlbumButtonListener());
 		switchToAlbums.setBackground(SystemColor.inactiveCaption);
-		switchToAlbums.setBounds(236, 679, 238, 86);
+		switchToAlbums.setBounds(314, 679, 160, 86);
 		getContentPane().add(switchToAlbums);
 		
 		JLabel pictures = new JLabel("PICTURES");
 		pictures.setBackground(SystemColor.textHighlight);
 		pictures.setOpaque(true);
 		pictures.setHorizontalAlignment(SwingConstants.CENTER);
-		pictures.setBounds(0, 679, 238, 86);
+		pictures.setBounds(0, 679, 160, 86);
 		getContentPane().add(pictures);
 		
 		//My pictures
         scroll = new JScrollPane(picturesPanel);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(0, 0, 476, 675);
-        add(scroll);
+        getContentPane().add(scroll);
+        
+        JButton homeButton = new JButton("HOME");
+        homeButton.setForeground(Color.WHITE);
+        homeButton.setBackground(Color.BLACK);
+        homeButton.setBounds(157, 679, 160, 86);
+		homeButton.addActionListener(new HomeListener());
+        getContentPane().add(homeButton);
+	}
+	
+	class HomeListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg0) {
+			HomeScreen hs;
+			try {
+				hs = new HomeScreen();
+				setVisible(false);
+				hs.setVisible(true);
+			} catch (ClassNotFoundException | InterruptedException | IOException e) {
+				e.printStackTrace();
+			}
+		
+		}
+	
 	}
 	
 	class AlbumButtonListener implements ActionListener{
@@ -94,9 +119,9 @@ public class PicturesFrame extends JFrame{
 			bigPic.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			bigPic.setSize(480, 800);
 			bigPic.setResizable(false);	
-			bigPic.setLayout(null);
-			bigPic.add(image);
-			bigPic.add(back);
+			bigPic.getContentPane().setLayout(null);
+			bigPic.getContentPane().add(image);
+			bigPic.getContentPane().add(back);
 			back.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					bigPic.setVisible(false);

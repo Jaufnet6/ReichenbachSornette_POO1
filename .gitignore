@@ -83,3 +83,5 @@
 /ContactApp$Add_Button.class
 /ContactApp$Contact_Button.class
 /ContactApp$Home_Button.class
+/DefaultGalleryFrame$HomeListener.class
+/PicturesFrame$HomeListener.class

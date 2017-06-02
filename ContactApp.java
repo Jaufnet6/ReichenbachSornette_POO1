@@ -28,8 +28,12 @@ public class ContactApp extends JFrame{
     private JPanel contactPanel;
     private JButton addButton;
     private JButton homeButton;
-    private Icon addIcon = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/plus.png");
-    private String path = "/Users/black and white/Desktop/App/Contacts";
+    //Mac : /Users/black and white/Desktop/App/Backgrounds/plus.png
+    //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\plus.png
+    private Icon addIcon = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\plus.png");
+    //Mac : /Users/black and white/Desktop/App/Contacts
+    //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts
+    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts";
     private Contact[] contacts;
     private JButton[] buttons;
     private JLabel[] lbllastNameOut;

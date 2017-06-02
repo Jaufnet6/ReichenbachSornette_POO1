@@ -56,7 +56,11 @@ public class ContactFrame extends JFrame{
     private JTextArea txtLastName;
     private JTextArea txtCompany;
     
-    private String path = "/Users/black and white/Desktop/App/Contacts";
+    //Mac : /Users/black and white/Desktop/App/Contacts
+    //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts
+    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts";
+    //Mac : /Users/black and white/Desktop/App/Backgrounds/contactPic.png
+    //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png
     private Icon contactPic = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/contactPic.png");
 
 

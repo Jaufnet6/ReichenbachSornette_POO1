@@ -31,10 +31,12 @@ public class HomeScreen extends JFrame{
     private JButton galleryButton;
     private JButton calculatorButton;
     
-    private File folder = new File("/Users/black and white/Desktop/App/Backgrounds/");
+    // Mac : /Users/black and white/Desktop/App/Backgrounds/
+    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds
+    private File folder = new File("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds");
     // Mac : /Users/black and white/Desktop/App/Backgrounds/tiger.jpg
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg
-    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/tiger.jpg");
+    private Icon backgroundImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg");
 
     private ContactApp contacts;
     private CalculatorFrame calculator;
@@ -77,15 +79,15 @@ public class HomeScreen extends JFrame{
         galleryButton.setBounds(121, 287, 230, 207);
         galleryButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*DefaultGalleryFrame test;
+                DefaultGalleryFrame dgf;
                 try {
-                    test = new DefaultGalleryFrame();
-                    test.setVisible(true);
+                    dgf = new DefaultGalleryFrame();
+                    setVisible(false);
+                    dgf.setVisible(true);
 
                 } catch (ClassNotFoundException | IOException e1) {
                     e1.printStackTrace();
-                }*/
-                JOptionPane.showConfirmDialog(null, "App2");
+                }
             }
         });
         

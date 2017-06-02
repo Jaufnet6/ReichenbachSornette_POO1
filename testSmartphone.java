@@ -3,10 +3,10 @@ import java.io.IOException;
 
 public class testSmartphone {
 
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
+	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
-		DefaultGalleryFrame test = new DefaultGalleryFrame();
-		test.setVisible(true);
+//		DefaultGalleryFrame test = new DefaultGalleryFrame();
+//		test.setVisible(true);
 		
 		HomeScreen homescreen = new HomeScreen();
         homescreen.setVisible(true);
