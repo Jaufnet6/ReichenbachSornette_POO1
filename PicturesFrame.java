@@ -33,10 +33,13 @@ public class PicturesFrame extends JFrame{
 
 	private JPanel picturesPanel = new JPanel();
 	private JScrollPane scroll;
-	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
+	//Mac: /Users/black and white/Desktop/App/Gallery
+	//Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery
+	private String path = "/Users/black and white/Desktop/App/gallery";
 
 	public PicturesFrame() throws IOException {
 		super("Pictures");
+		getContentPane().setBackground(new Color(0, 102, 204));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(480, 800);
 		setResizable(false);
@@ -47,14 +50,14 @@ public class PicturesFrame extends JFrame{
 		JButton switchToAlbums = new JButton("ALBUMS");
 		switchToAlbums.addActionListener(new AlbumButtonListener());
 		switchToAlbums.setBackground(SystemColor.inactiveCaption);
-		switchToAlbums.setBounds(314, 679, 160, 86);
+		switchToAlbums.setBounds(325, 690, 140, 70);
 		getContentPane().add(switchToAlbums);
 		
 		JLabel pictures = new JLabel("PICTURES");
-		pictures.setBackground(SystemColor.textHighlight);
+		pictures.setBackground(new Color(102, 153, 51));
 		pictures.setOpaque(true);
 		pictures.setHorizontalAlignment(SwingConstants.CENTER);
-		pictures.setBounds(0, 679, 160, 86);
+		pictures.setBounds(10, 690, 140, 70);
 		getContentPane().add(pictures);
 		
 		//My pictures
@@ -64,9 +67,9 @@ public class PicturesFrame extends JFrame{
         getContentPane().add(scroll);
         
         JButton homeButton = new JButton("HOME");
-        homeButton.setForeground(Color.WHITE);
+        homeButton.setForeground(new Color(0, 0, 0));
         homeButton.setBackground(Color.BLACK);
-        homeButton.setBounds(157, 679, 160, 86);
+        homeButton.setBounds(165, 690, 140, 70);
 		homeButton.addActionListener(new HomeListener());
         getContentPane().add(homeButton);
 	}
@@ -136,6 +139,7 @@ public class PicturesFrame extends JFrame{
 	
 	private JPanel loadPics() throws IOException{
 		JPanel myPanel = new JPanel();
+		myPanel.setBackground(new Color(102, 153, 255));
 		FileInputStream fr;
 		BufferedInputStream bfr;
 		File picFolder = new File(path);
@@ -149,7 +153,7 @@ public class PicturesFrame extends JFrame{
 		int cptX=0;
 		
 		for(int i=0;i<images.length;i++){
-			imgPath=path+"\\"+Integer.toString(i)+".jpg";
+			imgPath=path+"/"+Integer.toString(i)+".jpg";
 			fr = new FileInputStream(imgPath);
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);

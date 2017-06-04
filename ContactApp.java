@@ -53,6 +53,8 @@ public class ContactApp extends JFrame{
     private int xLabelFirstName = 40;
     private int xLabelLastName = 40;
     private int xLabelOneInfo = 40;
+    private int xlblInfo = 180;
+
 
     public ContactApp() throws ClassNotFoundException, IOException {
         initialize();
@@ -147,7 +149,6 @@ public class ContactApp extends JFrame{
         //Position for the OneInfo label
         int yLabelOneInfo = 45;
         //Position for the infos Label
-        int xlblInfo;
         int ylblInfo = 45;
         
         
@@ -159,8 +160,7 @@ public class ContactApp extends JFrame{
                 
                 
                 if(!contactPath.contains(".DS_Store")){ //only for mac but still works on windows
-                    xlblInfo = 200;
-                    addContactToPanel(myPanel, contacts, yButton, yLabelFirstName, yLabelLastName, yLabelOneInfo, ylblInfo, xlblInfo, cpt);                   
+                    addContactToPanel(myPanel, contacts, yButton, yLabelFirstName, yLabelLastName, yLabelOneInfo, ylblInfo, cpt);                   
                     //Sets the position for the next labels and buttons
                     yButton += 105;
                     yLabelFirstName += 105;
@@ -184,7 +184,7 @@ public class ContactApp extends JFrame{
         return myPanel;
     }
     
-    private void addContactToPanel(JPanel myPanel, Contact[] contacts, int yButton, int yLabelFirstName, int yLabelLastName, int yLabelOneInfo, int ylblInfo, int xlblInfo, int cpt){
+    private void addContactToPanel(JPanel myPanel, Contact[] contacts, int yButton, int yLabelFirstName, int yLabelLastName, int yLabelOneInfo, int ylblInfo, int cpt){
         buttons[cpt] = new JButton();             
         buttons[cpt].setBounds(xButton,yButton,100,100);
         buttons[cpt].setOpaque(true);
@@ -216,7 +216,6 @@ public class ContactApp extends JFrame{
             lblInfo[cpt] = new JLabel(contacts[cpt].getHomeNumber());
         } else if(!contacts[cpt].getEmail().equals("")){
             lblInfo[cpt] = new JLabel(contacts[cpt].getEmail());
-            xlblInfo = 160;
         }
         else 
             lblInfo[cpt] = new JLabel("No Info");
@@ -322,11 +321,10 @@ public class ContactApp extends JFrame{
             contactPath=file.getAbsolutePath();            
             
             if(!contactPath.contains(".DS_Store")){
-                xlblInfo = 200;
                 contactsInFolder[cptContacts] = readFile(contactPath);
-                if(contactsInFolder[cptContacts].getLastName().contains(request) || contactsInFolder[cptContacts].getFirstName().contains(request) || contactsInFolder[cptContacts].getMobileNumber().equals(request) || contactsInFolder[cptContacts].getEmail().equals(request) || contactsInFolder[cptContacts].getHomeNumber().equals(request)){ //if the last name or the first name matches the request or numbers and eamil == searched text
+                if(contactsInFolder[cptContacts].getLastName().toLowerCase().contains(request) || contactsInFolder[cptContacts].getFirstName().toLowerCase().contains(request) || contactsInFolder[cptContacts].getMobileNumber().equals(request) || contactsInFolder[cptContacts].getEmail().toLowerCase().equals(request) || contactsInFolder[cptContacts].getHomeNumber().equals(request)){ //if the last name or the first name matches the request or numbers and eamil == searched text
                     contactsFound[cptContactsFound] = contactsInFolder[cptContacts];
-                    addContactToPanel(myPanel, contactsFound, yButton, yLabelFirstName, yLabelLastName, yLabelOneInfo, ylblInfo, xlblInfo, cptContactsFound);
+                    addContactToPanel(myPanel, contactsFound, yButton, yLabelFirstName, yLabelLastName, yLabelOneInfo, ylblInfo, cptContactsFound);
                     cptContactsFound++;
                     yButton += 105;
                     yLabelFirstName += 105;
@@ -359,8 +357,8 @@ public class ContactApp extends JFrame{
         public void actionPerformed(ActionEvent e) {
             
             try {
-                request = txtSearch.getText();
-                if(request.equals("Search...")){
+                request = txtSearch.getText().toLowerCase();
+                if(request.equals("search...")){
                     return;
                 }else {
                     
@@ -369,12 +367,10 @@ public class ContactApp extends JFrame{
                     scrollSearch = new JScrollPane(searchPanel);
                     scrollSearch.setBounds(0,65,480,623);
                     getContentPane().add(scrollSearch);
-                    //getContentPane().validate();
-                    //getContentPane().repaint();
                     searchButton.setVisible(false);
                     cancelButton.setVisible(true);
                 }
-            } catch (/*ClassNotFoundException | IOException e1*/ Exception e1) {
+            } catch (ClassNotFoundException | IOException e1) {
                 e1.printStackTrace();
             }
             
@@ -386,15 +382,12 @@ public class ContactApp extends JFrame{
 
         public void actionPerformed(ActionEvent e) {
             try {
-                ContactApp ca = new ContactApp();
-                setVisible(false);
-                ca.setVisible(true);
-                JPanel contacts = loadContacts();
-                scroll = new JScrollPane(contacts);
+                contactPanel = loadContacts();
+                scrollSearch.setVisible(false);
+                scroll = new JScrollPane(contactPanel);
                 scroll.setBounds(0,65,480,623);
                 getContentPane().add(scroll);
                 txtSearch.setText("Search...");
-                contactPanel = loadContacts();
                 searchButton.setVisible(true);
                 cancelButton.setVisible(false);
             } catch (ClassNotFoundException | IOException e1) {
@@ -405,7 +398,7 @@ public class ContactApp extends JFrame{
         
     }
     
-    class Home_Button implements ActionListener{
+    class Home_Button implements ActionListener{ //going back to homeScreen frame
 
         public void actionPerformed(ActionEvent e) {
             try{
