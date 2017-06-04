@@ -58,7 +58,7 @@ public class ContactFrame extends JFrame{
     
     //Mac : /Users/black and white/Desktop/App/Contacts
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts
-    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts";
+    private String path = "/Users/black and white/Desktop/App/Contacts";
     //Mac : /Users/black and white/Desktop/App/Backgrounds/contactPic.png
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png
     private Icon contactPic = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/contactPic.png");
@@ -147,6 +147,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(lblFax);
         
         txtMobileNumber = new JTextArea();
+        txtMobileNumber.setTabSize(0);
         txtMobileNumber.setForeground(new Color(255, 255, 255));
         txtMobileNumber.setBackground(new Color(102, 102, 102));
         txtMobileNumber.setEditable(false);
@@ -154,6 +155,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(txtMobileNumber);
         
         txtHomeNumber = new JTextArea();
+        txtHomeNumber.setTabSize(0);
         txtHomeNumber.setForeground(new Color(255, 255, 255));
         txtHomeNumber.setBackground(new Color(102, 102, 102));
         txtHomeNumber.setEditable(false);
@@ -161,6 +163,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(txtHomeNumber);
         
         txtFaxNumber = new JTextArea();
+        txtFaxNumber.setTabSize(0);
         txtFaxNumber.setForeground(new Color(255, 255, 255));
         txtFaxNumber.setBackground(new Color(102, 102, 102));
         txtFaxNumber.setEditable(false);
@@ -175,6 +178,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(lblEmail);
         
         txtEmail = new JTextArea();
+        txtEmail.setTabSize(0);
         txtEmail.setForeground(new Color(255, 255, 255));
         txtEmail.setBackground(new Color(102, 102, 102));
         txtEmail.setEditable(false);
@@ -189,6 +193,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(lblAddress);
         
         txtAddress = new JTextArea();
+        txtAddress.setTabSize(0);
         txtAddress.setForeground(new Color(255, 255, 255));
         txtAddress.setBackground(new Color(102, 102, 102));
         txtAddress.setEditable(false);
@@ -203,6 +208,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(lblBirthday);
         
         txtBirthday = new JTextArea();
+        txtBirthday.setTabSize(0);
         txtBirthday.setForeground(new Color(255, 255, 255));
         txtBirthday.setBackground(new Color(102, 102, 102));
         txtBirthday.setEditable(false);
@@ -224,6 +230,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(txtNotes);
         
         txtFirstName = new JTextArea();
+        txtFirstName.setTabSize(0);
         txtFirstName.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         txtFirstName.setAlignmentX(10f);
         txtFirstName.setForeground(new Color(102, 102, 102));
@@ -234,6 +241,7 @@ public class ContactFrame extends JFrame{
         txtFirstName.setColumns(10);
         
         txtLastName = new JTextArea();
+        txtLastName.setTabSize(0);
         txtLastName.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         txtLastName.setAlignmentY(SwingConstants.RIGHT);
         txtLastName.setForeground(new Color(102, 102, 102));
@@ -244,6 +252,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(txtLastName);
         
         txtCompany = new JTextArea();
+        txtCompany.setTabSize(0);
         txtCompany.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
         txtCompany.setAlignmentY(SwingConstants.LEFT);
         txtCompany.setForeground(new Color(102, 102, 102));
@@ -561,7 +570,7 @@ public class ContactFrame extends JFrame{
         txtNotes.setText("");
     }
     
-    private void allowingEditableContent(){
+    public void allowingEditableContent(){
         saveButton.setVisible(true);
         editButton.setVisible(false);
         cancelButton.setVisible(true);
