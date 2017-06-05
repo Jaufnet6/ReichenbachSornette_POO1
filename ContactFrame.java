@@ -58,10 +58,10 @@ public class ContactFrame extends JFrame{
     
     //Mac : /Users/black and white/Desktop/App/Contacts
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts
-    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts";
+    private String path = "/Users/black and white/Desktop/App/Contacts";
     //Mac : /Users/black and white/Desktop/App/Backgrounds/contactPic.png
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png
-    private Icon contactPic = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png");
+    private Icon contactPic = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/contactPic.png");
 
 
     public ContactFrame(){
@@ -388,17 +388,17 @@ public class ContactFrame extends JFrame{
                 
                 int ret = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?");
                 if (ret == JOptionPane.YES_OPTION){
-                    if((new File(path + "\\" + txtLastName.getText() + ".txt")).exists() || (new File(path + "/" + txtFirstName.getText() + ".txt")).exists()){
+                    if((new File(path + "/" + txtLastName.getText() + ".txt")).exists() || (new File(path + "/" + txtFirstName.getText() + ".txt")).exists()){
                         person = readFile();
                         //System.out.println(path + "/" + txtLastName.getText() + ".txt");
 
                         if(!person.getLastName().isEmpty()){
-                            file = new File(path + "\\" + txtLastName.getText() + ".txt");
+                            file = new File(path + "/" + txtLastName.getText() + ".txt");
                             //System.out.println(path + "/" + txtLastName.getText() + ".txt");
                             file.delete();
                         } 
                         else if(person.getLastName().equals("")){
-                            file = new File(path + "\\" + person.getFirstName() + ".txt");
+                            file = new File(path + "/" + person.getFirstName() + ".txt");
                             file.delete();
                         }  
                     } 
@@ -510,11 +510,7 @@ public class ContactFrame extends JFrame{
     
     private void saveInFile(Contact contact, String firstName, String lastName) throws IOException{ //Serialize in folder the contact
         
-<<<<<<< HEAD
-        FileOutputStream fichier = new FileOutputStream(path + "\\" + name +".txt");  
-=======
         FileOutputStream fichier = new FileOutputStream(path + "/" + firstName + lastName +".txt");  
->>>>>>> branch 'master' of https://github.com/Jaufnet6/ReichenbachSornette_POO1.git
         BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
         ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
         obfichier.writeObject(contact);
@@ -526,10 +522,10 @@ public class ContactFrame extends JFrame{
         Contact person;
         
         if(txtLastName.getText().equals("") == false){
-            fichier = new FileInputStream(path + "\\" + txtLastName.getText() + ".txt");
+            fichier = new FileInputStream(path + "/" + txtLastName.getText() + ".txt");
         }
         else{
-            fichier = new FileInputStream(path + "\\" + txtFirstName.getText() + ".txt");
+            fichier = new FileInputStream(path + "/" + txtFirstName.getText() + ".txt");
         }
         BufferedInputStream bfichier = new BufferedInputStream(fichier);
         ObjectInputStream obfichier = new ObjectInputStream(bfichier);
