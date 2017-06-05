@@ -35,10 +35,10 @@ public class ContactApp extends JFrame{
     private JButton searchButton;
     //Mac : /Users/black and white/Desktop/App/Backgrounds/plus.png
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\plus.png
-    private Icon addIcon = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\plus.png");
+    private Icon addIcon = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/plus.png");
     //Mac : /Users/black and white/Desktop/App/Contacts
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts
-    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts";
+    private String path = "/Users/black and white/Desktop/App/Contacts";
     private JLabel[] lbllastNameOut;
     private JLabel[] lblOneInfoOut;
     private File contactFolder = new File(path);
@@ -254,14 +254,10 @@ public class ContactApp extends JFrame{
             try{
 
                 if(lbllastNameOut[realposition] != null){
-<<<<<<< HEAD
-                    readContact = readFile(path + "\\" + lbllastNameOut[realposition].getText() + ".txt");
-=======
                     readContact = readFile(path + "/"+ lblfirstNames[realposition].getText() + lbllastNameOut[realposition].getText() + ".txt");
->>>>>>> branch 'master' of https://github.com/Jaufnet6/ReichenbachSornette_POO1.git
                 }
                 else {
-                    readContact = readFile(path + "\\" + lblOneInfoOut[realposition].getText() + ".txt");
+                    readContact = readFile(path + "/" + lblOneInfoOut[realposition].getText() + ".txt");
                 } 
                 
                 contact.setTxtFirstName(readContact.getFirstName());
