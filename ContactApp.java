@@ -254,7 +254,11 @@ public class ContactApp extends JFrame{
             try{
 
                 if(lbllastNameOut[realposition] != null){
+<<<<<<< HEAD
                     readContact = readFile(path + "\\" + lbllastNameOut[realposition].getText() + ".txt");
+=======
+                    readContact = readFile(path + "/"+ lblfirstNames[realposition].getText() + lbllastNameOut[realposition].getText() + ".txt");
+>>>>>>> branch 'master' of https://github.com/Jaufnet6/ReichenbachSornette_POO1.git
                 }
                 else {
                     readContact = readFile(path + "\\" + lblOneInfoOut[realposition].getText() + ".txt");
