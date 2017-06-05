@@ -31,8 +31,12 @@ public class DefaultGalleryFrame extends JFrame{
 	//Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png
 	private Icon defaultAlbum = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png");
 	private JLabel album1Title;
+	private JButton search;
+	private JButton cancel;
 	private JScrollPane scroll;
+	private JScrollPane scrollSearch;
 	private JPanel albumsPanel = new JPanel();
+	private JPanel searchPanel;
 	
 	public DefaultGalleryFrame() throws ClassNotFoundException, IOException {
 	    super("Albums");
@@ -48,7 +52,7 @@ public class DefaultGalleryFrame extends JFrame{
 		addAlbum.setForeground(Color.BLACK);
 		addAlbum.addActionListener(new AddAlbumListener());
 		addAlbum.setBackground(Color.LIGHT_GRAY);
-		addAlbum.setBounds(370, 5, 100, 50);
+		addAlbum.setBounds(5, 5, 100, 50);
 		getContentPane().add(addAlbum);
 		
 		//Research components
@@ -89,12 +93,37 @@ public class DefaultGalleryFrame extends JFrame{
 		homeButton.addActionListener(new HomeListener());
 		getContentPane().add(homeButton);
 		
-		JButton search = new JButton("Search");
-		search.setBackground(Color.LIGHT_GRAY);
-		search.setBounds(5, 5, 100, 50);
+		search = new JButton("Search");
+		search.setBounds(370, 5, 100, 50);
 		getContentPane().add(search);
+		search.setBackground(Color.LIGHT_GRAY);
 		search.setForeground(Color.BLACK);
 		search.addActionListener(new SearchAlbumListener());
+		
+		cancel = new JButton("Cancel");
+		cancel.setBounds(370, 5, 100, 50);
+		getContentPane().add(cancel);
+		cancel.setBackground(Color.LIGHT_GRAY);
+		cancel.setForeground(Color.BLACK);
+		cancel.addActionListener(new CancelListener());
+	}
+	
+	class CancelListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) {
+			try{
+				albumsPanel = loadAlbums();
+				scrollSearch.setVisible(false);
+				scroll = new JScrollPane(albumsPanel);
+				scroll.setBounds(0,60,480,616);
+				getContentPane().add(scroll);
+				txtSearch.setText("Search for an album...");
+				search.setVisible(true);
+				cancel.setVisible(false);
+				
+			} catch(ClassNotFoundException | IOException e1) {
+                e1.printStackTrace();
+            }           
+		}
 	}
 	
 	class HomeListener implements ActionListener{
@@ -113,127 +142,112 @@ public class DefaultGalleryFrame extends JFrame{
 	
 	}
 	
-	class SearchAlbumListener implements ActionListener{
+	private JPanel loadSearchAlbum(String request) throws ClassNotFoundException, IOException{
+		String albPath;
+		File albFolder = new File(path);
+		Album albums[] = new Album[albFolder.listFiles().length];
+		Album albumsFound[] = new Album[albums.length];
+		int cpt=0;
+		int cptFound=0;
+		
+		//Search if each album contains the requested string and stock them if they do
+		File[] files = new File(path).listFiles();
+		for(File file : files){
+			if(file.isFile()){
+				albPath=file.getAbsolutePath();
+				try {
+					albums[cpt] = readFile(albPath);
+				} catch (ClassNotFoundException | IOException e1) {
+					e1.printStackTrace();
+				}
+				if(albums[cpt].getName().toLowerCase().contains(request)){
+					albumsFound[cptFound] = albums[cpt];
+//					System.out.println("Album name : "+albumsFound[cptFound].getName());
+					cptFound++;
+				}
+			}
+			cpt++;
+		}
+		
+		//Creating the panel that displays the searched albums
+		JPanel myPanel = new JPanel();
+		JButton[] buttons = new JButton[cptFound];
+		JLabel[] albumNames = new JLabel[cptFound];
+		String[] albumIcons = new String[cptFound];
+		Icon buttonImg;
+		int x = 40;
+		//Position for the first album
+		int yAlb = 20;
+		//Position for the first label
+		int yLab = 200;
+		int cptX = 0;
+		
+		//Filling the panel
+		for (int i = 0; i < cptFound; i++) {
+			albumIcons[i] = albumsFound[i].getHomePic();
+			buttonImg = new ImageIcon(albumIcons[i]);
+			buttons[i] = new JButton(buttonImg);
+			buttons[i].setName(albumsFound[i].getName());
+			buttons[i].addActionListener(new AlbumButtonListener());
+			albumNames[i] = new JLabel(albumsFound[i].getName());
+			albumNames[i].setHorizontalAlignment(SwingConstants.CENTER);
+			
+			switch(cptX){
+			case 0:
+				buttons[i].setBounds(x,yAlb,175,175);
+				albumNames[i].setBounds(x,yLab,175,20);
+				myPanel.add(buttons[i]);
+				myPanel.add(albumNames[i]);
+				break;
+			case 1:
+				buttons[i].setBounds(x+199,yAlb,175,175);
+				albumNames[i].setBounds(x+199,yLab,175,20);
+				myPanel.add(buttons[i]);
+				myPanel.add(albumNames[i]);
+				break;
+			}
+			cptX++;
+			if(cptX==2){
+				cptX=0;
+				yAlb+=220;
+				yLab+=220;
+			}
+		}
+		
+	JLabel nothing = new JLabel("No album matching.");
+	nothing.setHorizontalAlignment(SwingConstants.CENTER);
+	nothing.setBounds(0,60,474,616);
+	
+	if(cptFound==0)
+		myPanel.add(nothing);
+		
+	myPanel.setLayout(null);
+	myPanel.setPreferredSize(new Dimension(450,yAlb+220));
 
+	return myPanel;
+	}
+	
+	class SearchAlbumListener implements ActionListener{
+		
+		String request;
+		
 		public void actionPerformed(ActionEvent arg0) {
-			String request = txtSearch.getText();
-			String albPath;
-			File albFolder = new File(path);
-			Album albums[] = new Album[albFolder.listFiles().length];
-			Album albumsFound[] = new Album[albums.length];
-			int cpt=0;
-			int cptFound=0;
-			
-			//Search if each album contains the requested string and stock them if they do
-			File[] files = new File(path).listFiles();
-			for(File file : files){
-				if(file.isFile()){
-					albPath=file.getAbsolutePath();
-					try {
-						albums[cpt] = readFile(albPath);
-					} catch (ClassNotFoundException | IOException e1) {
-						e1.printStackTrace();
-					}
-					if(albums[cpt].getName().contains(request)){
-						albumsFound[cptFound] = albums[cpt];
-	//					System.out.println("Album name : "+albumsFound[cptFound].getName());
-						cptFound++;
-					}
+			try {
+				request = txtSearch.getText().toLowerCase();
+				if(request.equals("Search for an album...")){
+					return;
+				}else {
+					searchPanel = loadSearchAlbum(request);
+					scroll.setVisible(false);;
+					scrollSearch = new JScrollPane(searchPanel);
+					scrollSearch.setBounds(0,60,480,616);
+					getContentPane().add(scrollSearch);
+					search.setVisible(false);
+					cancel.setVisible(true);
 				}
-				cpt++;
+			} catch (ClassNotFoundException | IOException e) {
+				e.printStackTrace();			
 			}
-			
-			//Creating the panel that displays the searched albums
-			JPanel searchedAlbumsPanel = new JPanel();
-			JButton[] buttons = new JButton[cptFound];
-			JLabel[] albumNames = new JLabel[cptFound];
-			String[] albumIcons = new String[cptFound];
-			Icon buttonImg;
-			int x = 40;
-			//Position for the first album
-			int yAlb = 20;
-			//Position for the first label
-			int yLab = 200;
-			int cptX = 0;
-			
-			//Filling the panel
-			for (int i = 0; i < cptFound; i++) {
-				albumIcons[i] = albumsFound[i].getHomePic();
-				buttonImg = new ImageIcon(albumIcons[i]);
-				buttons[i] = new JButton(buttonImg);
-				buttons[i].setName(albumsFound[i].getName());
-				buttons[i].addActionListener(new AlbumButtonListener());
-				albumNames[i] = new JLabel(albumsFound[i].getName());
-				albumNames[i].setHorizontalAlignment(SwingConstants.CENTER);
-				
-				switch(cptX){
-				case 0:
-					buttons[i].setBounds(x,yAlb,175,175);
-					albumNames[i].setBounds(x,yLab,175,20);
-					searchedAlbumsPanel.add(buttons[i]);
-					searchedAlbumsPanel.add(albumNames[i]);
-					break;
-				case 1:
-					buttons[i].setBounds(x+199,yAlb,175,175);
-					albumNames[i].setBounds(x+199,yLab,175,20);
-					searchedAlbumsPanel.add(buttons[i]);
-					searchedAlbumsPanel.add(albumNames[i]);
-					break;
-				}
-				cptX++;
-				if(cptX==2){
-					cptX=0;
-					yAlb+=220;
-					yLab+=220;
-				}
-			}
-			searchedAlbumsPanel.setLayout(null);
-			searchedAlbumsPanel.setPreferredSize(new Dimension(450,yAlb+220));
-			
-			//Creating the new frame, which is the same than DefaultGalleryFrame but only with good albums
-			JFrame searchedAlbumsFrame = new JFrame();
-			searchedAlbumsFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			searchedAlbumsFrame.setSize(480, 800);
-			searchedAlbumsFrame.setBackground(Color.BLACK);
-			searchedAlbumsFrame.setResizable(false);
-			searchedAlbumsFrame.getContentPane().setLayout(null);
-			
-			JButton back = new JButton("BACK");
-			back.setBackground(Color.DARK_GRAY);
-			back.setForeground(Color.WHITE);
-			back.setBounds(0, 0, 98, 59);
-			back.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					searchedAlbumsFrame.setVisible(false);
-					txtSearch.setText("Search for an album...");
-					setVisible(true);
-				}
-			});
-			searchedAlbumsFrame.getContentPane().add(back);
-			
-			JLabel requestLabel = new JLabel();
-			requestLabel.setText("Current research : "+request);
-			requestLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			requestLabel.setBounds(59, 0, 364, 59);
-			searchedAlbumsFrame.getContentPane().add(requestLabel);
-			
-			JLabel nothing = new JLabel("No album matching.");
-			nothing.setHorizontalAlignment(SwingConstants.CENTER);
-			nothing.setBounds(0,60,474,616);
-					
-			JScrollPane scroll = new JScrollPane(searchedAlbumsPanel);
-			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-			scroll.setBounds(0,60,474,616);
-			scroll.setBackground(Color.WHITE);
-			
-			//Checking if something has been found
-			if(cptFound==0)
-			searchedAlbumsFrame.getContentPane().add(nothing);
-			else
-			searchedAlbumsFrame.getContentPane().add(scroll);
-			
-			searchedAlbumsFrame.setVisible(true);
-			setVisible(false);
 		}
 		
 	}
