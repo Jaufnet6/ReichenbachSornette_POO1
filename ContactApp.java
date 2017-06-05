@@ -254,7 +254,7 @@ public class ContactApp extends JFrame{
             try{
 
                 if(lbllastNameOut[realposition] != null){
-                    readContact = readFile(path + "/" + lbllastNameOut[realposition].getText() + ".txt");
+                    readContact = readFile(path + "/"+ lblfirstNames[realposition].getText() + lbllastNameOut[realposition].getText() + ".txt");
                 }
                 else {
                     readContact = readFile(path + "/" + lblOneInfoOut[realposition].getText() + ".txt");

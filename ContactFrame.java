@@ -453,20 +453,23 @@ public class ContactFrame extends JFrame{
             try {
                 
                 createDirectory();
-                
+                                
                 if(txtFirstName.getText().equals("First Name") || txtLastName.getText().equals("Last Name")){ //If firstname and lastname not entered cannot save
                     allowingEditableContent();
                     return;
                 }
                 
-                if(txtLastName.getText().equals(""))
+                /*if(txtLastName.getText().equals(""))
                     saveInFile(contact, txtFirstName.getText());
                 else if(txtLastName.getText().equals("") && txtFirstName.getText().equals(""))
                     return;
                 else
-                    saveInFile(contact, txtLastName.getText());
+                    saveInFile(contact, txtLastName.getText()); */
+                saveInFile(contact, txtFirstName.getText(), txtLastName.getText());
             } catch (IOException e1) {
                 e1.getMessage();
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
             
             
@@ -505,9 +508,9 @@ public class ContactFrame extends JFrame{
         contactFolder.mkdir();
     }
     
-    private void saveInFile(Contact contact, String name) throws IOException{ //Serialize in folder the contact
+    private void saveInFile(Contact contact, String firstName, String lastName) throws IOException{ //Serialize in folder the contact
         
-        FileOutputStream fichier = new FileOutputStream(path + "/" + name +".txt");  
+        FileOutputStream fichier = new FileOutputStream(path + "/" + firstName + lastName +".txt");  
         BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
         ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
         obfichier.writeObject(contact);
@@ -528,7 +531,6 @@ public class ContactFrame extends JFrame{
         ObjectInputStream obfichier = new ObjectInputStream(bfichier);
         person = (Contact) obfichier.readObject();
         obfichier.close();
-        //System.out.println(person);
         return person;
     }
     
