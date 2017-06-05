@@ -28,18 +28,19 @@ import javax.swing.JToolBar;
 import javax.swing.JList;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Color;
+import java.awt.Font;
 
 public class PicturesFrame extends JFrame{
 
 	private JPanel picturesPanel = new JPanel();
 	private JScrollPane scroll;
-	//Mac: /Users/black and white/Desktop/App/Gallery
+	//Mac: /Users/black and white/Desktop/App/gallery
 	//Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery
-	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
+	private String path = "/Users/black and white/Desktop/App/gallery";
 
 	public PicturesFrame() throws IOException {
 		super("Pictures");
-		getContentPane().setBackground(new Color(0, 102, 204));
+		getContentPane().setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(480, 800);
 		setResizable(false);
@@ -48,6 +49,7 @@ public class PicturesFrame extends JFrame{
 		
 		//Bottom buttons
 		JButton switchToAlbums = new JButton("ALBUMS");
+		switchToAlbums.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		switchToAlbums.setForeground(Color.BLACK);
 		switchToAlbums.addActionListener(new AlbumButtonListener());
 		switchToAlbums.setBackground(Color.LIGHT_GRAY);
@@ -55,6 +57,7 @@ public class PicturesFrame extends JFrame{
 		getContentPane().add(switchToAlbums);
 		
 		JLabel pictures = new JLabel("PICTURES");
+		pictures.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		pictures.setForeground(Color.WHITE);
 		pictures.setBackground(Color.DARK_GRAY);
 		pictures.setOpaque(true);
@@ -65,13 +68,14 @@ public class PicturesFrame extends JFrame{
 		//My pictures
         scroll = new JScrollPane(picturesPanel);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scroll.setBounds(0, 0, 476, 675);
+        scroll.setBounds(0, 0, 480, 675);
         getContentPane().add(scroll);
         
         JButton homeButton = new JButton("HOME");
-        homeButton.setForeground(Color.WHITE);
+        homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        homeButton.setForeground(Color.BLACK);
         homeButton.setBackground(Color.BLACK);
-        homeButton.setBounds(0, 723, 480, 42);
+        homeButton.setBounds(0, 723, 480, 55);
 		homeButton.addActionListener(new HomeListener());
         getContentPane().add(homeButton);
 	}
@@ -177,7 +181,7 @@ public class PicturesFrame extends JFrame{
 		int cptX=0;
 		
 		for(int i=0;i<images.length;i++){
-			imgPath=path+"\\"+Integer.toString(i)+".jpg";
+			imgPath=path+"/"+Integer.toString(i)+".jpg";
 			fr = new FileInputStream(imgPath);
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);

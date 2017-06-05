@@ -1,6 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -19,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.xml.transform.OutputKeys;
 
 import java.awt.Color;
 import java.time.LocalDateTime;
@@ -86,7 +84,8 @@ public class ContactFrame extends JFrame{
     private void initializeFrame(){
         
         statusBar = new JLabel();
-        statusBar.setBackground(new Color(102, 102, 102));
+        statusBar.setFont(new Font("Avenir", Font.PLAIN, 13));
+        statusBar.setBackground(Color.DARK_GRAY);
         statusBar.setForeground(new Color(255, 255, 255));
         statusBar.setOpaque(true);
         statusBar.setHorizontalAlignment(SwingConstants.CENTER);
@@ -95,22 +94,26 @@ public class ContactFrame extends JFrame{
         setTime();
         
         editButton = new JButton("Edit");
-        editButton.setForeground(new Color(102, 102, 102));
+        editButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        editButton.setForeground(Color.DARK_GRAY);
         editButton.setBounds(45, 703, 180, 69);
         getContentPane().add(editButton);
         
         deleteButton = new JButton("Delete");
-        deleteButton.setForeground(new Color(102, 102, 102));
+        deleteButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        deleteButton.setForeground(Color.DARK_GRAY);
         deleteButton.setBounds(255, 703, 180, 69);
         getContentPane().add(deleteButton);
         
         backButton = new JButton("Back");
-        backButton.setForeground(new Color(102, 102, 102));
+        backButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        backButton.setForeground(Color.DARK_GRAY);
         backButton.setBounds(6, 20, 125, 40);
         getContentPane().add(backButton);
         
         saveButton = new JButton("Save");
-        saveButton.setForeground(new Color(102, 102, 102));
+        saveButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        saveButton.setForeground(Color.DARK_GRAY);
         saveButton.setVisible(false);
         saveButton.setBounds(349, 20, 125, 40);
         getContentPane().add(saveButton);    
@@ -126,114 +129,121 @@ public class ContactFrame extends JFrame{
         getContentPane().add(picLabel);
         
         lblMobile = new JLabel("Mobile:");
-        lblMobile.setForeground(new Color(102, 102, 102));
-        lblMobile.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        lblMobile.setForeground(Color.DARK_GRAY);
+        lblMobile.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         lblMobile.setHorizontalAlignment(SwingConstants.LEFT);
         lblMobile.setBounds(80, 250, 61, 16);
         getContentPane().add(lblMobile);
         
         lblHome = new JLabel("Home:");
-        lblHome.setForeground(new Color(102, 102, 102));
-        lblHome.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        lblHome.setForeground(Color.DARK_GRAY);
+        lblHome.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         lblHome.setHorizontalAlignment(SwingConstants.LEFT);
         lblHome.setBounds(80, 291, 61, 16);
         getContentPane().add(lblHome);
         
         lblFax = new JLabel("Fax:");
-        lblFax.setForeground(new Color(102, 102, 102));
-        lblFax.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        lblFax.setForeground(Color.DARK_GRAY);
+        lblFax.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         lblFax.setHorizontalAlignment(SwingConstants.LEFT);
         lblFax.setBounds(80, 331, 61, 16);
         getContentPane().add(lblFax);
         
         txtMobileNumber = new JTextArea();
+        txtMobileNumber.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtMobileNumber.setTabSize(0);
         txtMobileNumber.setForeground(new Color(255, 255, 255));
-        txtMobileNumber.setBackground(new Color(102, 102, 102));
+        txtMobileNumber.setBackground(Color.DARK_GRAY);
         txtMobileNumber.setEditable(false);
         txtMobileNumber.setBounds(184, 250, 216, 16);
         getContentPane().add(txtMobileNumber);
         
         txtHomeNumber = new JTextArea();
+        txtHomeNumber.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtHomeNumber.setTabSize(0);
         txtHomeNumber.setForeground(new Color(255, 255, 255));
-        txtHomeNumber.setBackground(new Color(102, 102, 102));
+        txtHomeNumber.setBackground(Color.DARK_GRAY);
         txtHomeNumber.setEditable(false);
         txtHomeNumber.setBounds(184, 291, 216, 16);
         getContentPane().add(txtHomeNumber);
         
         txtFaxNumber = new JTextArea();
+        txtFaxNumber.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtFaxNumber.setTabSize(0);
         txtFaxNumber.setForeground(new Color(255, 255, 255));
-        txtFaxNumber.setBackground(new Color(102, 102, 102));
+        txtFaxNumber.setBackground(Color.DARK_GRAY);
         txtFaxNumber.setEditable(false);
         txtFaxNumber.setBounds(184, 331, 216, 16);
         getContentPane().add(txtFaxNumber);
         
         lblEmail = new JLabel("Email:");
-        lblEmail.setForeground(new Color(102, 102, 102));
-        lblEmail.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        lblEmail.setForeground(Color.DARK_GRAY);
+        lblEmail.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         lblEmail.setHorizontalAlignment(SwingConstants.LEFT);
         lblEmail.setBounds(80, 370, 61, 16);
         getContentPane().add(lblEmail);
         
         txtEmail = new JTextArea();
+        txtEmail.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtEmail.setTabSize(0);
         txtEmail.setForeground(new Color(255, 255, 255));
-        txtEmail.setBackground(new Color(102, 102, 102));
+        txtEmail.setBackground(Color.DARK_GRAY);
         txtEmail.setEditable(false);
         txtEmail.setBounds(184, 370, 216, 16);
         getContentPane().add(txtEmail);
         
         lblAddress = new JLabel("Address:");
-        lblAddress.setForeground(new Color(102, 102, 102));
-        lblAddress.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        lblAddress.setForeground(Color.DARK_GRAY);
+        lblAddress.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         lblAddress.setHorizontalAlignment(SwingConstants.LEFT);
         lblAddress.setBounds(80, 411, 61, 16);
         getContentPane().add(lblAddress);
         
         txtAddress = new JTextArea();
+        txtAddress.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtAddress.setTabSize(0);
         txtAddress.setForeground(new Color(255, 255, 255));
-        txtAddress.setBackground(new Color(102, 102, 102));
+        txtAddress.setBackground(Color.DARK_GRAY);
         txtAddress.setEditable(false);
         txtAddress.setBounds(184, 411, 216, 16);
         getContentPane().add(txtAddress);
         
         lblBirthday = new JLabel("Birthday:");
-        lblBirthday.setForeground(new Color(102, 102, 102));
-        lblBirthday.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        lblBirthday.setForeground(Color.DARK_GRAY);
+        lblBirthday.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         lblBirthday.setHorizontalAlignment(SwingConstants.LEFT);
         lblBirthday.setBounds(80, 453, 61, 16);
         getContentPane().add(lblBirthday);
         
         txtBirthday = new JTextArea();
+        txtBirthday.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtBirthday.setTabSize(0);
         txtBirthday.setForeground(new Color(255, 255, 255));
-        txtBirthday.setBackground(new Color(102, 102, 102));
+        txtBirthday.setBackground(Color.DARK_GRAY);
         txtBirthday.setEditable(false);
         txtBirthday.setBounds(184, 453, 216, 16);
         getContentPane().add(txtBirthday);
         
         lblNotes = new JLabel("Notes:");
-        lblNotes.setForeground(new Color(102, 102, 102));
-        lblNotes.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        lblNotes.setForeground(Color.DARK_GRAY);
+        lblNotes.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         lblNotes.setHorizontalAlignment(SwingConstants.LEFT);
         lblNotes.setBounds(80, 498, 61, 16);
         getContentPane().add(lblNotes);
         
         txtNotes = new JTextArea();
+        txtNotes.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtNotes.setForeground(new Color(255, 255, 255));
-        txtNotes.setBackground(new Color(102, 102, 102));
+        txtNotes.setBackground(Color.DARK_GRAY);
         txtNotes.setEditable(false);
         txtNotes.setBounds(80, 543, 320, 114);
         getContentPane().add(txtNotes);
         
         txtFirstName = new JTextArea();
         txtFirstName.setTabSize(0);
-        txtFirstName.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        txtFirstName.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtFirstName.setAlignmentX(10f);
-        txtFirstName.setForeground(new Color(102, 102, 102));
+        txtFirstName.setForeground(Color.DARK_GRAY);
         txtFirstName.setEditable(false);
         txtFirstName.setText("First Name");
         txtFirstName.setBounds(276, 100, 134, 20);
@@ -242,9 +252,9 @@ public class ContactFrame extends JFrame{
         
         txtLastName = new JTextArea();
         txtLastName.setTabSize(0);
-        txtLastName.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        txtLastName.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtLastName.setAlignmentY(SwingConstants.RIGHT);
-        txtLastName.setForeground(new Color(102, 102, 102));
+        txtLastName.setForeground(Color.DARK_GRAY);
         txtLastName.setEditable(false);
         txtLastName.setText("Last Name");
         txtLastName.setColumns(10);
@@ -253,9 +263,9 @@ public class ContactFrame extends JFrame{
         
         txtCompany = new JTextArea();
         txtCompany.setTabSize(0);
-        txtCompany.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+        txtCompany.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         txtCompany.setAlignmentY(SwingConstants.LEFT);
-        txtCompany.setForeground(new Color(102, 102, 102));
+        txtCompany.setForeground(Color.DARK_GRAY);
         txtCompany.setEditable(false);
         txtCompany.setText("Company");
         txtCompany.setColumns(10);
@@ -388,19 +398,11 @@ public class ContactFrame extends JFrame{
                 
                 int ret = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?");
                 if (ret == JOptionPane.YES_OPTION){
-                    if((new File(path + "/" + txtLastName.getText() + ".txt")).exists() || (new File(path + "/" + txtFirstName.getText() + ".txt")).exists()){
+                    if((new File(path + "/" +  txtLastName.getText() + txtFirstName.getText() + ".txt")).exists()) {
                         person = readFile();
-                        //System.out.println(path + "/" + txtLastName.getText() + ".txt");
+                        file = new File(path + "/" +  txtLastName.getText() + txtFirstName.getText() + ".txt");
+                        file.delete();
 
-                        if(!person.getLastName().isEmpty()){
-                            file = new File(path + "/" + txtLastName.getText() + ".txt");
-                            //System.out.println(path + "/" + txtLastName.getText() + ".txt");
-                            file.delete();
-                        } 
-                        else if(person.getLastName().equals("")){
-                            file = new File(path + "/" + person.getFirstName() + ".txt");
-                            file.delete();
-                        }  
                     } 
                 }
             ContactApp contactapp = new ContactApp();
@@ -458,13 +460,7 @@ public class ContactFrame extends JFrame{
                     allowingEditableContent();
                     return;
                 }
-                
-                /*if(txtLastName.getText().equals(""))
-                    saveInFile(contact, txtFirstName.getText());
-                else if(txtLastName.getText().equals("") && txtFirstName.getText().equals(""))
-                    return;
-                else
-                    saveInFile(contact, txtLastName.getText()); */
+
                 saveInFile(contact, txtFirstName.getText(), txtLastName.getText());
             } catch (IOException e1) {
                 e1.getMessage();
@@ -510,7 +506,7 @@ public class ContactFrame extends JFrame{
     
     private void saveInFile(Contact contact, String firstName, String lastName) throws IOException{ //Serialize in folder the contact
         
-        FileOutputStream fichier = new FileOutputStream(path + "/" + firstName + lastName +".txt");  
+        FileOutputStream fichier = new FileOutputStream(path + "/" + lastName + firstName +".txt");  
         BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
         ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
         obfichier.writeObject(contact);
@@ -520,13 +516,8 @@ public class ContactFrame extends JFrame{
     private Contact readFile() throws ClassNotFoundException, IOException{  //Read a already saved contact
         FileInputStream fichier;
         Contact person;
-        
-        if(txtLastName.getText().equals("") == false){
-            fichier = new FileInputStream(path + "/" + txtLastName.getText() + ".txt");
-        }
-        else{
-            fichier = new FileInputStream(path + "/" + txtFirstName.getText() + ".txt");
-        }
+        fichier = new FileInputStream(path + "/" +  txtLastName.getText() + txtFirstName.getText() + ".txt");
+
         BufferedInputStream bfichier = new BufferedInputStream(fichier);
         ObjectInputStream obfichier = new ObjectInputStream(bfichier);
         person = (Contact) obfichier.readObject();

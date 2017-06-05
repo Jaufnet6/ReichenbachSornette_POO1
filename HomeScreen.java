@@ -23,9 +23,6 @@ public class HomeScreen extends JFrame{
     private static LocalDateTime time;
     private JLabel statusBar;
     private JLabel backgroundLbl;
-    private JLabel lblCalculator;
-    private JLabel lblContact;
-    private JLabel lblGallery;
     private JFrame frame;
     private JButton contactButton;
     private JButton galleryButton;
@@ -33,20 +30,23 @@ public class HomeScreen extends JFrame{
     
     // Mac : /Users/black and white/Desktop/App/Backgrounds/
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds
-    private File folder = new File("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds");
+    private File folder = new File("/Users/black and white/Desktop/App/Backgrounds/");
     // Mac : /Users/black and white/Desktop/App/Backgrounds/tiger.jpg
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg
-    private Icon backgroundImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg");
+    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png");
 
     private ContactApp contacts;
     private CalculatorFrame calculator;
+    private DefaultGalleryFrame dgf;
     
     public HomeScreen() throws InterruptedException, IOException, ClassNotFoundException {
         super("Reich Sauron");
         getContentPane().setLayout(null);
+        setResizable(false);
         
         statusBar = new JLabel("");
-        statusBar.setBackground(new Color(102, 102, 102));
+        statusBar.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        statusBar.setBackground(Color.DARK_GRAY);
         statusBar.setForeground(new Color(255, 255, 255));
         statusBar.setOpaque(true);
         statusBar.setHorizontalAlignment(SwingConstants.CENTER);
@@ -57,9 +57,13 @@ public class HomeScreen extends JFrame{
         BufferedImage bcontact = resizePhotos("contact");
         ImageIcon contactButtonImage= new ImageIcon(bcontact);
         
-        contactButton = new JButton(contactButtonImage);
-        contactButton.setOpaque(false);
-        contactButton.setContentAreaFilled(false);
+        contactButton = new JButton();
+        contactButton.setForeground(Color.WHITE);
+        contactButton.setFont(new Font("Avenir Next", Font.BOLD | Font.ITALIC, 16));
+        contactButton.setText("Contact");
+        contactButton.setBackground(Color.DARK_GRAY);
+        contactButton.setOpaque(true);
+        contactButton.setContentAreaFilled(true);
         contactButton.setBorderPainted(false);
         contactButton.setBounds(121, 40, 230, 207);
         contactButton.addActionListener(new ActionListener() {
@@ -72,14 +76,18 @@ public class HomeScreen extends JFrame{
         BufferedImage bgal = resizePhotos("gallery");
         ImageIcon galButtonImage= new ImageIcon(bgal);
         
-        galleryButton = new JButton(galButtonImage);
-        galleryButton.setOpaque(false);
-        galleryButton.setContentAreaFilled(false);
+        galleryButton = new JButton();
+        galleryButton.setForeground(Color.WHITE);
+        galleryButton.setFont(new Font("Avenir Next", Font.BOLD | Font.ITALIC, 16));
+        galleryButton.setText("Gallery");
+        galleryButton.setBackground(Color.DARK_GRAY);
+        galleryButton.setOpaque(true);
+        galleryButton.setContentAreaFilled(true);
         galleryButton.setBorderPainted(false);
         galleryButton.setBounds(121, 287, 230, 207);
         galleryButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                DefaultGalleryFrame dgf;
+                
                 try {
                     dgf = new DefaultGalleryFrame();
                     setVisible(false);
@@ -94,48 +102,23 @@ public class HomeScreen extends JFrame{
         BufferedImage bcalc = resizePhotos("calc");
         ImageIcon calButtonImage= new ImageIcon(bcalc);
         
-        calculatorButton = new JButton(calButtonImage);
-        calculatorButton.setOpaque(false);
-        calculatorButton.setContentAreaFilled(false);
+        calculatorButton = new JButton();
+        calculatorButton.setForeground(Color.WHITE);
+        calculatorButton.setFont(new Font("Avenir Next", Font.BOLD | Font.ITALIC, 16));
+        calculatorButton.setText("Calculator");
+        calculatorButton.setBackground(Color.DARK_GRAY);
+        calculatorButton.setOpaque(true);
+        calculatorButton.setContentAreaFilled(true);
         calculatorButton.setBorderPainted(false);
-        calculatorButton.setBounds(115, 532, 230, 207);
+        calculatorButton.setBounds(121, 531, 230, 207);
         calculatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 calculator.setVisible(true);
                 setVisible(false);
             }
         });
-        
-        lblContact = new JLabel("Contact");
-        lblContact.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
-        lblContact.setForeground(new Color(255, 255, 255));
-        lblContact.setHorizontalAlignment(SwingConstants.CENTER);
-        lblContact.setOpaque(false);
-        lblContact.setBackground(new Color(255, 255, 255));
-        lblContact.setBounds(195, 136, 76, 16);
-        getContentPane().add(lblContact);
-        
-        
         getContentPane().add(contactButton);
-        
-        lblGallery = new JLabel("Gallery");
-        lblGallery.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
-        lblGallery.setForeground(new Color(102, 102, 102));
-        lblGallery.setHorizontalAlignment(SwingConstants.CENTER);
-        lblGallery.setBackground(new Color(255, 255, 255));
-        lblGallery.setOpaque(false);
-        lblGallery.setBounds(195, 383, 76, 16);
-        getContentPane().add(lblGallery);
         getContentPane().add(galleryButton);
-        
-        lblCalculator = new JLabel("Calculator");
-        lblCalculator.setFont(new Font("Trebuchet MS", Font.BOLD | Font.ITALIC, 15));
-        lblCalculator.setForeground(new Color(102, 102, 102));
-        lblCalculator.setHorizontalAlignment(SwingConstants.CENTER);
-        lblCalculator.setBackground(new Color(255, 255, 255));
-        lblCalculator.setOpaque(false);
-        lblCalculator.setBounds(195, 562, 76, 16);
-        getContentPane().add(lblCalculator);
         getContentPane().add(calculatorButton);
 
         backgroundLbl = new JLabel(backgroundImage);

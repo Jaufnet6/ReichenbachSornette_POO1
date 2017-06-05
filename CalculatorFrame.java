@@ -47,7 +47,7 @@ public class CalculatorFrame extends JFrame{
     private JButton add = new JButton("+");
     private JButton substract = new JButton("-");
     private JButton multiply = new JButton("x");
-    private JButton divide = new JButton("/");
+    private JButton divide = new JButton("÷");
     
     private  Timer tm;
     private static LocalDateTime time;
@@ -55,15 +55,16 @@ public class CalculatorFrame extends JFrame{
     
 	public CalculatorFrame() {
 		 super("Calculator");
-		 getContentPane().setBackground(new Color(51, 153, 204));
+		 getContentPane().setBackground(Color.DARK_GRAY);
 	        setDefaultCloseOperation(EXIT_ON_CLOSE);
 	        setSize(480, 800);
 			setResizable(false);
 			getContentPane().setLayout(null);
 			
 			statusBar = new JLabel("");
-	        statusBar.setBackground(new Color(255, 255, 255));
-	        statusBar.setForeground(new Color(102, 102, 102));
+			statusBar.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+	        statusBar.setBackground(Color.DARK_GRAY);
+	        statusBar.setForeground(Color.WHITE);
 	        statusBar.setOpaque(true);
 	        statusBar.setHorizontalAlignment(SwingConstants.CENTER);
 	        statusBar.setBounds(179, 0, 128, 20);
@@ -101,104 +102,105 @@ public class CalculatorFrame extends JFrame{
 			getContentPane().add(secondNumber);
 			
 			//Buttons clears&go
-			clearAll.setBackground(SystemColor.activeCaption);
+			clearAll.setBackground(Color.WHITE);
 			clearAll.setFont(new Font("Arial", Font.BOLD, 22));
 			clearAll.setBounds(397, 217, 65, 55);
 			getContentPane().add(clearAll);
 			
-			clear.setBackground(SystemColor.activeCaption);
+			clear.setBackground(Color.WHITE);
 			clear.setFont(new Font("Arial", Font.BOLD, 22));
 			clear.setBounds(333, 217, 65, 55);
 			getContentPane().add(clear);
 			
-			go.setBackground(SystemColor.activeCaption);
+			go.setBackground(Color.WHITE);
 			go.setFont(new Font("Arial", Font.BOLD, 30));
 			go.setBounds(333, 271, 129, 69);
 			getContentPane().add(go);
 			
 			//Bottom part : numbers
-			one.setBackground(SystemColor.activeCaption);
+			one.setBackground(Color.WHITE);
 			one.setFont(new Font("Arial", Font.BOLD, 30));
 			one.setBounds(12, 355, 110, 100);
 			getContentPane().add(one);
 			
-			two.setBackground(SystemColor.activeCaption);
+			two.setBackground(Color.WHITE);
 			two.setFont(new Font("Arial", Font.BOLD, 30));
 			two.setBounds(121, 355, 110, 100);
 			getContentPane().add(two);
 			
-			three.setBackground(SystemColor.activeCaption);
+			three.setBackground(Color.WHITE);
 			three.setFont(new Font("Arial", Font.BOLD, 30));
 			three.setBounds(230, 355, 110, 100);
 			getContentPane().add(three);
 			
-			four.setBackground(SystemColor.activeCaption);
+			four.setBackground(Color.WHITE);
 			four.setFont(new Font("Arial", Font.BOLD, 30));
 			four.setBounds(12, 454, 110, 100);
 			getContentPane().add(four);
 			
-			five.setBackground(SystemColor.activeCaption);
+			five.setBackground(Color.WHITE);
 			five.setFont(new Font("Arial", Font.BOLD, 30));
 			five.setBounds(121, 454, 110, 100);
 			getContentPane().add(five);
 			
-			six.setBackground(SystemColor.activeCaption);
+			six.setBackground(Color.WHITE);
 			six.setFont(new Font("Arial", Font.BOLD, 30));
 			six.setBounds(230, 454, 110, 100);
 			getContentPane().add(six);
 			
-			seven.setBackground(SystemColor.activeCaption);
+			seven.setBackground(Color.WHITE);
 			seven.setFont(new Font("Arial", Font.BOLD, 30));
 			seven.setBounds(12, 553, 110, 100);
 			getContentPane().add(seven);
 			
-			eight.setBackground(SystemColor.activeCaption);
+			eight.setBackground(Color.WHITE);
 			eight.setFont(new Font("Arial", Font.BOLD, 30));
 			eight.setBounds(121, 553, 110, 100);
 			getContentPane().add(eight);
 			
-			nine.setBackground(SystemColor.activeCaption);
+			nine.setBackground(Color.WHITE);
 			nine.setFont(new Font("Arial", Font.BOLD, 30));
 			nine.setBounds(230, 553, 110, 100);
 			getContentPane().add(nine);
 			
-			zero.setBackground(SystemColor.activeCaption);
+			zero.setBackground(Color.WHITE);
 			zero.setFont(new Font("Arial", Font.BOLD, 30));
 			zero.setBounds(121, 652, 110, 100);
 			getContentPane().add(zero);
 			
-			dot.setBackground(SystemColor.activeCaption);
+			dot.setBackground(Color.WHITE);
 			dot.setFont(new Font("Arial", Font.BOLD, 30));
 			dot.setBounds(230, 652, 110, 100);
 			getContentPane().add(dot);
 						
-			negation.setBackground(SystemColor.activeCaption);
+			negation.setBackground(Color.WHITE);
 			negation.setFont(new Font("Arial", Font.BOLD, 30));
 			negation.setBounds(12, 652, 110, 100);
 			getContentPane().add(negation);
 			
 			//Operation buttons
-			add.setBackground(SystemColor.activeCaption);
+			add.setBackground(Color.WHITE);
 			add.setFont(new Font("Arial", Font.BOLD, 30));
 			add.setBounds(352, 355, 110, 100);
 			getContentPane().add(add);
 			
-			substract.setBackground(SystemColor.activeCaption);
+			substract.setBackground(Color.WHITE);
 			substract.setFont(new Font("Arial", Font.BOLD, 30));
 			substract.setBounds(352, 454, 110, 100);
 			getContentPane().add(substract);
 			
-			multiply.setBackground(SystemColor.activeCaption);
+			multiply.setBackground(Color.WHITE);
 			multiply.setFont(new Font("Arial", Font.BOLD, 30));
 			multiply.setBounds(352, 553, 110, 100);
 			getContentPane().add(multiply);
 			
-			divide.setBackground(SystemColor.activeCaption);
+			divide.setBackground(Color.WHITE);
 			divide.setFont(new Font("Arial", Font.BOLD, 30));
 			divide.setBounds(352, 652, 110, 100);
 			getContentPane().add(divide);
 			
 			JButton btnBack = new JButton("Back");
+			btnBack.setBackground(Color.WHITE);
 			btnBack.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent e) {
 			        HomeScreen homescreen;
