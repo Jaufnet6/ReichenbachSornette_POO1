@@ -85,3 +85,9 @@
 /ContactApp$Home_Button.class
 /DefaultGalleryFrame$HomeListener.class
 /PicturesFrame$HomeListener.class
+/ContactApp$Cancel_Button.class
+/ContactApp$Search_Button.class
+/ResizeImage.class
+/AlbumCreationFrame$HomeListener.class
+/PicturesFrame$PictureButtonListener$2.class
+/DefaultGalleryFrame$AlbumButtonListener$3.class

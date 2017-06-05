@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+
 import java.awt.Button;
 import java.awt.Color;
 
@@ -54,6 +55,7 @@ public class AlbumCreationFrame extends JFrame{
 	
 	public AlbumCreationFrame() throws IOException {
 		super("New Album");
+		getContentPane().setBackground(Color.WHITE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(480, 800);
 		setResizable(false);
@@ -72,16 +74,17 @@ public class AlbumCreationFrame extends JFrame{
 		albumNameTxt.setColumns(10);
 		
 		//Bottom part of the frame
-		JButton CancelButton = new JButton("Cancel");
+		JButton CancelButton = new JButton("CANCEL");
 		CancelButton.addActionListener(new CancelListener());
-		CancelButton.setBackground(SystemColor.activeCaption);
-		CancelButton.setBounds(0, 679, 238, 86);
+		CancelButton.setBackground(Color.LIGHT_GRAY);
+		CancelButton.setBounds(0, 676, 240, 50);
 		getContentPane().add(CancelButton);
 		
-		JButton OKButton = new JButton("Save album");
+		JButton OKButton = new JButton("SAVE");
+		OKButton.setForeground(Color.WHITE);
 		OKButton.addActionListener(new SaveListener());
-		OKButton.setBackground(SystemColor.textHighlight);
-		OKButton.setBounds(236, 679, 238, 86);
+		OKButton.setBackground(Color.DARK_GRAY);
+		OKButton.setBounds(234, 676, 240, 50);
 		getContentPane().add(OKButton);
 		
 		//Pics part
@@ -101,6 +104,29 @@ public class AlbumCreationFrame extends JFrame{
 		nameError.setHorizontalAlignment(SwingConstants.CENTER);
 		nameError.setBounds(12, 97, 450, 36);
 		getContentPane().add(nameError);
+		
+		JButton homeButton = new JButton("HOME");
+		homeButton.setForeground(Color.WHITE);
+		homeButton.setBackground(Color.BLACK);
+		homeButton.setBounds(0, 723, 474, 42);
+		homeButton.addActionListener(new HomeListener());
+		getContentPane().add(homeButton);
+	}
+	
+	class HomeListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg0) {
+			HomeScreen hs;
+			try {
+				hs = new HomeScreen();
+				setVisible(false);
+				hs.setVisible(true);
+			} catch (ClassNotFoundException | InterruptedException | IOException e) {
+				e.printStackTrace();
+			}
+		
+		}
+	
 	}
 	
 	class CancelListener implements ActionListener{
@@ -219,6 +245,7 @@ public class AlbumCreationFrame extends JFrame{
 	
 	private JPanel loadPics() throws IOException{
 		JPanel myPanel = new JPanel();
+		myPanel.setBackground(Color.WHITE);
 		FileInputStream fr;
 		BufferedInputStream bfr;
 		File picFolder = new File(path+"\\gallery");

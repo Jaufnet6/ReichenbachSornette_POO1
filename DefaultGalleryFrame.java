@@ -26,15 +26,17 @@ public class DefaultGalleryFrame extends JFrame{
 	private JTextField txtSearch;
 	//Mac: /Users/black and white/Desktop/App/Album
 	//Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\albums
-	private String path = "/Users/black and white/Desktop/App/albums";
-	private Icon defaultAlbum = new ImageIcon("/Users/black and white/Desktop/App/defaultPictures/album.png");
+	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\albums";
+	//Mac : /Users/black and white/Desktop/App/defaultPictures/album.png
+	//Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png
+	private Icon defaultAlbum = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png");
 	private JLabel album1Title;
 	private JScrollPane scroll;
 	private JPanel albumsPanel = new JPanel();
 	
 	public DefaultGalleryFrame() throws ClassNotFoundException, IOException {
 	    super("Albums");
-	    getContentPane().setBackground(new Color(0, 102, 204));
+	    getContentPane().setBackground(Color.BLACK);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(480, 800);
 		setResizable(false);
@@ -42,11 +44,11 @@ public class DefaultGalleryFrame extends JFrame{
 		albumsPanel=loadAlbums();
 		
 		//Top part of the frame
-		JButton addAlbum = new JButton("Add album");
-		addAlbum.setForeground(new Color(102, 102, 102));
+		JButton addAlbum = new JButton("New album");
+		addAlbum.setForeground(Color.BLACK);
 		addAlbum.addActionListener(new AddAlbumListener());
-		addAlbum.setBackground(Color.GREEN);
-		addAlbum.setBounds(5, 5, 100, 50);
+		addAlbum.setBackground(Color.LIGHT_GRAY);
+		addAlbum.setBounds(370, 5, 100, 50);
 		getContentPane().add(addAlbum);
 		
 		//Research components
@@ -54,29 +56,24 @@ public class DefaultGalleryFrame extends JFrame{
 		txtSearch.setForeground(new Color(102, 102, 102));
 		txtSearch.setHorizontalAlignment(SwingConstants.CENTER);
 		txtSearch.setText("Search for an album...");
-		txtSearch.setBounds(115, 5, 250, 50);
+		txtSearch.setBounds(110, 5, 255, 50);
 		getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 		
-		JButton search = new JButton("Search");
-		search.setForeground(new Color(102, 102, 102));
-		search.setBounds(375, 5, 100, 50);
-		search.addActionListener(new SearchAlbumListener());
-		getContentPane().add(search);
-		
 		//Bottom part
 		JButton switchToPictures = new JButton("PICTURES");
-		switchToPictures.setForeground(new Color(102, 102, 102));
+		switchToPictures.setForeground(Color.BLACK);
 		switchToPictures.addActionListener(new PicturesButtonListener());
-		switchToPictures.setBackground(SystemColor.activeCaption);
-		switchToPictures.setBounds(10, 690, 140, 70);
+		switchToPictures.setBackground(Color.LIGHT_GRAY);
+		switchToPictures.setBounds(0, 676, 240, 50);
 		getContentPane().add(switchToPictures);
 		
 		JLabel albums = new JLabel("ALBUMS");
+		albums.setForeground(Color.WHITE);
 		albums.setOpaque(true);
-		albums.setBackground(new Color(102, 153, 51));
+		albums.setBackground(Color.DARK_GRAY);
 		albums.setHorizontalAlignment(SwingConstants.CENTER);
-		albums.setBounds(325, 690, 140, 70);
+		albums.setBounds(234, 676, 240, 50);
 		getContentPane().add(albums);
 		
 		//Middle part
@@ -86,11 +83,18 @@ public class DefaultGalleryFrame extends JFrame{
 		getContentPane().add(scroll);
 		
 		JButton homeButton = new JButton("HOME");
-		homeButton.setForeground(new Color(102, 102, 102));
+		homeButton.setForeground(Color.WHITE);
 		homeButton.setBackground(Color.BLACK);
-		homeButton.setBounds(165, 690, 140, 70);
+		homeButton.setBounds(0, 723, 474, 42);
 		homeButton.addActionListener(new HomeListener());
 		getContentPane().add(homeButton);
+		
+		JButton search = new JButton("Search");
+		search.setBackground(Color.LIGHT_GRAY);
+		search.setBounds(5, 5, 100, 50);
+		getContentPane().add(search);
+		search.setForeground(Color.BLACK);
+		search.addActionListener(new SearchAlbumListener());
 	}
 	
 	class HomeListener implements ActionListener{
@@ -190,11 +194,13 @@ public class DefaultGalleryFrame extends JFrame{
 			JFrame searchedAlbumsFrame = new JFrame();
 			searchedAlbumsFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 			searchedAlbumsFrame.setSize(480, 800);
+			searchedAlbumsFrame.setBackground(Color.BLACK);
 			searchedAlbumsFrame.setResizable(false);
 			searchedAlbumsFrame.getContentPane().setLayout(null);
 			
 			JButton back = new JButton("BACK");
-			back.setBackground(Color.RED);
+			back.setBackground(Color.DARK_GRAY);
+			back.setForeground(Color.WHITE);
 			back.setBounds(0, 0, 98, 59);
 			back.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -218,6 +224,7 @@ public class DefaultGalleryFrame extends JFrame{
 			JScrollPane scroll = new JScrollPane(searchedAlbumsPanel);
 			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 			scroll.setBounds(0,60,474,616);
+			scroll.setBackground(Color.WHITE);
 			
 			//Checking if something has been found
 			if(cptFound==0)
@@ -303,8 +310,9 @@ public class DefaultGalleryFrame extends JFrame{
 			JLabel albumName = new JLabel();
 			albumName.setText(currentAlbum.getName());
 			albumName.setFont(new Font("Tahoma", Font.BOLD, 20));
+			albumName.setForeground(Color.WHITE);
 			albumName.setHorizontalAlignment(SwingConstants.CENTER);
-			albumName.setBounds(97, 0, 280, 42);
+			albumName.setBounds(97, 8, 280, 42);
 			
 			//Filling the panel
 			JPanel picturesPanel = new JPanel();
@@ -319,8 +327,9 @@ public class DefaultGalleryFrame extends JFrame{
 			JFrame albumFrame = new JFrame();
 			
 			JButton back = new JButton("BACK");
-			back.setBackground(SystemColor.textHighlight);
-			back.setBounds(0, 0, 97, 42);
+			back.setBackground(Color.DARK_GRAY);
+			back.setForeground(Color.WHITE);
+			back.setBounds(5, 5, 100, 50);
 			back.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					albumFrame.setVisible(false);
@@ -328,16 +337,34 @@ public class DefaultGalleryFrame extends JFrame{
 				}
 			});
 			
+			JButton homeButton = new JButton("HOME");
+			homeButton.setForeground(Color.WHITE);
+			homeButton.setBackground(Color.BLACK);
+			homeButton.setBounds(0, 723, 474, 42);
+			homeButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					HomeScreen hs;
+					try {
+						hs = new HomeScreen();
+						albumFrame.setVisible(false);
+						hs.setVisible(true);
+					} catch (ClassNotFoundException | InterruptedException | IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+			
 			//Deleting the current album
 			JButton delete = new JButton("DELETE");
-			delete.setBackground(Color.RED);
-			delete.setBounds(377, 0, 97, 42);
+			delete.setBackground(Color.LIGHT_GRAY);
+			delete.setForeground(Color.BLACK);			
+			delete.setBounds(370, 5, 100, 50);
 			delete.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					File file = new File(path+"\\"+albName+".txt");
 					try {					
 						//Confirmation
-						int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete "+albName+" ?");
+						int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete \""+albName+"\" ?");
 						if(option==JOptionPane.YES_OPTION){
 							file.delete();
 							//Opening a new Gallery frame after deleting the album
@@ -355,12 +382,16 @@ public class DefaultGalleryFrame extends JFrame{
 			albumFrame.setSize(480, 800);
 			albumFrame.setResizable(false);	
 			albumFrame.getContentPane().setLayout(null);
+			albumFrame.getContentPane().setBackground(Color.BLACK);
 			albumFrame.getContentPane().add(back);
 			albumFrame.getContentPane().add(delete);
 			albumFrame.getContentPane().add(albumName);
+			albumFrame.getContentPane().add(homeButton);
+
+			picturesPanel.setBackground(Color.WHITE);
 			scroll = new JScrollPane(picturesPanel);
 			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-			scroll.setBounds (0, 50, 476, 775);
+			scroll.setBounds (0,60,480,698);
 			albumFrame.getContentPane().add(scroll);
 			albumFrame.setVisible(true);
 			setVisible(false);
@@ -408,7 +439,7 @@ public class DefaultGalleryFrame extends JFrame{
 	//Loading albums already created
 	private JPanel loadAlbums() throws ClassNotFoundException, IOException{
 		JPanel myPanel = new JPanel();
-		myPanel.setBackground(new Color(102, 153, 255));
+		myPanel.setBackground(Color.WHITE);
 		File albFolder = new File(path);
 		Album[] albums = new Album[albFolder.listFiles().length];
 		JButton[] buttons = new JButton[albFolder.listFiles().length];

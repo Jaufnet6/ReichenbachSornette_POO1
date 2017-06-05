@@ -35,7 +35,7 @@ public class PicturesFrame extends JFrame{
 	private JScrollPane scroll;
 	//Mac: /Users/black and white/Desktop/App/Gallery
 	//Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery
-	private String path = "/Users/black and white/Desktop/App/gallery";
+	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
 
 	public PicturesFrame() throws IOException {
 		super("Pictures");
@@ -48,16 +48,18 @@ public class PicturesFrame extends JFrame{
 		
 		//Bottom buttons
 		JButton switchToAlbums = new JButton("ALBUMS");
+		switchToAlbums.setForeground(Color.BLACK);
 		switchToAlbums.addActionListener(new AlbumButtonListener());
-		switchToAlbums.setBackground(SystemColor.inactiveCaption);
-		switchToAlbums.setBounds(325, 690, 140, 70);
+		switchToAlbums.setBackground(Color.LIGHT_GRAY);
+		switchToAlbums.setBounds(240, 676, 240, 50);
 		getContentPane().add(switchToAlbums);
 		
 		JLabel pictures = new JLabel("PICTURES");
-		pictures.setBackground(new Color(102, 153, 51));
+		pictures.setForeground(Color.WHITE);
+		pictures.setBackground(Color.DARK_GRAY);
 		pictures.setOpaque(true);
 		pictures.setHorizontalAlignment(SwingConstants.CENTER);
-		pictures.setBounds(10, 690, 140, 70);
+		pictures.setBounds(0, 676, 240, 50);
 		getContentPane().add(pictures);
 		
 		//My pictures
@@ -67,9 +69,9 @@ public class PicturesFrame extends JFrame{
         getContentPane().add(scroll);
         
         JButton homeButton = new JButton("HOME");
-        homeButton.setForeground(new Color(0, 0, 0));
+        homeButton.setForeground(Color.WHITE);
         homeButton.setBackground(Color.BLACK);
-        homeButton.setBounds(165, 690, 140, 70);
+        homeButton.setBounds(0, 723, 480, 42);
 		homeButton.addActionListener(new HomeListener());
         getContentPane().add(homeButton);
 	}
@@ -114,21 +116,43 @@ public class PicturesFrame extends JFrame{
 			image.setBounds(10, 55, 452, 697);
 			
 			JButton back = new JButton("BACK");
-			back.setBackground(SystemColor.textHighlight);
+			back.setBackground(Color.DARK_GRAY);
+			back.setForeground(Color.WHITE);
 			back.setBounds(0, 0, 97, 42);
+			
+			JButton homeButton = new JButton("HOME");
+	        homeButton.setForeground(Color.WHITE);
+	        homeButton.setBackground(Color.BLACK);
+	        homeButton.setBounds(0, 723, 480, 42);
+			
+	        getContentPane().add(homeButton);
 			
 			//Frame that displays the pic in big
 			JFrame bigPic = new JFrame();
 			bigPic.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			bigPic.setSize(480, 800);
 			bigPic.setResizable(false);	
+			bigPic.getContentPane().setBackground(Color.WHITE);
 			bigPic.getContentPane().setLayout(null);
 			bigPic.getContentPane().add(image);
 			bigPic.getContentPane().add(back);
+			bigPic.getContentPane().add(homeButton);
 			back.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					bigPic.setVisible(false);
 					setVisible(true);
+				}
+			});
+			homeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					HomeScreen hs;
+					try {
+						hs = new HomeScreen();
+						bigPic.setVisible(false);
+						hs.setVisible(true);
+					} catch (ClassNotFoundException | InterruptedException | IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			});
 			bigPic.setVisible(true);
@@ -139,7 +163,7 @@ public class PicturesFrame extends JFrame{
 	
 	private JPanel loadPics() throws IOException{
 		JPanel myPanel = new JPanel();
-		myPanel.setBackground(new Color(102, 153, 255));
+		myPanel.setBackground(Color.WHITE);
 		FileInputStream fr;
 		BufferedInputStream bfr;
 		File picFolder = new File(path);
@@ -153,7 +177,7 @@ public class PicturesFrame extends JFrame{
 		int cptX=0;
 		
 		for(int i=0;i<images.length;i++){
-			imgPath=path+"/"+Integer.toString(i)+".jpg";
+			imgPath=path+"\\"+Integer.toString(i)+".jpg";
 			fr = new FileInputStream(imgPath);
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);
