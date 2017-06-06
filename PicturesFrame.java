@@ -74,7 +74,6 @@ public class PicturesFrame extends JFrame{
         JButton homeButton = new JButton("HOME");
         homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         homeButton.setForeground(Color.BLACK);
-        homeButton.setBackground(Color.BLACK);
         homeButton.setBounds(0, 723, 480, 55);
 		homeButton.addActionListener(new HomeListener());
         getContentPane().add(homeButton);
@@ -120,19 +119,19 @@ public class PicturesFrame extends JFrame{
 			image.setBounds(10, 55, 452, 697);
 			
 			JButton back = new JButton("BACK");
-			back.setBackground(Color.DARK_GRAY);
-			back.setForeground(Color.WHITE);
+			back.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+			back.setForeground(Color.BLACK);
 			back.setBounds(0, 0, 97, 42);
 			
 			JButton homeButton = new JButton("HOME");
-	        homeButton.setForeground(Color.WHITE);
-	        homeButton.setBackground(Color.BLACK);
-	        homeButton.setBounds(0, 723, 480, 42);
+	        homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+	        homeButton.setForeground(Color.BLACK);
+	        homeButton.setBounds(0, 723, 480, 55);
 			
 	        getContentPane().add(homeButton);
 			
 			//Frame that displays the pic in big
-			JFrame bigPic = new JFrame();
+			JFrame bigPic = new JFrame("Picture");
 			bigPic.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			bigPic.setSize(480, 800);
 			bigPic.setResizable(false);	
