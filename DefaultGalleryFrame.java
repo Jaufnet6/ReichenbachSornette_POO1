@@ -26,10 +26,10 @@ public class DefaultGalleryFrame extends JFrame{
 	private JTextField txtSearch;
 	//Mac: /Users/black and white/Desktop/App/albums
 	//Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\albums
-	private String path = "/Users/black and white/Desktop/App/albums";
+	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\albums";
 	//Mac : /Users/black and white/Desktop/App/defaultPictures/album.png
 	//Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png
-	private Icon defaultAlbum = new ImageIcon("/Users/black and white/Desktop/App/defaultPictures/album.png");
+	private Icon defaultAlbum = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png");
 	private JLabel album1Title;
 	private JButton search;
 	private JButton cancel;
@@ -47,7 +47,6 @@ public class DefaultGalleryFrame extends JFrame{
 		getContentPane().setLayout(null);
 		albumsPanel=loadAlbums();
 		
-		//Top part of the frame
 		JButton addAlbum = new JButton("New album");
 		addAlbum.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		addAlbum.setForeground(Color.BLACK);
@@ -56,7 +55,6 @@ public class DefaultGalleryFrame extends JFrame{
 		addAlbum.setBounds(5, 5, 100, 50);
 		getContentPane().add(addAlbum);
 		
-		//Research components
 		txtSearch = new JTextField();
 		txtSearch.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		txtSearch.setForeground(new Color(102, 102, 102));
@@ -66,7 +64,6 @@ public class DefaultGalleryFrame extends JFrame{
 		getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 		
-		//Bottom part
 		JButton switchToPictures = new JButton("PICTURES");
 		switchToPictures.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		switchToPictures.setForeground(Color.BLACK);
@@ -84,7 +81,6 @@ public class DefaultGalleryFrame extends JFrame{
 		albums.setBounds(234, 676, 240, 50);
 		getContentPane().add(albums);
 		
-		//Middle part
 		scroll = new JScrollPane(albumsPanel);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scroll.setBounds(0,60,480,616);
@@ -384,7 +380,7 @@ public class DefaultGalleryFrame extends JFrame{
 			delete.setBounds(370, 5, 100, 50);
 			delete.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					File file = new File(path+"/"+albName+".txt");
+					File file = new File(path+"\\"+albName+".txt");
 					try {					
 						//Confirmation
 						int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete \""+albName+"\" ?");

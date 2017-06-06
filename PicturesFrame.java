@@ -36,7 +36,7 @@ public class PicturesFrame extends JFrame{
 	private JScrollPane scroll;
 	//Mac: /Users/black and white/Desktop/App/gallery
 	//Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery
-	private String path = "/Users/black and white/Desktop/App/gallery";
+	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
 
 	public PicturesFrame() throws IOException {
 		super("Pictures");
@@ -47,7 +47,6 @@ public class PicturesFrame extends JFrame{
 		getContentPane().setLayout(null);
 		picturesPanel=loadPics();
 		
-		//Bottom buttons
 		JButton switchToAlbums = new JButton("ALBUMS");
 		switchToAlbums.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		switchToAlbums.setForeground(Color.BLACK);
@@ -65,7 +64,6 @@ public class PicturesFrame extends JFrame{
 		pictures.setBounds(0, 676, 240, 50);
 		getContentPane().add(pictures);
 		
-		//My pictures
         scroll = new JScrollPane(picturesPanel);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setBounds(0, 0, 480, 675);
@@ -180,7 +178,7 @@ public class PicturesFrame extends JFrame{
 		int cptX=0;
 		
 		for(int i=0;i<images.length;i++){
-			imgPath=path+"/"+Integer.toString(i)+".jpg";
+			imgPath=path+"\\"+Integer.toString(i)+".jpg";
 			fr = new FileInputStream(imgPath);
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);

@@ -13,8 +13,12 @@ public class Contact implements Serializable{
     private String birthday;
     private String note;
     private String address;
+    //Mac : /Users/black and white/Desktop/App/Backgrounds/contactPic.png
+    //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png
+    private String picPath;
     
-    //Setters and getters
+    
+	//Setters and getters
     public void setMobileNumber(String number){
         this.mobileNumber = number;
     }
@@ -75,7 +79,12 @@ public class Contact implements Serializable{
     public void setAddress(String address) {
         this.address = address;
     }
-
+    public String getPicPath() {
+		return picPath;
+	}
+	public void setPicPath(String pic) {
+		this.picPath = pic;
+	}
 
 }
 

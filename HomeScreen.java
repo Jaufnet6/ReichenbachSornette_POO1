@@ -30,10 +30,10 @@ public class HomeScreen extends JFrame{
     
     // Mac : /Users/black and white/Desktop/App/Backgrounds/
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds
-    private File folder = new File("/Users/black and white/Desktop/App/Backgrounds/");
+    private File folder = new File("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds");
     // Mac : /Users/black and white/Desktop/App/Backgrounds/tiger.jpg
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg
-    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png");
+    private Icon backgroundImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg");
 
     private ContactApp contacts;
     private CalculatorFrame calculator;
