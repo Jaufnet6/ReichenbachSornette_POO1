@@ -61,11 +61,11 @@ public class ContactFrame extends JFrame{
     //Mac : /Users/black and white/Desktop/App/Contacts
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts
     private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts";
-    private String picPath;
+    private String contactPicPath;
     //Mac : /Users/black and white/Desktop/App/Backgrounds/contactPic.png
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png
     private String defaultPic = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png";
-    private Icon contactPic = new ImageIcon(picPath);
+    private Icon contactPic;
 
     public ContactFrame(){
         super("Profile Contact");
@@ -88,7 +88,7 @@ public class ContactFrame extends JFrame{
         }
     
     private void initializeFrame(){
-           	
+    	           	    	
         statusBar = new JLabel();
         statusBar.setFont(new Font("Avenir", Font.PLAIN, 13));
         statusBar.setBackground(Color.DARK_GRAY);
@@ -129,14 +129,13 @@ public class ContactFrame extends JFrame{
         cancelButton.setForeground(new Color(102, 102, 102));
         cancelButton.setBounds(45, 703, 180, 69);
         getContentPane().add(cancelButton);
-        
-        picButton = new JButton(contactPic);
-        picButton.setName(picPath);
+
+	    picButton = new JButton(new ImageIcon (defaultPic));
         picButton.setVisible(false);
         picButton.setBounds(45, 85, 145, 126);
         getContentPane().add(picButton);
-        
-        picLabel = new JLabel(contactPic);
+       
+	    picLabel = new JLabel(new ImageIcon (defaultPic));
         picLabel.setBounds(45, 85, 145, 126);
         getContentPane().add(picLabel);
         
@@ -282,8 +281,7 @@ public class ContactFrame extends JFrame{
         txtCompany.setText("Company");
         txtCompany.setColumns(10);
         txtCompany.setBounds(276, 180, 134, 20);
-        getContentPane().add(txtCompany);
-        
+        getContentPane().add(txtCompany);       
         
     }
 
@@ -379,21 +377,25 @@ public class ContactFrame extends JFrame{
     public void setTxtCompany(String txtCompany) {
         this.txtCompany.setText(txtCompany);
     }
-
-    public Icon getContactPic() {
-        return contactPic;
-    }
-
-    public void setContactPic(Icon contactPic) {
-        this.contactPic = contactPic;
+    
+    public String getContactPicPath(){
+    	return contactPicPath;
     }
     
-    public String getPicPath(){
-    	return picPath;
+    public void setContactPicPath(String contactPicPath){
+    	this.contactPicPath = contactPicPath;
     }
     
-    public void setPicPath(String picPath){
-    	this.picPath = picPath;
+    public JLabel setPicLabel(String path){
+    	ImageIcon img = new ImageIcon(path);
+    	picLabel.setIcon(img);
+    	return picLabel;
+    }
+    
+    public JButton setPicButton(String path){
+    	ImageIcon img = new ImageIcon(path);
+    	picButton.setIcon(img);
+    	return picButton;
     }
 
     class Edit_Button implements ActionListener{ //sets all Text Area to editable
@@ -505,7 +507,7 @@ public class ContactFrame extends JFrame{
     	JButton currentContactPicButton = new JButton();
 		JFrame pictures = new JFrame();   		
 
-    	
+
     	public void actionPerformed(ActionEvent e) {
    		    
     		setVisible(false);
@@ -522,8 +524,7 @@ public class ContactFrame extends JFrame{
     		cancel.setBounds(0, 0, 97, 42);
     		cancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					contactPic = new ImageIcon(defaultPic);
-					picPath = defaultPic;
+					currentContactPicButton.setName(defaultPic);
 					currentContactPicButton.setIcon(new ImageIcon(defaultPic));
 					pictures.setVisible(false);
 					setVisible(true);
