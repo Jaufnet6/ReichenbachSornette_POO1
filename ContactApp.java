@@ -291,9 +291,9 @@ public class ContactApp extends JFrame{
                 contact.setTxtAddress(readContact.getAddress());
                 contact.setTxtBirthday(readContact.getBirthday());
                 contact.setTxtNotes(readContact.getNote());
-                contact.setContactPicPath(readContact.getPicPath());
                 contact.setPicLabel(readContact.getPicPath());
                 contact.setPicButton(readContact.getPicPath());
+                contact.setContactPicPath(readContact.getPicPath());
                 
                 contact.setVisible(true);
                 setVisible(false);

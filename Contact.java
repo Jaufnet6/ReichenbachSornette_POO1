@@ -13,8 +13,6 @@ public class Contact implements Serializable{
     private String birthday;
     private String note;
     private String address;
-    //Mac : /Users/black and white/Desktop/App/Backgrounds/contactPic.png
-    //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png
     private String picPath;
     
     
