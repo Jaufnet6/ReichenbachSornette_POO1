@@ -57,7 +57,7 @@ public class ContactApp extends JFrame{
 
 
     public ContactApp() throws ClassNotFoundException, IOException {
-        initialize();
+    	initialize();
     }
 
     private void initialize() throws ClassNotFoundException, IOException {

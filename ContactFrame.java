@@ -131,6 +131,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(cancelButton);
 
 	    picButton = new JButton(new ImageIcon (defaultPic));
+	    picButton.setName(defaultPic);
         picButton.setVisible(false);
         picButton.setBounds(45, 85, 145, 126);
         getContentPane().add(picButton);
@@ -471,7 +472,8 @@ public class ContactFrame extends JFrame{
             contact.setBirthday(txtBirthday.getText());
             contact.setNote(txtNotes.getText());
             contact.setPicPath(picButton.getName());
-            
+            System.out.println(picButton.getName());
+            System.out.println(contact.getPicPath());
             try {
                 
                 createDirectory();

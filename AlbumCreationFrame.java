@@ -115,7 +115,7 @@ public class AlbumCreationFrame extends JFrame{
 		
 		JButton homeButton = new JButton("HOME");
 		homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 12));
-		homeButton.setForeground(Color.BLACK);
+		homeButton.setForeground(Color.WHITE);
 		homeButton.setBackground(Color.BLACK);
 		homeButton.setBounds(0, 723, 480, 55);
 		homeButton.addActionListener(new HomeListener());
