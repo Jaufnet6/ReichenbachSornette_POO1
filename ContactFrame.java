@@ -60,11 +60,13 @@ public class ContactFrame extends JFrame{
     
     //Mac : /Users/black and white/Desktop/App/Contacts
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts
-    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts";
+    private String path = "/Users/black and white/Desktop/App/Contacts";
     //Mac : /Users/black and white/Desktop/App/Backgrounds/contactPic.png
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png
-    private String defaultPic = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\contactPic.png";
+    private String defaultPic = "/Users/black and white/Desktop/App/Backgrounds/contactPic.png";
     private String contactPicPath;
+    private String checkUpLastName;
+    private String checkUpFirstName;
     private Icon contactPic;
 
     public ContactFrame(){
@@ -77,7 +79,7 @@ public class ContactFrame extends JFrame{
         getContentPane().setLayout(null);        
       
         if(contactPicPath==null){
-        	contactPicPath=defaultPic;
+            contactPicPath=defaultPic;
         }
        
         initializeFrame();       
@@ -92,7 +94,7 @@ public class ContactFrame extends JFrame{
         }
     
     private void initializeFrame(){
-      	    	
+                
         statusBar = new JLabel();
         statusBar.setFont(new Font("Avenir", Font.PLAIN, 13));
         statusBar.setBackground(Color.DARK_GRAY);
@@ -134,14 +136,14 @@ public class ContactFrame extends JFrame{
         cancelButton.setBounds(45, 703, 180, 69);
         getContentPane().add(cancelButton);
         
-	    picButton = new JButton(new ImageIcon(contactPicPath));
-	    picButton.setVisible(false);
-	    picButton.setBounds(45, 85, 145, 126);
-	    getContentPane().add(picButton);
+        picButton = new JButton(new ImageIcon(contactPicPath));
+        picButton.setVisible(false);
+        picButton.setBounds(45, 85, 145, 126);
+        getContentPane().add(picButton);
         
-	    picLabel = new JLabel(new ImageIcon(contactPicPath));
-	    picLabel.setBounds(45, 85, 145, 126);
-	    getContentPane().add(picLabel);
+        picLabel = new JLabel(new ImageIcon(contactPicPath));
+        picLabel.setBounds(45, 85, 145, 126);
+        getContentPane().add(picLabel);
                
         lblMobile = new JLabel("Mobile:");
         lblMobile.setForeground(Color.DARK_GRAY);
@@ -383,24 +385,26 @@ public class ContactFrame extends JFrame{
     }
         
     public JLabel setPicLabel(String path){
-    	ImageIcon img = new ImageIcon(path);
-    	picLabel.setIcon(img);
-    	return picLabel;
+        ImageIcon img = new ImageIcon(path);
+        picLabel.setIcon(img);
+        return picLabel;
     }
     
     public JButton setPicButton(String path){
-    	ImageIcon img = new ImageIcon(path);
-    	picButton.setIcon(img);
-    	return picButton;
+        ImageIcon img = new ImageIcon(path);
+        picButton.setIcon(img);
+        return picButton;
     }
     
     public void setContactPicPath(String path){
-    	this.contactPicPath=path;
+        this.contactPicPath=path;
     }
 
     class Edit_Button implements ActionListener{ //sets all Text Area to editable
 
         public void actionPerformed(ActionEvent e) {
+            checkUpLastName = txtLastName.getText();
+            checkUpFirstName = txtFirstName.getText();
             allowingEditableContent();
         }
         
@@ -417,9 +421,9 @@ public class ContactFrame extends JFrame{
                 
                 int ret = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete?");
                 if (ret == JOptionPane.YES_OPTION){
-                    if((new File(path + "\\" +  txtLastName.getText() + txtFirstName.getText() + ".txt")).exists()) {
+                    if((new File(path + "/" +  txtLastName.getText() + txtFirstName.getText() + ".txt")).exists()) {
                         person = readFile();
-                        file = new File(path + "\\" +  txtLastName.getText() + txtFirstName.getText() + ".txt");
+                        file = new File(path + "/" +  txtLastName.getText() + txtFirstName.getText() + ".txt");
                         file.delete();
 
                     } 
@@ -459,6 +463,8 @@ public class ContactFrame extends JFrame{
 
             blockingEditableContent();
             
+            File file;
+            
             Contact contact = new Contact();
             contact.setFirstName(txtFirstName.getText());
             contact.setLastName(txtLastName.getText());
@@ -473,14 +479,19 @@ public class ContactFrame extends JFrame{
             contact.setPicPath(contactPicPath);
             try {
                 
-                createDirectory();
-                                
+                createDirectory();                               
                 if(txtFirstName.getText().equals("First Name") || txtLastName.getText().equals("Last Name")){ //If firstname and lastname not entered cannot save
                     allowingEditableContent();
                     return;
                 }
+                
+                if((new File(path + "/" +  checkUpLastName + checkUpFirstName + ".txt")).exists()) { //if the user changes the firstname or last name, deletes the precedent file to create another one.
+                    file = new File(path + "/" +  checkUpLastName + checkUpFirstName + ".txt");
+                    file.delete();
+                } 
 
                 saveInFile(contact, txtFirstName.getText(), txtLastName.getText());
+                
             } catch (IOException e1) {
                 e1.getMessage();
             } catch (Exception e1) {
@@ -502,115 +513,115 @@ public class ContactFrame extends JFrame{
     }
     
     class Picture_Button implements ActionListener{
-       	
-    	JButton currentContactPicButton = new JButton();
-		JFrame pictures = new JFrame();   		
+        
+        JButton currentContactPicButton = new JButton();
+        JFrame pictures = new JFrame();         
 
-    	public void actionPerformed(ActionEvent e) {
-   		    
-    		setVisible(false);
-    		
-    		currentContactPicButton = (JButton) e.getSource();
-    		JLabel selectPic = new JLabel("Select a picture.");
-    		selectPic.setFont(new Font("Avenir Next", Font.PLAIN, 15));
-    		selectPic.setForeground(Color.BLACK);
-    		selectPic.setBounds(97, 0, 388, 42);
-    		selectPic.setHorizontalAlignment(SwingConstants.CENTER);
-    		JButton cancel = new JButton("Cancel");
-    		cancel.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-    		cancel.setForeground(Color.BLACK);
-    		cancel.setBounds(0, 0, 97, 42);
-    		cancel.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					currentContactPicButton.setName(defaultPic);
-					currentContactPicButton.setIcon(new ImageIcon(defaultPic));
-					pictures.setVisible(false);
-					setVisible(true);
-				}
-			});
-	   		JPanel allPics = new JPanel();
-	   		try {
-	   			allPics = loadPics();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-	   		
-	   		pictures.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	        pictures.setSize(480, 800);
-	       
-	        JScrollPane scroll = new JScrollPane(allPics);
-			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-	        scroll.setBounds(0, 150, 480, 675);
-	        
-	        pictures.add(cancel);
-	        pictures.add(selectPic);
-	        pictures.add(scroll);
-	   		pictures.setVisible(true);
-    	}
-    	
-    	private JPanel loadPics() throws IOException{
-    		JPanel myPanel = new JPanel();
-    		myPanel.setBackground(Color.WHITE);
-    		FileInputStream fr;
-    		BufferedInputStream bfr;
-    		//Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery
-    		//Mac: /Users/black and white/Desktop/App/gallery
-    		String picFolderPath = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
-    		File picFolder = new File(picFolderPath);
-    		Icon[] images = new ImageIcon[picFolder.listFiles().length];
-    		JButton[] buttons = new JButton[picFolder.listFiles().length];
-    		String imgPath;
+        public void actionPerformed(ActionEvent e) {
+            
+            setVisible(false);
+            
+            currentContactPicButton = (JButton) e.getSource();
+            JLabel selectPic = new JLabel("Select a picture.");
+            selectPic.setFont(new Font("Avenir Next", Font.PLAIN, 15));
+            selectPic.setForeground(Color.BLACK);
+            selectPic.setBounds(97, 0, 388, 42);
+            selectPic.setHorizontalAlignment(SwingConstants.CENTER);
+            JButton cancel = new JButton("Cancel");
+            cancel.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+            cancel.setForeground(Color.BLACK);
+            cancel.setBounds(0, 0, 97, 42);
+            cancel.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    currentContactPicButton.setName(defaultPic);
+                    currentContactPicButton.setIcon(new ImageIcon(defaultPic));
+                    pictures.setVisible(false);
+                    setVisible(true);
+                }
+            });
+            JPanel allPics = new JPanel();
+            try {
+                allPics = loadPics();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            
+            pictures.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            pictures.setSize(480, 800);
+           
+            JScrollPane scroll = new JScrollPane(allPics);
+            scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scroll.setBounds(0, 150, 480, 675);
+            
+            pictures.add(cancel);
+            pictures.add(selectPic);
+            pictures.add(scroll);
+            pictures.setVisible(true);
+        }
+        
+        private JPanel loadPics() throws IOException{
+            JPanel myPanel = new JPanel();
+            myPanel.setBackground(Color.WHITE);
+            FileInputStream fr;
+            BufferedInputStream bfr;
+            //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery
+            //Mac: /Users/black and white/Desktop/App/gallery
+            String picFolderPath = "/Users/black and white/Desktop/App/gallery";
+            File picFolder = new File(picFolderPath);
+            Icon[] images = new ImageIcon[picFolder.listFiles().length];
+            JButton[] buttons = new JButton[picFolder.listFiles().length];
+            String imgPath;
 
-    		//Position for the first image
-    		int x=22;
-    		int y=55;
-    		int cptX=0;
-    		
-    		for(int i=0;i<images.length;i++){
-    			imgPath=picFolderPath+"\\"+Integer.toString(i)+".jpg";
-    			fr = new FileInputStream(imgPath);
-    			bfr = new BufferedInputStream(fr);
-    			images[i] = new ImageIcon(imgPath);
-    			buttons[i] = new JButton(images[i]);
-    			buttons[i].setName(imgPath);
-    			buttons[i].addActionListener(new ActionListener() {
-    				public void actionPerformed(ActionEvent e) {
-    					JButton currentButton = new JButton();
-    					currentButton = (JButton) e.getSource();
-    					currentContactPicButton.setName(currentButton.getName());
-    					currentContactPicButton.setIcon(new ImageIcon(currentButton.getName()));
-    					contactPicPath = currentButton.getName();
-    					pictures.setVisible(false);
-    					setVisible(true);
-    				}
-    			});
-    			
-    			switch (cptX){
-    			case 0:
-    				buttons[i].setBounds(x, y, 125, 125);
-    				myPanel.add(buttons[i]);
-    				break;
-    			case 1:
-    				buttons[i].setBounds(x+143, y, 125, 125);
-    				myPanel.add(buttons[i]);
-    				break;
-    			case 2:
-    				buttons[i].setBounds(x+287, y, 125, 125);
-    				myPanel.add(buttons[i]);
-    				break;
-    			}
-    			cptX++;
-    			if(cptX==3){
-    				cptX=0;
-    				y+=143;
-    			}
-    			bfr.close();
-    		}
-    		myPanel.setLayout(null);
-    		//y+145 => y(total y size)+125(img size)+20(initial border)
-    		myPanel.setPreferredSize(new Dimension(450,y+145));
-    		return myPanel;
-    	}
+            //Position for the first image
+            int x=22;
+            int y=55;
+            int cptX=0;
+            
+            for(int i=0;i<images.length;i++){
+                imgPath=picFolderPath+"/"+Integer.toString(i)+".jpg";
+                fr = new FileInputStream(imgPath);
+                bfr = new BufferedInputStream(fr);
+                images[i] = new ImageIcon(imgPath);
+                buttons[i] = new JButton(images[i]);
+                buttons[i].setName(imgPath);
+                buttons[i].addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        JButton currentButton = new JButton();
+                        currentButton = (JButton) e.getSource();
+                        currentContactPicButton.setName(currentButton.getName());
+                        currentContactPicButton.setIcon(new ImageIcon(currentButton.getName()));
+                        contactPicPath = currentButton.getName();
+                        pictures.setVisible(false);
+                        setVisible(true);
+                    }
+                });
+                
+                switch (cptX){
+                case 0:
+                    buttons[i].setBounds(x, y, 125, 125);
+                    myPanel.add(buttons[i]);
+                    break;
+                case 1:
+                    buttons[i].setBounds(x+143, y, 125, 125);
+                    myPanel.add(buttons[i]);
+                    break;
+                case 2:
+                    buttons[i].setBounds(x+287, y, 125, 125);
+                    myPanel.add(buttons[i]);
+                    break;
+                }
+                cptX++;
+                if(cptX==3){
+                    cptX=0;
+                    y+=143;
+                }
+                bfr.close();
+            }
+            myPanel.setLayout(null);
+            //y+145 => y(total y size)+125(img size)+20(initial border)
+            myPanel.setPreferredSize(new Dimension(450,y+145));
+            return myPanel;
+        }
    }
    
     
@@ -639,7 +650,7 @@ public class ContactFrame extends JFrame{
     
     private void saveInFile(Contact contact, String firstName, String lastName) throws IOException{ //Serialize in folder the contact
         
-        FileOutputStream fichier = new FileOutputStream(path + "\\" + lastName + firstName +".txt");  
+        FileOutputStream fichier = new FileOutputStream(path + "/" + lastName + firstName +".txt");  
         BufferedOutputStream bfichier = new BufferedOutputStream(fichier);
         ObjectOutputStream obfichier = new ObjectOutputStream(bfichier);
         obfichier.writeObject(contact);
@@ -649,7 +660,7 @@ public class ContactFrame extends JFrame{
     private Contact readFile() throws ClassNotFoundException, IOException{  //Read a already saved contact
         FileInputStream fichier;
         Contact person;
-        fichier = new FileInputStream(path + "\\" +  txtLastName.getText() + txtFirstName.getText() + ".txt");
+        fichier = new FileInputStream(path + "/" +  txtLastName.getText() + txtFirstName.getText() + ".txt");
 
         BufferedInputStream bfichier = new BufferedInputStream(fichier);
         ObjectInputStream obfichier = new ObjectInputStream(bfichier);

@@ -35,10 +35,10 @@ public class ContactApp extends JFrame{
     private JButton searchButton;
     //Mac : /Users/black and white/Desktop/App/Backgrounds/plus.png
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\plus.png
-    private Icon addIcon = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\plus.png");
+    private Icon addIcon = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/plus.png");
     //Mac : /Users/black and white/Desktop/App/Contacts
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts
-    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts";
+    private String path = "/Users/black and white/Desktop/App/Contacts";
     private JLabel[] lbllastNameOut;
     private JLabel[] lblOneInfoOut;
     private File contactFolder = new File(path);
@@ -190,7 +190,7 @@ public class ContactApp extends JFrame{
         return myPanel;
     }
     
-    private void addContactToPanel(JPanel myPanel, Contact[] contacts, int yButton, int yLabelFirstName, int yLabelLastName, int yLabelOneInfo, int ylblInfo, int cpt){
+    private void addContactToPanel(JPanel myPanel, Contact[] contacts, int yButton, int yLabelFirstName, int yLabelLastName, int yLabelOneInfo, int ylblInfo, int cpt){ //Adding the contact to the panel
         Icon contactPic = new ImageIcon(contacts[cpt].getPicPath());
     	buttons[cpt] = new JButton(contactPic);             
         buttons[cpt].setBounds(xButton,yButton,100,100);
@@ -231,8 +231,6 @@ public class ContactApp extends JFrame{
             lblInfo[cpt] = new JLabel(contacts[cpt].getHomeNumber());
         } else if(!contacts[cpt].getEmail().equals("")){
             lblInfo[cpt] = new JLabel(contacts[cpt].getEmail());
-            lblInfo[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
-            lblInfo[cpt].setForeground(Color.DARK_GRAY);
         }
         else {
             lblInfo[cpt] = new JLabel("No Info");
@@ -274,11 +272,13 @@ public class ContactApp extends JFrame{
 
             try{
 
-                if(lbllastNameOut[realposition] != null){
-                    readContact = readFile(path + "\\" + lbllastNameOut[realposition].getText() + lblfirstNames[realposition].getText() + ".txt");
+                if(!lbllastNameOut[realposition].equals("")){
+                    readContact = readFile(path + "/" + lbllastNameOut[realposition].getText() + lblfirstNames[realposition].getText() + ".txt");
+                    System.out.println(path + "/" + lbllastNameOut[realposition].getText() + lblfirstNames[realposition].getText() + ".txt");
                 }
                 else {
-                    readContact = readFile(path + "\\" + lblOneInfoOut[realposition].getText() + ".txt");
+                    readContact = readFile(path + "/" + lblOneInfoOut[realposition].getText() + ".txt");
+                    System.out.println(path + "/" + lblOneInfoOut[realposition].getText() + ".txt");
                 } 
                 
                 contact.setTxtFirstName(readContact.getFirstName());
@@ -322,6 +322,7 @@ public class ContactApp extends JFrame{
         JPanel myPanel = new JPanel();
         int cptContacts = 0;
         int cptContactsFound = 0;
+        int cptOneInfoOut = 0;
         File contactFolder = new File(path);
         Contact[] contactsInFolder = new Contact[contactFolder.listFiles().length];
         Contact[] contactsFound = new Contact[contactsInFolder.length];
@@ -336,7 +337,6 @@ public class ContactApp extends JFrame{
         //Position for the OneInfo label
         int yLabelOneInfo = 45;
         //Position for the infos Label
-        int xlblInfo;
         int ylblInfo = 45;
         
         //Searching in the repository the contacts with the requested information and adding it to the contactsFound
@@ -349,6 +349,9 @@ public class ContactApp extends JFrame{
                 if(contactsInFolder[cptContacts].getLastName().toLowerCase().contains(request) || contactsInFolder[cptContacts].getFirstName().toLowerCase().contains(request) || contactsInFolder[cptContacts].getMobileNumber().equals(request) || contactsInFolder[cptContacts].getEmail().toLowerCase().equals(request) || contactsInFolder[cptContacts].getHomeNumber().equals(request)){ //if the last name or the first name matches the request or numbers and eamil == searched text
                     contactsFound[cptContactsFound] = contactsInFolder[cptContacts];
                     addContactToPanel(myPanel, contactsFound, yButton, yLabelFirstName, yLabelLastName, yLabelOneInfo, ylblInfo, cptContactsFound);
+                    lblOneInfoOut[cptOneInfoOut] = lblOneInfo[cptContactsFound];
+                    lbllastNameOut[cptOneInfoOut] = lbllastName[cptContactsFound];
+                    cptOneInfoOut++;
                     cptContactsFound++;
                     yButton += 105;
                     yLabelFirstName += 105;
@@ -361,9 +364,7 @@ public class ContactApp extends JFrame{
             }           
         }
         //get the JLabel[] OneInfo or Lastname to get it out later
-        lblOneInfoOut = lblOneInfo;
-        lbllastNameOut = lbllastName;
-        
+
 
         
         myPanel.setLayout(null);
