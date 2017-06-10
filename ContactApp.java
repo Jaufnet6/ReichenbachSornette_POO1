@@ -196,7 +196,6 @@ public class ContactApp extends JFrame{
         buttons[cpt].setBounds(xButton,yButton,100,100);
         buttons[cpt].setOpaque(true);
         myPanel.add(buttons[cpt]);
-        buttons[cpt].addActionListener(new Contact_Button(ylblInfo-10)); // button to enter each contact's details (getting the position of the OneInfolbl
       //If both first name and last name are present
         if(!contacts[cpt].getFirstName().equals("") && !contacts[cpt].getLastName().equals("")){
             lblfirstNames[cpt] = new JLabel(contacts[cpt].getFirstName());
@@ -207,6 +206,7 @@ public class ContactApp extends JFrame{
             lbllastName[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
             lbllastName[cpt].setForeground(Color.DARK_GRAY);
             lbllastName[cpt].setBounds(xLabelLastName,yLabelLastName, 100, 20);
+            lblOneInfo[cpt] = null;
             myPanel.add(lblfirstNames[cpt]);
             myPanel.add(lbllastName[cpt]);
             //if only first name is present
@@ -215,6 +215,7 @@ public class ContactApp extends JFrame{
             lblOneInfo[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
             lblOneInfo[cpt].setForeground(Color.DARK_GRAY);
             lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
+            lbllastName[cpt]= null;
             myPanel.add(lblOneInfo[cpt]);
             //if only last name is present
         } else if(contacts[cpt].getLastName().equals("")){
@@ -222,6 +223,7 @@ public class ContactApp extends JFrame{
             lblOneInfo[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
             lblOneInfo[cpt].setForeground(Color.DARK_GRAY);
             lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
+            lbllastName[cpt]= null;
             myPanel.add(lblOneInfo[cpt]);
         } 
         //display one info between number, home number and email (depending what information has been entered)
@@ -238,6 +240,7 @@ public class ContactApp extends JFrame{
         lblInfo[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
         lblInfo[cpt].setForeground(Color.DARK_GRAY);
 
+        buttons[cpt].addActionListener(new Contact_Button(ylblInfo-10)); // button to enter each contact's details (getting the position of the OneInfolbl
         buttons[cpt].setOpaque(false);
         lblInfo[cpt].setBounds(xlblInfo,ylblInfo, 150, 20);
         myPanel.add(lblInfo[cpt]);
@@ -272,13 +275,11 @@ public class ContactApp extends JFrame{
 
             try{
 
-                if(!lbllastNameOut[realposition].equals("")){
+                if(lbllastNameOut[realposition] != null && lblOneInfoOut[realposition] == null){
                     readContact = readFile(path + "/" + lbllastNameOut[realposition].getText() + lblfirstNames[realposition].getText() + ".txt");
-                    System.out.println(path + "/" + lbllastNameOut[realposition].getText() + lblfirstNames[realposition].getText() + ".txt");
                 }
                 else {
                     readContact = readFile(path + "/" + lblOneInfoOut[realposition].getText() + ".txt");
-                    System.out.println(path + "/" + lblOneInfoOut[realposition].getText() + ".txt");
                 } 
                 
                 contact.setTxtFirstName(readContact.getFirstName());
@@ -322,7 +323,6 @@ public class ContactApp extends JFrame{
         JPanel myPanel = new JPanel();
         int cptContacts = 0;
         int cptContactsFound = 0;
-        int cptOneInfoOut = 0;
         File contactFolder = new File(path);
         Contact[] contactsInFolder = new Contact[contactFolder.listFiles().length];
         Contact[] contactsFound = new Contact[contactsInFolder.length];
@@ -348,10 +348,8 @@ public class ContactApp extends JFrame{
                 contactsInFolder[cptContacts] = readFile(contactPath);
                 if(contactsInFolder[cptContacts].getLastName().toLowerCase().contains(request) || contactsInFolder[cptContacts].getFirstName().toLowerCase().contains(request) || contactsInFolder[cptContacts].getMobileNumber().equals(request) || contactsInFolder[cptContacts].getEmail().toLowerCase().equals(request) || contactsInFolder[cptContacts].getHomeNumber().equals(request)){ //if the last name or the first name matches the request or numbers and eamil == searched text
                     contactsFound[cptContactsFound] = contactsInFolder[cptContacts];
+                    
                     addContactToPanel(myPanel, contactsFound, yButton, yLabelFirstName, yLabelLastName, yLabelOneInfo, ylblInfo, cptContactsFound);
-                    lblOneInfoOut[cptOneInfoOut] = lblOneInfo[cptContactsFound];
-                    lbllastNameOut[cptOneInfoOut] = lbllastName[cptContactsFound];
-                    cptOneInfoOut++;
                     cptContactsFound++;
                     yButton += 105;
                     yLabelFirstName += 105;
@@ -364,8 +362,8 @@ public class ContactApp extends JFrame{
             }           
         }
         //get the JLabel[] OneInfo or Lastname to get it out later
-
-
+        lblOneInfoOut = lblOneInfo;
+        lbllastNameOut = lbllastName;
         
         myPanel.setLayout(null);
         myPanel.setBounds(18, 45, 455, 650);
