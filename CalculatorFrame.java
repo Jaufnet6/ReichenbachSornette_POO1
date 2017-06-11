@@ -2,6 +2,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -21,6 +23,9 @@ import java.awt.SystemColor;
 public class CalculatorFrame extends JFrame{
 
     private static final long serialVersionUID = 1L;
+    
+    //Back button
+    private JButton btnBack;
     //Area number written
     private JLabel statusBar;
     private JLabel firstNumber = new JLabel();
@@ -29,7 +34,7 @@ public class CalculatorFrame extends JFrame{
     private JLabel resultValue = new JLabel();
     private JButton go = new JButton("=");
     private JButton clear = new JButton("C");
-    private JButton clearAll = new JButton("CE");
+    private JButton clearAll = new JButton("AC");
     //Numbers
     private JButton one = new JButton("1");
     private JButton two = new JButton("2");
@@ -52,196 +57,202 @@ public class CalculatorFrame extends JFrame{
     private  Timer tm;
     private static LocalDateTime time;
     private String choice; //Useful for the choice of symbol (sign)
+    //Background
+    private final JLabel lblbackground;
     
 	public CalculatorFrame() {
-		 super("Calculator");
-		 getContentPane().setBackground(Color.DARK_GRAY);
-	        setDefaultCloseOperation(EXIT_ON_CLOSE);
-	        setSize(480, 800);
-			setResizable(false);
-			getContentPane().setLayout(null);
+		super("Calculator");
+		getContentPane().setBackground(Color.DARK_GRAY);
+	    setDefaultCloseOperation(EXIT_ON_CLOSE);
+	    setSize(480, 800);
+		setResizable(false);
+		getContentPane().setLayout(null);
 			
-			statusBar = new JLabel("");
-			statusBar.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-	        statusBar.setBackground(Color.DARK_GRAY);
-	        statusBar.setForeground(Color.WHITE);
-	        statusBar.setOpaque(true);
-	        statusBar.setHorizontalAlignment(SwingConstants.CENTER);
-	        statusBar.setBounds(179, 0, 128, 20);
-	        getContentPane().add(statusBar);
-	        setTime();
+		statusBar = new JLabel("");
+		statusBar.setFont(new Font("Avenir Next", Font.BOLD, 25));
+	    statusBar.setForeground(Color.WHITE);
+	    statusBar.setOpaque(false);
+	    statusBar.setHorizontalAlignment(SwingConstants.CENTER);
+	    statusBar.setBounds(165, 0, 150, 46);
+	    getContentPane().add(statusBar);
+	    setTime();
 			
-			//Top part : result
-			resultValue.setOpaque(true);
-			resultValue.setHorizontalAlignment(SwingConstants.RIGHT);
-			resultValue.setBackground(new Color(255, 255, 255));
-			resultValue.setFont(new Font("Arial Black", Font.BOLD, 40));
-			resultValue.setBounds(12, 48, 450, 156);
-			getContentPane().add(resultValue);
+		//Top part : result
+		resultValue.setOpaque(true);
+		resultValue.setHorizontalAlignment(SwingConstants.RIGHT);
+		resultValue.setBackground(new Color(255, 255, 255));
+		resultValue.setFont(new Font("Avenir Next", Font.BOLD, 40));
+		resultValue.setBounds(12, 48, 450, 156);
+		getContentPane().add(resultValue);
 			
-			//Mid part : operation
-			firstNumber.setOpaque(true);
-			firstNumber.setBackground(new Color(255, 255, 255));
-			firstNumber.setHorizontalAlignment(SwingConstants.CENTER);
-			firstNumber.setFont(new Font("Arial", Font.PLAIN, 25));
-			firstNumber.setBounds(12, 217, 140, 123);
-			getContentPane().add(firstNumber);
+		//Mid part : operation
+		firstNumber.setOpaque(true);
+		firstNumber.setBackground(new Color(255, 255, 255));
+		firstNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		firstNumber.setFont(new Font("Avenir Next", Font.PLAIN, 25));
+		firstNumber.setBounds(12, 217, 140, 123);
+		getContentPane().add(firstNumber);
 			
-			addition.setOpaque(true);
-			addition.setBackground(new Color(255, 255, 255));
-			addition.setHorizontalAlignment(SwingConstants.CENTER);
-			addition.setFont(new Font("Arial", Font.PLAIN, 25));
-			addition.setBounds(154, 217, 25, 123);
-			getContentPane().add(addition);
+		addition.setOpaque(true);
+		addition.setBackground(new Color(255, 255, 255));
+		addition.setHorizontalAlignment(SwingConstants.CENTER);
+		addition.setFont(new Font("Avenir Next", Font.PLAIN, 25));
+		addition.setBounds(154, 217, 25, 123);
+		getContentPane().add(addition);
 			
-			secondNumber.setOpaque(true);
-			secondNumber.setBackground(new Color(255, 255, 255));
-			secondNumber.setHorizontalAlignment(SwingConstants.CENTER);
-			secondNumber.setFont(new Font("Arial", Font.PLAIN, 25));
-			secondNumber.setBounds(181, 217, 140, 123);
-			getContentPane().add(secondNumber);
+		secondNumber.setOpaque(true);
+		secondNumber.setBackground(new Color(255, 255, 255));
+		secondNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		secondNumber.setFont(new Font("Avenir Next", Font.PLAIN, 25));
+		secondNumber.setBounds(181, 217, 140, 123);
+		getContentPane().add(secondNumber);
 			
-			//Buttons clears&go
-			clearAll.setBackground(Color.WHITE);
-			clearAll.setFont(new Font("Arial", Font.BOLD, 22));
-			clearAll.setBounds(397, 217, 65, 55);
-			getContentPane().add(clearAll);
+		//Buttons clears&go
+		clearAll.setBackground(Color.WHITE);
+		clearAll.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		clearAll.setBounds(397, 217, 65, 55);
+		getContentPane().add(clearAll);
 			
-			clear.setBackground(Color.WHITE);
-			clear.setFont(new Font("Arial", Font.BOLD, 22));
-			clear.setBounds(333, 217, 65, 55);
-			getContentPane().add(clear);
+		clear.setBackground(Color.WHITE);
+		clear.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		clear.setBounds(333, 217, 65, 55);
+		getContentPane().add(clear);
 			
-			go.setBackground(Color.WHITE);
-			go.setFont(new Font("Arial", Font.BOLD, 30));
-			go.setBounds(333, 271, 129, 69);
-			getContentPane().add(go);
+		go.setBackground(Color.WHITE);
+		go.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		go.setBounds(333, 271, 129, 69);
+		getContentPane().add(go);
 			
-			//Bottom part : numbers
-			one.setBackground(Color.WHITE);
-			one.setFont(new Font("Arial", Font.BOLD, 30));
-			one.setBounds(12, 355, 110, 100);
-			getContentPane().add(one);
+		//Bottom part : numbers
+		one.setBackground(Color.WHITE);
+		one.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		one.setBounds(12, 355, 110, 100);
+		getContentPane().add(one);
 			
-			two.setBackground(Color.WHITE);
-			two.setFont(new Font("Arial", Font.BOLD, 30));
-			two.setBounds(121, 355, 110, 100);
-			getContentPane().add(two);
+		two.setBackground(Color.WHITE);
+		two.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		two.setBounds(121, 355, 110, 100);
+		getContentPane().add(two);
 			
-			three.setBackground(Color.WHITE);
-			three.setFont(new Font("Arial", Font.BOLD, 30));
-			three.setBounds(230, 355, 110, 100);
-			getContentPane().add(three);
+		three.setBackground(Color.WHITE);
+		three.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		three.setBounds(230, 355, 110, 100);
+		getContentPane().add(three);
 			
-			four.setBackground(Color.WHITE);
-			four.setFont(new Font("Arial", Font.BOLD, 30));
-			four.setBounds(12, 454, 110, 100);
-			getContentPane().add(four);
+		four.setBackground(Color.WHITE);
+		four.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		four.setBounds(12, 454, 110, 100);
+		getContentPane().add(four);
 			
-			five.setBackground(Color.WHITE);
-			five.setFont(new Font("Arial", Font.BOLD, 30));
-			five.setBounds(121, 454, 110, 100);
-			getContentPane().add(five);
+		five.setBackground(Color.WHITE);
+		five.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		five.setBounds(121, 454, 110, 100);
+		getContentPane().add(five);
 			
-			six.setBackground(Color.WHITE);
-			six.setFont(new Font("Arial", Font.BOLD, 30));
-			six.setBounds(230, 454, 110, 100);
-			getContentPane().add(six);
+		six.setBackground(Color.WHITE);
+		six.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		six.setBounds(230, 454, 110, 100);
+		getContentPane().add(six);
 			
-			seven.setBackground(Color.WHITE);
-			seven.setFont(new Font("Arial", Font.BOLD, 30));
-			seven.setBounds(12, 553, 110, 100);
-			getContentPane().add(seven);
+		seven.setBackground(Color.WHITE);
+		seven.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		seven.setBounds(12, 553, 110, 100);
+		getContentPane().add(seven);
 			
-			eight.setBackground(Color.WHITE);
-			eight.setFont(new Font("Arial", Font.BOLD, 30));
-			eight.setBounds(121, 553, 110, 100);
-			getContentPane().add(eight);
+		eight.setBackground(Color.WHITE);
+		eight.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		eight.setBounds(121, 553, 110, 100);
+		getContentPane().add(eight);
 			
-			nine.setBackground(Color.WHITE);
-			nine.setFont(new Font("Arial", Font.BOLD, 30));
-			nine.setBounds(230, 553, 110, 100);
-			getContentPane().add(nine);
+		nine.setBackground(Color.WHITE);
+		nine.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		nine.setBounds(230, 553, 110, 100);
+		getContentPane().add(nine);
 			
-			zero.setBackground(Color.WHITE);
-			zero.setFont(new Font("Arial", Font.BOLD, 30));
-			zero.setBounds(121, 652, 110, 100);
-			getContentPane().add(zero);
+		zero.setBackground(Color.WHITE);
+		zero.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		zero.setBounds(121, 652, 110, 100);
+		getContentPane().add(zero);
 			
-			dot.setBackground(Color.WHITE);
-			dot.setFont(new Font("Arial", Font.BOLD, 30));
-			dot.setBounds(230, 652, 110, 100);
-			getContentPane().add(dot);
+		dot.setBackground(Color.WHITE);
+		dot.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		dot.setBounds(230, 652, 110, 100);
+		getContentPane().add(dot);
 						
-			negation.setBackground(Color.WHITE);
-			negation.setFont(new Font("Arial", Font.BOLD, 30));
-			negation.setBounds(12, 652, 110, 100);
-			getContentPane().add(negation);
+		negation.setBackground(Color.WHITE);
+		negation.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		negation.setBounds(12, 652, 110, 100);
+		getContentPane().add(negation);
 			
-			//Operation buttons
-			add.setBackground(Color.WHITE);
-			add.setFont(new Font("Arial", Font.BOLD, 30));
-			add.setBounds(352, 355, 110, 100);
-			getContentPane().add(add);
+		//Operation buttons
+		add.setBackground(Color.WHITE);
+		add.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		add.setBounds(352, 355, 110, 100);
+		getContentPane().add(add);
 			
-			substract.setBackground(Color.WHITE);
-			substract.setFont(new Font("Arial", Font.BOLD, 30));
-			substract.setBounds(352, 454, 110, 100);
-			getContentPane().add(substract);
+		substract.setBackground(Color.WHITE);
+		substract.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		substract.setBounds(352, 454, 110, 100);
+		getContentPane().add(substract);
 			
-			multiply.setBackground(Color.WHITE);
-			multiply.setFont(new Font("Arial", Font.BOLD, 30));
-			multiply.setBounds(352, 553, 110, 100);
-			getContentPane().add(multiply);
+		multiply.setBackground(Color.WHITE);
+		multiply.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		multiply.setBounds(352, 553, 110, 100);
+		getContentPane().add(multiply);
 			
-			divide.setBackground(Color.WHITE);
-			divide.setFont(new Font("Arial", Font.BOLD, 30));
-			divide.setBounds(352, 652, 110, 100);
-			getContentPane().add(divide);
+		divide.setBackground(Color.WHITE);
+		divide.setFont(new Font("Avenir Next", Font.BOLD, 25));
+		divide.setBounds(352, 652, 110, 100);
+		getContentPane().add(divide);
 			
-			JButton btnBack = new JButton("Back");
-			btnBack.setBackground(Color.WHITE);
-			btnBack.addActionListener(new ActionListener() {
-			    public void actionPerformed(ActionEvent e) {
-			        HomeScreen homescreen;
-                    try {
-                        homescreen = new HomeScreen();
-                        homescreen.setVisible(true);
-                        setVisible(false);
+		btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Avenir Next", Font.BOLD, 13));
+		btnBack.setBackground(Color.WHITE);
+		btnBack.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        HomeScreen homescreen;
+                try {
+                    homescreen = new HomeScreen();
+                    homescreen.setVisible(true);
+                    setVisible(false);
 
-                    } catch (ClassNotFoundException | InterruptedException | IOException e1) {
-                        e1.printStackTrace();
-                    }
+                } catch (ClassNotFoundException | InterruptedException | IOException e1) {
+                    e1.printStackTrace();
+                }
 			        
-			    }
-			});
-			btnBack.setBounds(10, 5, 75, 41);
-			getContentPane().add(btnBack);
+			}
+		});
+		btnBack.setBounds(10, 5, 75, 41);
+		getContentPane().add(btnBack);
 		
-			 //Actions
-	        //Action for each number button
-	        one.addActionListener(new Button_Numbers());
-	        two.addActionListener(new Button_Numbers());
-	        three.addActionListener(new Button_Numbers());
-	        four.addActionListener(new Button_Numbers());
-	        five.addActionListener(new Button_Numbers());
-	        six.addActionListener(new Button_Numbers());
-	        seven.addActionListener(new Button_Numbers());
-	        eight.addActionListener(new Button_Numbers());
-	        nine.addActionListener(new Button_Numbers());
-	        zero.addActionListener(new Button_Numbers());
-	        negation.addActionListener(new Button_Negation());
-	        dot.addActionListener(new Button_Dot());
-	        //Action for the go button
-	        go.addActionListener(new Button_Go());
-	        //Action for both clear buttons
-	        clear.addActionListener(new Button_Clear());
-	        clearAll.addActionListener(new Button_ClearAll());
-	        //Actions for the symbol buttons
-	        add.addActionListener(new Button_Signs());
-	        substract.addActionListener(new Button_Signs());
-	        multiply.addActionListener(new Button_Signs());
-	        divide.addActionListener(new Button_Signs());
+	    lblbackground = new JLabel(new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png"));
+	    lblbackground.setBounds(0, 0, 480, 778);        
+	    getContentPane().add(lblbackground);
+		
+		 //Actions
+	    //Action for each number button
+	    one.addActionListener(new Button_Numbers());
+	    two.addActionListener(new Button_Numbers());
+	    three.addActionListener(new Button_Numbers());
+	    four.addActionListener(new Button_Numbers());
+	    five.addActionListener(new Button_Numbers());
+	    six.addActionListener(new Button_Numbers());
+	    seven.addActionListener(new Button_Numbers());
+	    eight.addActionListener(new Button_Numbers());
+	    nine.addActionListener(new Button_Numbers());
+	    zero.addActionListener(new Button_Numbers());
+	    negation.addActionListener(new Button_Negation());
+	    dot.addActionListener(new Button_Dot());
+	    //Action for the go button
+	    go.addActionListener(new Button_Go());
+	    //Action for both clear buttons
+	    clear.addActionListener(new Button_Clear());
+	    clearAll.addActionListener(new Button_ClearAll());
+	    //Actions for the symbol buttons
+	    add.addActionListener(new Button_Signs());
+	    substract.addActionListener(new Button_Signs());
+	    multiply.addActionListener(new Button_Signs());
+	    divide.addActionListener(new Button_Signs());
 	        
 	}
 	

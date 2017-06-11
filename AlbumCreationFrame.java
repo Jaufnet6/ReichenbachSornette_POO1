@@ -1,7 +1,4 @@
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.SystemColor;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
@@ -12,12 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,19 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-
-import java.awt.Button;
 import java.awt.Color;
-
-
-import javax.swing.AbstractButton;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,7 +31,7 @@ public class AlbumCreationFrame extends JFrame{
 	private JLabel nameError = new JLabel("");
 	//Mac: /Users/black and white/Desktop/App
 	//Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet
-	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet";
+	private String path = "/Users/black and white/Desktop/App";
 	private JPanel picturesPanel = new JPanel();
 	private JScrollPane scroll;
 	
@@ -73,21 +53,21 @@ public class AlbumCreationFrame extends JFrame{
 		
 		albumNameTxt = new JTextField();
 		albumNameTxt.setHorizontalAlignment(SwingConstants.CENTER);
-		albumNameTxt.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		albumNameTxt.setFont(new Font("Avenir Next", Font.BOLD, 13));
 		albumNameTxt.setBounds(179, 38, 283, 43);
 		getContentPane().add(albumNameTxt);
 		albumNameTxt.setColumns(10);
 		
 		//Bottom part of the frame
 		JButton CancelButton = new JButton("CANCEL");
-		CancelButton.setFont(new Font("Avenir Next", Font.PLAIN, 12));
+		CancelButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
 		CancelButton.addActionListener(new CancelListener());
 		CancelButton.setBackground(Color.LIGHT_GRAY);
 		CancelButton.setBounds(0, 676, 240, 50);
 		getContentPane().add(CancelButton);
 		
 		JButton OKButton = new JButton("SAVE");
-		OKButton.setFont(new Font("Avenir Next", Font.PLAIN, 12));
+		OKButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
 		OKButton.setForeground(Color.BLACK);
 		OKButton.addActionListener(new SaveListener());
 		OKButton.setBackground(Color.DARK_GRAY);
@@ -95,7 +75,7 @@ public class AlbumCreationFrame extends JFrame{
 		getContentPane().add(OKButton);
 		
 		JButton homeButton = new JButton("HOME");
-		homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 12));
+		homeButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
 		homeButton.setForeground(Color.WHITE);
 		homeButton.setBackground(Color.BLACK);
 		homeButton.setBounds(0, 723, 480, 55);
@@ -116,10 +96,14 @@ public class AlbumCreationFrame extends JFrame{
 		
 		//Error : if no name or already existing name typed
 		nameError.setForeground(Color.RED);
-		nameError.setFont(new Font("Avenir Next", Font.ITALIC, 16));
+		nameError.setFont(new Font("Avenir Next", Font.BOLD, 13));
 		nameError.setHorizontalAlignment(SwingConstants.CENTER);
 		nameError.setBounds(15, 97, 450, 36);
 		getContentPane().add(nameError);
+		
+		JLabel lblBackground = new JLabel(new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png"));
+        lblBackground.setBounds(0, 0, 480, 778);
+        getContentPane().add(lblBackground);
 		
 	}
 	
@@ -162,16 +146,17 @@ public class AlbumCreationFrame extends JFrame{
 
 		public void actionPerformed(ActionEvent e) {
 			
-			File albFolder = new File(path+"\\albums");
+			File albFolder = new File(path+"/albums");
 			Album[] albums = new Album[albFolder.listFiles().length];
 			String[] newPics = new String[10];
-			File[] files = new File(path+"\\albums").listFiles();
+			File[] files = new File(path+"/albums").listFiles();
 			String albPath;
 			int cpt=0;
 
 			if(albumNameTxt.getText().equals("")){
 				//User must choose a name
 				nameError.setText("Error : please choose a name.");
+				nameError.setFont(new Font("Avenir Next", Font.BOLD, 13));
 			}
 			else {
 				
@@ -250,7 +235,7 @@ public class AlbumCreationFrame extends JFrame{
 	//Serialize in folder the album
     private void saveInFile(String name) throws IOException{ 
     	 	
-        FileOutputStream fos = new FileOutputStream(path+"\\albums\\"+name+".txt");  
+        FileOutputStream fos = new FileOutputStream(path+"/albums/"+name+".txt");  
         BufferedOutputStream bfos = new BufferedOutputStream(fos);
         ObjectOutputStream obfos = new ObjectOutputStream(bfos);
         obfos.writeObject(newAlbum);

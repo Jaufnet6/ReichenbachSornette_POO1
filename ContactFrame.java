@@ -68,9 +68,11 @@ public class ContactFrame extends JFrame{
     private String checkUpLastName;
     private String checkUpFirstName;
     private Icon contactPic;
+    private JLabel lblBackground;
 
     public ContactFrame(){
-        super("Profile Contact");
+        super("Contact Profile");
+        getContentPane().setFont(new Font("Avenir Next", Font.BOLD, 12));
         setForeground(new Color(255, 255, 255));
         setResizable(false);
         getContentPane().setBackground(new Color(255, 255, 255));
@@ -96,43 +98,43 @@ public class ContactFrame extends JFrame{
     private void initializeFrame(){
                 
         statusBar = new JLabel();
-        statusBar.setFont(new Font("Avenir", Font.PLAIN, 13));
+        statusBar.setFont(new Font("Avenir Next", Font.BOLD, 20));
         statusBar.setBackground(Color.DARK_GRAY);
-        statusBar.setForeground(new Color(255, 255, 255));
-        statusBar.setOpaque(true);
+        statusBar.setForeground(Color.DARK_GRAY);
         statusBar.setHorizontalAlignment(SwingConstants.CENTER);
-        statusBar.setBounds(179, 0, 128, 20);
+        statusBar.setBounds(179, 5, 128, 73);
         getContentPane().add(statusBar);
         setTime();
         
         editButton = new JButton("Edit");
-        editButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        editButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
         editButton.setForeground(Color.DARK_GRAY);
         editButton.setBounds(45, 703, 180, 69);
         getContentPane().add(editButton);
         
         deleteButton = new JButton("Delete");
-        deleteButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        deleteButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
         deleteButton.setForeground(Color.DARK_GRAY);
         deleteButton.setBounds(255, 703, 180, 69);
         getContentPane().add(deleteButton);
         
         backButton = new JButton("Back");
-        backButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        backButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
         backButton.setForeground(Color.DARK_GRAY);
         backButton.setBounds(6, 20, 125, 40);
         getContentPane().add(backButton);
         
         saveButton = new JButton("Save");
-        saveButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        saveButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
         saveButton.setForeground(Color.DARK_GRAY);
         saveButton.setVisible(false);
         saveButton.setBounds(349, 20, 125, 40);
         getContentPane().add(saveButton);    
         
         cancelButton = new JButton("Cancel");
+        cancelButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
         cancelButton.setVisible(false);
-        cancelButton.setForeground(new Color(102, 102, 102));
+        cancelButton.setForeground(Color.DARK_GRAY);
         cancelButton.setBounds(45, 703, 180, 69);
         getContentPane().add(cancelButton);
         
@@ -147,27 +149,27 @@ public class ContactFrame extends JFrame{
                
         lblMobile = new JLabel("Mobile:");
         lblMobile.setForeground(Color.DARK_GRAY);
-        lblMobile.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        lblMobile.setFont(new Font("Avenir Next", Font.BOLD, 13));
         lblMobile.setHorizontalAlignment(SwingConstants.LEFT);
         lblMobile.setBounds(80, 250, 61, 16);
         getContentPane().add(lblMobile);
         
         lblHome = new JLabel("Home:");
         lblHome.setForeground(Color.DARK_GRAY);
-        lblHome.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        lblHome.setFont(new Font("Avenir Next", Font.BOLD, 13));
         lblHome.setHorizontalAlignment(SwingConstants.LEFT);
         lblHome.setBounds(80, 291, 61, 16);
         getContentPane().add(lblHome);
         
         lblFax = new JLabel("Fax:");
         lblFax.setForeground(Color.DARK_GRAY);
-        lblFax.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        lblFax.setFont(new Font("Avenir Next", Font.BOLD, 13));
         lblFax.setHorizontalAlignment(SwingConstants.LEFT);
         lblFax.setBounds(80, 331, 61, 16);
         getContentPane().add(lblFax);
         
         txtMobileNumber = new JTextArea();
-        txtMobileNumber.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtMobileNumber.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtMobileNumber.setTabSize(0);
         txtMobileNumber.setForeground(new Color(255, 255, 255));
         txtMobileNumber.setBackground(Color.DARK_GRAY);
@@ -176,7 +178,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(txtMobileNumber);
         
         txtHomeNumber = new JTextArea();
-        txtHomeNumber.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtHomeNumber.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtHomeNumber.setTabSize(0);
         txtHomeNumber.setForeground(new Color(255, 255, 255));
         txtHomeNumber.setBackground(Color.DARK_GRAY);
@@ -185,7 +187,7 @@ public class ContactFrame extends JFrame{
         getContentPane().add(txtHomeNumber);
         
         txtFaxNumber = new JTextArea();
-        txtFaxNumber.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtFaxNumber.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtFaxNumber.setTabSize(0);
         txtFaxNumber.setForeground(new Color(255, 255, 255));
         txtFaxNumber.setBackground(Color.DARK_GRAY);
@@ -195,13 +197,13 @@ public class ContactFrame extends JFrame{
         
         lblEmail = new JLabel("Email:");
         lblEmail.setForeground(Color.DARK_GRAY);
-        lblEmail.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        lblEmail.setFont(new Font("Avenir Next", Font.BOLD, 13));
         lblEmail.setHorizontalAlignment(SwingConstants.LEFT);
         lblEmail.setBounds(80, 370, 61, 16);
         getContentPane().add(lblEmail);
         
         txtEmail = new JTextArea();
-        txtEmail.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtEmail.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtEmail.setTabSize(0);
         txtEmail.setForeground(new Color(255, 255, 255));
         txtEmail.setBackground(Color.DARK_GRAY);
@@ -211,13 +213,13 @@ public class ContactFrame extends JFrame{
         
         lblAddress = new JLabel("Address:");
         lblAddress.setForeground(Color.DARK_GRAY);
-        lblAddress.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        lblAddress.setFont(new Font("Avenir Next", Font.BOLD, 13));
         lblAddress.setHorizontalAlignment(SwingConstants.LEFT);
         lblAddress.setBounds(80, 411, 61, 16);
         getContentPane().add(lblAddress);
         
         txtAddress = new JTextArea();
-        txtAddress.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtAddress.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtAddress.setTabSize(0);
         txtAddress.setForeground(new Color(255, 255, 255));
         txtAddress.setBackground(Color.DARK_GRAY);
@@ -227,13 +229,13 @@ public class ContactFrame extends JFrame{
         
         lblBirthday = new JLabel("Birthday:");
         lblBirthday.setForeground(Color.DARK_GRAY);
-        lblBirthday.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        lblBirthday.setFont(new Font("Avenir Next", Font.BOLD, 13));
         lblBirthday.setHorizontalAlignment(SwingConstants.LEFT);
         lblBirthday.setBounds(80, 453, 61, 16);
         getContentPane().add(lblBirthday);
         
         txtBirthday = new JTextArea();
-        txtBirthday.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtBirthday.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtBirthday.setTabSize(0);
         txtBirthday.setForeground(new Color(255, 255, 255));
         txtBirthday.setBackground(Color.DARK_GRAY);
@@ -243,13 +245,13 @@ public class ContactFrame extends JFrame{
         
         lblNotes = new JLabel("Notes:");
         lblNotes.setForeground(Color.DARK_GRAY);
-        lblNotes.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        lblNotes.setFont(new Font("Avenir Next", Font.BOLD, 13));
         lblNotes.setHorizontalAlignment(SwingConstants.LEFT);
         lblNotes.setBounds(80, 498, 61, 16);
         getContentPane().add(lblNotes);
         
         txtNotes = new JTextArea();
-        txtNotes.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtNotes.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtNotes.setForeground(new Color(255, 255, 255));
         txtNotes.setBackground(Color.DARK_GRAY);
         txtNotes.setEditable(false);
@@ -258,7 +260,7 @@ public class ContactFrame extends JFrame{
         
         txtFirstName = new JTextArea();
         txtFirstName.setTabSize(0);
-        txtFirstName.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtFirstName.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtFirstName.setAlignmentX(10f);
         txtFirstName.setForeground(Color.DARK_GRAY);
         txtFirstName.setEditable(false);
@@ -269,7 +271,7 @@ public class ContactFrame extends JFrame{
         
         txtLastName = new JTextArea();
         txtLastName.setTabSize(0);
-        txtLastName.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtLastName.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtLastName.setAlignmentY(SwingConstants.RIGHT);
         txtLastName.setForeground(Color.DARK_GRAY);
         txtLastName.setEditable(false);
@@ -280,7 +282,7 @@ public class ContactFrame extends JFrame{
         
         txtCompany = new JTextArea();
         txtCompany.setTabSize(0);
-        txtCompany.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtCompany.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtCompany.setAlignmentY(SwingConstants.LEFT);
         txtCompany.setForeground(Color.DARK_GRAY);
         txtCompany.setEditable(false);
@@ -289,12 +291,16 @@ public class ContactFrame extends JFrame{
         txtCompany.setBounds(276, 180, 134, 20);
         getContentPane().add(txtCompany);       
         
+        lblBackground = new JLabel("");
+        lblBackground.setBounds(0, 0, 480, 778);
+        getContentPane().add(lblBackground);
+        
     }
 
     //Time on status bar
     private void setTime(){
         
-        tm = new Timer(1000, new ActionListener() {          
+        tm = new Timer(50, new ActionListener() {          
             public void actionPerformed(ActionEvent e) {
                 time = LocalDateTime.now();
                 statusBar.setText(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());                
@@ -553,9 +559,9 @@ public class ContactFrame extends JFrame{
             scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             scroll.setBounds(0, 150, 480, 675);
             
-            pictures.add(cancel);
-            pictures.add(selectPic);
-            pictures.add(scroll);
+            pictures.getContentPane().add(cancel);
+            pictures.getContentPane().add(selectPic);
+            pictures.getContentPane().add(scroll);
             pictures.setVisible(true);
         }
         

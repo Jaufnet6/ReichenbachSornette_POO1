@@ -1,8 +1,3 @@
-import java.awt.Button;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.SystemColor;
-
 import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -10,33 +5,26 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JToolBar;
-import javax.swing.JList;
-import javax.swing.ScrollPaneConstants;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 public class PicturesFrame extends JFrame{
 
 	private JPanel picturesPanel = new JPanel();
 	private JScrollPane scroll;
+	private JLabel lblBackground;
 	//Mac: /Users/black and white/Desktop/App/gallery
 	//Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery
-	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
+	private String path = "/Users/black and white/Desktop/App/gallery";
 
 	public PicturesFrame() throws IOException {
 		super("Pictures");
@@ -54,7 +42,7 @@ public class PicturesFrame extends JFrame{
         
         //Bottom part
         JButton switchToAlbums = new JButton("ALBUMS");
-		switchToAlbums.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		switchToAlbums.setFont(new Font("Avenir Next", Font.BOLD, 13));
 		switchToAlbums.setForeground(Color.BLACK);
 		switchToAlbums.addActionListener(new AlbumButtonListener());
 		switchToAlbums.setBackground(Color.LIGHT_GRAY);
@@ -62,20 +50,24 @@ public class PicturesFrame extends JFrame{
 		getContentPane().add(switchToAlbums);
 		
 		JLabel pictures = new JLabel("PICTURES");
-		pictures.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		pictures.setFont(new Font("Avenir Next", Font.BOLD, 13));
 		pictures.setForeground(Color.WHITE);
 		pictures.setBackground(Color.DARK_GRAY);
-		pictures.setOpaque(true);
 		pictures.setHorizontalAlignment(SwingConstants.CENTER);
 		pictures.setBounds(0, 676, 240, 50);
 		getContentPane().add(pictures);
 		
         JButton homeButton = new JButton("HOME");
-        homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        homeButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
         homeButton.setForeground(Color.BLACK);
         homeButton.setBounds(0, 723, 480, 55);
 		homeButton.addActionListener(new HomeListener());
         getContentPane().add(homeButton);
+        
+        lblBackground = new JLabel(new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png"));
+        lblBackground.setBounds(0, 0, 480, 778);
+        getContentPane().add(lblBackground);
+        
 	}
 	
 	//Go back to homescreen
@@ -118,15 +110,15 @@ public class PicturesFrame extends JFrame{
 			Icon img = ((AbstractButton) e.getSource()).getIcon();
 			
 			JLabel image = new JLabel(img);
-			image.setBounds(10, 55, 452, 697);
+			image.setBounds(10, 55, 452, 650);
 			
 			JButton back = new JButton("BACK");
-			back.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+			back.setFont(new Font("Avenir Next", Font.BOLD, 13));
 			back.setForeground(Color.BLACK);
 			back.setBounds(0, 0, 97, 42);
 			
 			JButton homeButton = new JButton("HOME");
-	        homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+	        homeButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
 	        homeButton.setForeground(Color.BLACK);
 	        homeButton.setBounds(0, 723, 480, 55);
 			
@@ -182,7 +174,7 @@ public class PicturesFrame extends JFrame{
 		int cptX=0;
 		
 		for(int i=0;i<images.length;i++){
-			imgPath=path+"\\"+Integer.toString(i)+".jpg";
+			imgPath=path+"/"+Integer.toString(i)+".jpg";
 			fr = new FileInputStream(imgPath);
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);

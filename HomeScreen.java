@@ -27,64 +27,52 @@ public class HomeScreen extends JFrame{
     private JButton contactButton;
     private JButton galleryButton;
     private JButton calculatorButton;
+    private JLabel lblCalculator;
+    private JLabel lblPhotos;
+    private JLabel lblContacts;
     
     // Mac : /Users/black and white/Desktop/App/Backgrounds/
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds
-    private File folder = new File("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds");
+    private File folder = new File("/Users/black and white/Desktop/App/Backgrounds/");
     // Mac : /Users/black and white/Desktop/App/Backgrounds/tiger.jpg
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg
-    private Icon backgroundImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg");
+    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png");
 
     private ContactApp contacts;
     private CalculatorFrame calculator;
     private DefaultGalleryFrame dgf;
     
     public HomeScreen() throws InterruptedException, IOException, ClassNotFoundException {
-        super("Reich Sauron");
+        super("Smartphone");
         getContentPane().setLayout(null);
         setResizable(false);
         
         statusBar = new JLabel("");
-        statusBar.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        statusBar.setFont(new Font("Avenir Next", Font.BOLD, 50));
+        statusBar.setForeground(Color.WHITE);
         statusBar.setBackground(Color.DARK_GRAY);
-        statusBar.setForeground(new Color(255, 255, 255));
-        statusBar.setOpaque(true);
+        statusBar.setOpaque(false);
         statusBar.setHorizontalAlignment(SwingConstants.CENTER);
-        statusBar.setBounds(179, 0, 128, 20);
+        statusBar.setBounds(0, 75, 480, 99);
         getContentPane().add(statusBar);
         setTime();
         
-        BufferedImage bcontact = resizePhotos("contact");
-        ImageIcon contactButtonImage= new ImageIcon(bcontact);
-        
-        contactButton = new JButton();
-        contactButton.setForeground(Color.WHITE);
-        contactButton.setFont(new Font("Avenir Next", Font.BOLD | Font.ITALIC, 16));
-        contactButton.setText("Contact");
-        contactButton.setBackground(Color.DARK_GRAY);
+        contactButton = new JButton(new ImageIcon (folder + "/contact.png"));
         contactButton.setOpaque(true);
-        contactButton.setContentAreaFilled(true);
+        contactButton.setContentAreaFilled(false);
         contactButton.setBorderPainted(false);
-        contactButton.setBounds(121, 40, 230, 207);
+        contactButton.setBounds(25, 220, 125, 125);
         contactButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 contacts.setVisible(true);
                 setVisible(false);
             }
         });
-        
-        BufferedImage bgal = resizePhotos("gallery");
-        ImageIcon galButtonImage= new ImageIcon(bgal);
-        
-        galleryButton = new JButton();
-        galleryButton.setForeground(Color.WHITE);
-        galleryButton.setFont(new Font("Avenir Next", Font.BOLD | Font.ITALIC, 16));
-        galleryButton.setText("Gallery");
-        galleryButton.setBackground(Color.DARK_GRAY);
+        galleryButton = new JButton(new ImageIcon (folder + "/gallery.png"));
         galleryButton.setOpaque(true);
-        galleryButton.setContentAreaFilled(true);
+        galleryButton.setContentAreaFilled(false);
         galleryButton.setBorderPainted(false);
-        galleryButton.setBounds(121, 287, 230, 207);
+        galleryButton.setBounds(175, 220, 125, 125);
         galleryButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -98,19 +86,12 @@ public class HomeScreen extends JFrame{
                 }
             }
         });
-        
-        BufferedImage bcalc = resizePhotos("calc");
-        ImageIcon calButtonImage= new ImageIcon(bcalc);
-        
-        calculatorButton = new JButton();
-        calculatorButton.setForeground(Color.WHITE);
-        calculatorButton.setFont(new Font("Avenir Next", Font.BOLD | Font.ITALIC, 16));
-        calculatorButton.setText("Calculator");
-        calculatorButton.setBackground(Color.DARK_GRAY);
+
+        calculatorButton = new JButton(new ImageIcon (folder + "/calc.png"));
         calculatorButton.setOpaque(true);
-        calculatorButton.setContentAreaFilled(true);
+        calculatorButton.setContentAreaFilled(false);
         calculatorButton.setBorderPainted(false);
-        calculatorButton.setBounds(121, 531, 230, 207);
+        calculatorButton.setBounds(325, 220, 125, 125);
         calculatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 calculator.setVisible(true);
@@ -120,7 +101,28 @@ public class HomeScreen extends JFrame{
         getContentPane().add(contactButton);
         getContentPane().add(galleryButton);
         getContentPane().add(calculatorButton);
-
+        
+        lblContacts = new JLabel("Contacts");
+        lblContacts.setForeground(Color.WHITE);
+        lblContacts.setFont(new Font("Avenir Next", Font.BOLD, 14));
+        lblContacts.setHorizontalAlignment(SwingConstants.CENTER);
+        lblContacts.setBounds(25, 359, 125, 16);
+        getContentPane().add(lblContacts);
+                
+        lblCalculator = new JLabel("Calculator");
+        lblCalculator.setForeground(Color.WHITE);
+        lblCalculator.setFont(new Font("Avenir Next", Font.BOLD, 14));
+        lblCalculator.setHorizontalAlignment(SwingConstants.CENTER);
+        lblCalculator.setBounds(325, 359, 125, 16);
+        getContentPane().add(lblCalculator);
+                
+        lblPhotos = new JLabel("Photos");
+        lblPhotos.setForeground(Color.WHITE);
+        lblPhotos.setFont(new Font("Avenir Next", Font.BOLD, 14));
+        lblPhotos.setHorizontalAlignment(SwingConstants.CENTER);
+        lblPhotos.setBounds(175, 359, 125, 16);
+        getContentPane().add(lblPhotos);
+        
         backgroundLbl = new JLabel(backgroundImage);
         backgroundLbl.setBounds(0, 0, 480, 778);
         getContentPane().add(backgroundLbl);
@@ -136,7 +138,7 @@ public class HomeScreen extends JFrame{
     //Time on status bar
     private void setTime(){
         
-        tm = new Timer(1000, new ActionListener() {          
+        tm = new Timer(50, new ActionListener() {          
             public void actionPerformed(ActionEvent e) {
                 time = LocalDateTime.now();
                 statusBar.setText(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());                
@@ -147,7 +149,7 @@ public class HomeScreen extends JFrame{
    
     private BufferedImage resizePhotos(String path) throws IOException{
         BufferedImage img = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
-        img.createGraphics().drawImage(ImageIO.read(new File(folder, path+ ".jpg")).getScaledInstance(200, 200, Image.SCALE_SMOOTH),0,0,null);
+        img.createGraphics().drawImage(ImageIO.read(new File(folder, path+ ".jpg")).getScaledInstance(125, 125, Image.SCALE_SMOOTH),0,0,null);
 
         /*for(int i = 1; i <= folder.length()-1; i++){
             

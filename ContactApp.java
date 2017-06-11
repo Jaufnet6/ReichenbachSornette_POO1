@@ -49,14 +49,17 @@ public class ContactApp extends JFrame{
     private JLabel[]lbllastName;
     private JLabel[]lblOneInfo;
     private JLabel[]lblInfo;
+    //Position for the panels
     private int xButton = 350;
     private int xLabelFirstName = 40;
     private int xLabelLastName = 40;
     private int xLabelOneInfo = 40;
     private int xlblInfo = 180;
+    private JLabel lblbackground;
 
 
     public ContactApp() throws ClassNotFoundException, IOException {
+        super("Contacts");
     	initialize();
     }
 
@@ -68,10 +71,9 @@ public class ContactApp extends JFrame{
         getContentPane().setLayout(null);        
         
         statusBar = new JLabel();
-        statusBar.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        statusBar.setFont(new Font("Avenir Next", Font.BOLD, 15));
         statusBar.setBackground(Color.DARK_GRAY);
         statusBar.setForeground(new Color(255, 255, 255));
-        statusBar.setOpaque(true);
         statusBar.setHorizontalAlignment(SwingConstants.CENTER);
         statusBar.setBounds(179, 0, 128, 20);
         getContentPane().add(statusBar);
@@ -87,14 +89,14 @@ public class ContactApp extends JFrame{
         
         addButton.setBackground(new Color(255, 255, 255));
         addButton.setOpaque(true);
-        addButton.setContentAreaFilled(false);
+        addButton.setContentAreaFilled(true);
         addButton.setBorderPainted(false);
-        addButton.setBounds(420, 23, 40, 40);
+        addButton.setBounds(427, 28, 30, 30);
         getContentPane().add(addButton);
         
         homeButton = new JButton("HOME");
         homeButton.setForeground(Color.DARK_GRAY);
-        homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        homeButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
         homeButton.setBounds(0, 723, 480, 55);
         getContentPane().add(homeButton);
         
@@ -102,21 +104,26 @@ public class ContactApp extends JFrame{
         txtSearch.setForeground(Color.LIGHT_GRAY);
         txtSearch.setHorizontalAlignment(SwingConstants.CENTER);
         txtSearch.setText("Search...");
-        txtSearch.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        txtSearch.setFont(new Font("Avenir Next", Font.BOLD, 13));
         txtSearch.setBounds(100, 23, 312, 40);
         getContentPane().add(txtSearch);
         txtSearch.setColumns(10);
         
         cancelButton = new JButton("Cancel");
         cancelButton.setForeground(Color.DARK_GRAY);
-        cancelButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        cancelButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
         cancelButton.setBounds(6, 23, 89, 40);
         cancelButton.setVisible(false);
         getContentPane().add(cancelButton);
         
         searchButton = new JButton("Search");
+        searchButton.setFont(new Font("Avenir Next", Font.BOLD, 13));
         searchButton.setBounds(6, 23, 89, 40);
         getContentPane().add(searchButton);
+        
+        lblbackground = new JLabel(new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png"));
+        lblbackground.setBounds(0, 0, 476, 776);
+        getContentPane().add(lblbackground);
         
         addButton.addActionListener(new Add_Button());  
         homeButton.addActionListener(new Home_Button());
@@ -126,7 +133,7 @@ public class ContactApp extends JFrame{
     
     private void setTime(){
         
-        tm = new Timer(1000, new ActionListener() {          
+        tm = new Timer(50, new ActionListener() {          
             public void actionPerformed(ActionEvent e) {
                 time = LocalDateTime.now();
                 statusBar.setText(time.getHour() + ":" + time.getMinute() + ":" + time.getSecond());                
@@ -195,15 +202,16 @@ public class ContactApp extends JFrame{
     	buttons[cpt] = new JButton(contactPic);             
         buttons[cpt].setBounds(xButton,yButton,100,100);
         buttons[cpt].setOpaque(true);
+        buttons[cpt].setBorderPainted(false);
         myPanel.add(buttons[cpt]);
       //If both first name and last name are present
         if(!contacts[cpt].getFirstName().equals("") && !contacts[cpt].getLastName().equals("")){
             lblfirstNames[cpt] = new JLabel(contacts[cpt].getFirstName());
-            lblfirstNames[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
+            lblfirstNames[cpt].setFont(new Font("Avenir Next", Font.BOLD, 13));
             lblfirstNames[cpt].setForeground(Color.DARK_GRAY);
             lblfirstNames[cpt].setBounds(xLabelFirstName,yLabelFirstName, 100, 20);
             lbllastName[cpt] = new JLabel(contacts[cpt].getLastName());
-            lbllastName[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
+            lbllastName[cpt].setFont(new Font("Avenir Next", Font.BOLD, 13));
             lbllastName[cpt].setForeground(Color.DARK_GRAY);
             lbllastName[cpt].setBounds(xLabelLastName,yLabelLastName, 100, 20);
             lblOneInfo[cpt] = null;
@@ -212,7 +220,7 @@ public class ContactApp extends JFrame{
             //if only first name is present
         } else if(contacts[cpt].getFirstName().equals("")){
             lblOneInfo[cpt] = new JLabel(contacts[cpt].getLastName());
-            lblOneInfo[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
+            lblOneInfo[cpt].setFont(new Font("Avenir Next", Font.BOLD, 13));
             lblOneInfo[cpt].setForeground(Color.DARK_GRAY);
             lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
             lbllastName[cpt]= null;
@@ -220,7 +228,7 @@ public class ContactApp extends JFrame{
             //if only last name is present
         } else if(contacts[cpt].getLastName().equals("")){
             lblOneInfo[cpt] = new JLabel(contacts[cpt].getFirstName());
-            lblOneInfo[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
+            lblOneInfo[cpt].setFont(new Font("Avenir Next", Font.BOLD, 13));
             lblOneInfo[cpt].setForeground(Color.DARK_GRAY);
             lblOneInfo[cpt].setBounds(xLabelOneInfo,yLabelOneInfo, 100, 20);
             lbllastName[cpt]= null;
@@ -237,7 +245,7 @@ public class ContactApp extends JFrame{
         else {
             lblInfo[cpt] = new JLabel("No Info");
         }
-        lblInfo[cpt].setFont(new Font("Avenir Next", Font.PLAIN, 13));
+        lblInfo[cpt].setFont(new Font("Avenir Next", Font.BOLD, 13));
         lblInfo[cpt].setForeground(Color.DARK_GRAY);
 
         buttons[cpt].addActionListener(new Contact_Button(ylblInfo-10)); // button to enter each contact's details (getting the position of the OneInfolbl
@@ -390,6 +398,7 @@ public class ContactApp extends JFrame{
                     scrollSearch = new JScrollPane(searchPanel);
                     scrollSearch.setBounds(0,65,480,656);
                     getContentPane().add(scrollSearch);
+                    getContentPane().add(lblbackground);
                     searchButton.setVisible(false);
                     cancelButton.setVisible(true);
                 }
@@ -410,6 +419,7 @@ public class ContactApp extends JFrame{
                 scroll = new JScrollPane(contactPanel);
                 scroll.setBounds(0,65,480,656);
                 getContentPane().add(scroll);
+                getContentPane().add(lblbackground);
                 txtSearch.setText("Search...");
                 searchButton.setVisible(true);
                 cancelButton.setVisible(false);
