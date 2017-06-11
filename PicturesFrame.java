@@ -47,7 +47,13 @@ public class PicturesFrame extends JFrame{
 		getContentPane().setLayout(null);
 		picturesPanel=loadPics();
 		
-		JButton switchToAlbums = new JButton("ALBUMS");
+        scroll = new JScrollPane(picturesPanel);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.setBounds(0, 0, 480, 675);
+        getContentPane().add(scroll);
+        
+        //Bottom part
+        JButton switchToAlbums = new JButton("ALBUMS");
 		switchToAlbums.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		switchToAlbums.setForeground(Color.BLACK);
 		switchToAlbums.addActionListener(new AlbumButtonListener());
@@ -64,11 +70,6 @@ public class PicturesFrame extends JFrame{
 		pictures.setBounds(0, 676, 240, 50);
 		getContentPane().add(pictures);
 		
-        scroll = new JScrollPane(picturesPanel);
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scroll.setBounds(0, 0, 480, 675);
-        getContentPane().add(scroll);
-        
         JButton homeButton = new JButton("HOME");
         homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
         homeButton.setForeground(Color.BLACK);
@@ -77,6 +78,7 @@ public class PicturesFrame extends JFrame{
         getContentPane().add(homeButton);
 	}
 	
+	//Go back to homescreen
 	class HomeListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -93,6 +95,7 @@ public class PicturesFrame extends JFrame{
 	
 	}
 	
+	//Go to DefaultGalleryFrame
 	class AlbumButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -107,6 +110,7 @@ public class PicturesFrame extends JFrame{
 		
 	}
 	
+	//Open a big picture
 	class PictureButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {

@@ -47,6 +47,7 @@ public class DefaultGalleryFrame extends JFrame{
 		getContentPane().setLayout(null);
 		albumsPanel=loadAlbums();
 		
+		//Top part		
 		JButton addAlbum = new JButton("New album");
 		addAlbum.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		addAlbum.setForeground(Color.BLACK);
@@ -64,6 +65,28 @@ public class DefaultGalleryFrame extends JFrame{
 		getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 		
+		search = new JButton("Search");
+		search.setFont(new Font("Avenir Next", Font.PLAIN, 13));
+		search.setBounds(370, 5, 100, 50);
+		getContentPane().add(search);
+		search.setBackground(Color.LIGHT_GRAY);
+		search.setForeground(Color.BLACK);
+		search.addActionListener(new SearchAlbumListener());
+	
+		cancel = new JButton("Cancel");
+		cancel.setBounds(370, 5, 100, 50);
+		getContentPane().add(cancel);
+		cancel.setBackground(Color.LIGHT_GRAY);
+		cancel.setForeground(Color.BLACK);
+		cancel.addActionListener(new CancelListener());
+		
+		//Middle part
+		scroll = new JScrollPane(albumsPanel);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scroll.setBounds(0,60,480,616);
+		getContentPane().add(scroll);
+		
+		//Bottom part
 		JButton switchToPictures = new JButton("PICTURES");
 		switchToPictures.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		switchToPictures.setForeground(Color.BLACK);
@@ -81,34 +104,16 @@ public class DefaultGalleryFrame extends JFrame{
 		albums.setBounds(234, 676, 240, 50);
 		getContentPane().add(albums);
 		
-		scroll = new JScrollPane(albumsPanel);
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scroll.setBounds(0,60,480,616);
-		getContentPane().add(scroll);
-		
 		JButton homeButton = new JButton("HOME");
 		homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		homeButton.setForeground(Color.BLACK);
 		homeButton.setBounds(0, 723, 480, 55);
 		homeButton.addActionListener(new HomeListener());
 		getContentPane().add(homeButton);
-		
-		search = new JButton("Search");
-		search.setFont(new Font("Avenir Next", Font.PLAIN, 13));
-		search.setBounds(370, 5, 100, 50);
-		getContentPane().add(search);
-		search.setBackground(Color.LIGHT_GRAY);
-		search.setForeground(Color.BLACK);
-		search.addActionListener(new SearchAlbumListener());
-		
-		cancel = new JButton("Cancel");
-		cancel.setBounds(370, 5, 100, 50);
-		getContentPane().add(cancel);
-		cancel.setBackground(Color.LIGHT_GRAY);
-		cancel.setForeground(Color.BLACK);
-		cancel.addActionListener(new CancelListener());
+			
 	}
 	
+	//Invisible if no research done
 	class CancelListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) {
 			try{
@@ -127,6 +132,7 @@ public class DefaultGalleryFrame extends JFrame{
 		}
 	}
 	
+	//Go back to homescreen
 	class HomeListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -163,7 +169,6 @@ public class DefaultGalleryFrame extends JFrame{
 				}
 				if(albums[cpt].getName().toLowerCase().contains(request)){
 					albumsFound[cptFound] = albums[cpt];
-//					System.out.println("Album name : "+albumsFound[cptFound].getName());
 					cptFound++;
 				}
 			}
@@ -217,6 +222,7 @@ public class DefaultGalleryFrame extends JFrame{
 			}
 		}
 		
+	//If nothing found
 	JLabel nothing = new JLabel("No album matching.");
 	nothing.setHorizontalAlignment(SwingConstants.CENTER);
 	nothing.setBounds(0,60,474,450);
@@ -229,6 +235,7 @@ public class DefaultGalleryFrame extends JFrame{
 	myPanel.setPreferredSize(new Dimension(450,yAlb+220));
 
 	return myPanel;
+	
 	}
 	
 	class SearchAlbumListener implements ActionListener{
@@ -271,6 +278,7 @@ public class DefaultGalleryFrame extends JFrame{
 		
 	}
 	
+	//Open PicturesFrame
 	class PicturesButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -325,6 +333,8 @@ public class DefaultGalleryFrame extends JFrame{
 			}
 			
 			//New Frame, which is displaying my pics
+			JFrame albumFrame = new JFrame();
+			
 			JLabel albumName = new JLabel();
 			albumName.setText(currentAlbum.getName());
 			albumName.setFont(new Font("Avenir Next", Font.BOLD | Font.ITALIC, 20));
@@ -342,8 +352,7 @@ public class DefaultGalleryFrame extends JFrame{
 			
 			JScrollPane scroll;
 			
-			JFrame albumFrame = new JFrame();
-			
+			//Go back to DefaultGalleryFrame
 			JButton back = new JButton("BACK");
 			back.setForeground(Color.DARK_GRAY);
 			back.setFont(new Font("Avenir Next", Font.PLAIN, 13));
@@ -355,6 +364,7 @@ public class DefaultGalleryFrame extends JFrame{
 				}
 			});
 			
+			//Go back to homescreen
 			JButton homeButton = new JButton("HOME");
 		    homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 13));
 		    homeButton.setForeground(Color.BLACK);
@@ -419,6 +429,7 @@ public class DefaultGalleryFrame extends JFrame{
 			
 	}
 	
+	//Load pictures inside an album
 	private JPanel loadAlbumPics(Icon[] a) throws IOException{
 		JPanel myPanel = new JPanel();
 		JLabel[] labels = new JLabel[a.length];

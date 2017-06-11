@@ -94,6 +94,14 @@ public class AlbumCreationFrame extends JFrame{
 		OKButton.setBounds(240, 676, 240, 50);
 		getContentPane().add(OKButton);
 		
+		JButton homeButton = new JButton("HOME");
+		homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 12));
+		homeButton.setForeground(Color.WHITE);
+		homeButton.setBackground(Color.BLACK);
+		homeButton.setBounds(0, 723, 480, 55);
+		homeButton.addActionListener(new HomeListener());
+		getContentPane().add(homeButton);
+		
 		//Pics part
 		JLabel addPic = new JLabel("Add pictures in your album");
 		addPic.setForeground(Color.WHITE);
@@ -106,22 +114,16 @@ public class AlbumCreationFrame extends JFrame{
         scroll.setBounds(0, 200, 476, 471);
 		getContentPane().add(scroll);
 		
-		//Error
+		//Error : if no name or already existing name typed
 		nameError.setForeground(Color.RED);
 		nameError.setFont(new Font("Avenir Next", Font.ITALIC, 16));
 		nameError.setHorizontalAlignment(SwingConstants.CENTER);
 		nameError.setBounds(15, 97, 450, 36);
 		getContentPane().add(nameError);
 		
-		JButton homeButton = new JButton("HOME");
-		homeButton.setFont(new Font("Avenir Next", Font.PLAIN, 12));
-		homeButton.setForeground(Color.WHITE);
-		homeButton.setBackground(Color.BLACK);
-		homeButton.setBounds(0, 723, 480, 55);
-		homeButton.addActionListener(new HomeListener());
-		getContentPane().add(homeButton);
 	}
 	
+	//Go back to homescreen
 	class HomeListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -138,6 +140,7 @@ public class AlbumCreationFrame extends JFrame{
 	
 	}
 	
+	//Go back to DefaultGalleryFrame
 	class CancelListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -154,6 +157,7 @@ public class AlbumCreationFrame extends JFrame{
 		
 	}
 	
+	//Serialize new album
 	class SaveListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -194,6 +198,7 @@ public class AlbumCreationFrame extends JFrame{
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
+					//Go back to DefaultGalleryFrame after saving
 					setVisible(false);
 					DefaultGalleryFrame dgf;
 					try {
@@ -231,6 +236,7 @@ public class AlbumCreationFrame extends JFrame{
 	
 	//Read a already saved album
 	private Album readFile(String path) throws ClassNotFoundException, IOException{  
+		
 		Album alb;
 		FileInputStream fichier = new FileInputStream(path);
 	    BufferedInputStream bfichier = new BufferedInputStream(fichier);
@@ -238,6 +244,7 @@ public class AlbumCreationFrame extends JFrame{
 	    alb = (Album) obfichier.readObject();
 	    obfichier.close();
 	    return alb;
+	    
 	 }
 	
 	//Serialize in folder the album
@@ -249,9 +256,9 @@ public class AlbumCreationFrame extends JFrame{
         obfos.writeObject(newAlbum);
         obfos.close();
         
-        
     }
 	
+    //Load pictures from Gallery folder
 	private JPanel loadPics() throws IOException{
 		JPanel myPanel = new JPanel();
 		myPanel.setBackground(Color.WHITE);
@@ -267,11 +274,13 @@ public class AlbumCreationFrame extends JFrame{
 		int y=20;
 		int cptX=0;
 		
+		//Loading pictures
 		for(int i=0;i<images.length;i++){
-			imgPath=path+"\\gallery\\"+Integer.toString(i)+".jpg";
+			imgPath=path+"/gallery/"+Integer.toString(i)+".jpg";
 			fr = new FileInputStream(imgPath);
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);
+			//Every picture is a button
 			buttons[i] = new JButton(images[i]);
 			buttons[i].setName(imgPath);
 			buttons[i].addActionListener(new AddPicsToAlbum());
