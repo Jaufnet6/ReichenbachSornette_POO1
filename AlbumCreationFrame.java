@@ -31,7 +31,7 @@ public class AlbumCreationFrame extends JFrame{
 	private JLabel nameError = new JLabel("");
 	//Mac: /Users/black and white/Desktop/App
 	//Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet
-	private String path = "/Users/black and white/Desktop/App";
+	private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet";
 	private JPanel picturesPanel = new JPanel();
 	private JScrollPane scroll;
 	
@@ -101,7 +101,9 @@ public class AlbumCreationFrame extends JFrame{
 		nameError.setBounds(15, 97, 450, 36);
 		getContentPane().add(nameError);
 		
-		JLabel lblBackground = new JLabel(new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png"));
+		// Mac : /Users/black and white/Desktop/App/Backgrounds/tiger.jpg
+	    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png
+		JLabel lblBackground = new JLabel(new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png"));
         lblBackground.setBounds(0, 0, 480, 778);
         getContentPane().add(lblBackground);
 		
@@ -146,10 +148,10 @@ public class AlbumCreationFrame extends JFrame{
 
 		public void actionPerformed(ActionEvent e) {
 			
-			File albFolder = new File(path+"/albums");
+			File albFolder = new File(path+"\\albums");
 			Album[] albums = new Album[albFolder.listFiles().length];
 			String[] newPics = new String[10];
-			File[] files = new File(path+"/albums").listFiles();
+			File[] files = new File(path+"\\albums").listFiles();
 			String albPath;
 			int cpt=0;
 
@@ -235,7 +237,7 @@ public class AlbumCreationFrame extends JFrame{
 	//Serialize in folder the album
     private void saveInFile(String name) throws IOException{ 
     	 	
-        FileOutputStream fos = new FileOutputStream(path+"/albums/"+name+".txt");  
+        FileOutputStream fos = new FileOutputStream(path+"\\albums\\"+name+".txt");  
         BufferedOutputStream bfos = new BufferedOutputStream(fos);
         ObjectOutputStream obfos = new ObjectOutputStream(bfos);
         obfos.writeObject(newAlbum);
@@ -249,7 +251,7 @@ public class AlbumCreationFrame extends JFrame{
 		myPanel.setBackground(Color.WHITE);
 		FileInputStream fr;
 		BufferedInputStream bfr;
-		File picFolder = new File(path+"/gallery");
+		File picFolder = new File(path+"\\gallery");
 		Icon[] images = new ImageIcon[picFolder.listFiles().length];
 		JButton[] buttons = new JButton[picFolder.listFiles().length];
 		String imgPath;
@@ -261,7 +263,7 @@ public class AlbumCreationFrame extends JFrame{
 		
 		//Loading pictures
 		for(int i=0;i<images.length;i++){
-			imgPath=path+"/gallery/"+Integer.toString(i)+".jpg";
+			imgPath=path+"\\gallery\\"+Integer.toString(i)+".jpg";
 			fr = new FileInputStream(imgPath);
 			bfr = new BufferedInputStream(fr);
 			images[i] = new ImageIcon(imgPath);

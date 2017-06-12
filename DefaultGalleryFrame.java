@@ -30,12 +30,13 @@ public class DefaultGalleryFrame extends JFrame{
     private JTextField txtSearch;
     //Mac: /Users/black and white/Desktop/App/albums
     //Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\albums
-    private String path = "/Users/black and white/Desktop/App/albums";
+    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\albums";
     //Mac : /Users/black and white/Desktop/App/defaultPictures/album.png
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png
-    private Icon defaultAlbum = new ImageIcon("/Users/black and white/Desktop/App/defaultPictures/album.png");
-    private String imgFolder = "/Users/black and white/Desktop/App/gallery";
-    private JLabel album1Title;
+    private Icon defaultAlbum = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png");
+    //Mac : /Users/black and white/Desktop/App/gallery
+    //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery
+    private String imgFolder = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
     private JButton search;
     private JButton cancel;
     private JScrollPane scroll;
@@ -124,7 +125,9 @@ public class DefaultGalleryFrame extends JFrame{
         homeButton.addActionListener(new HomeListener());
         getContentPane().add(homeButton);
 
-        lblBackground = new JLabel(new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png"));
+        //MAc : /Users/black and white/Desktop/App/Backgrounds/background.png
+        //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png
+        lblBackground = new JLabel(new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png"));
         lblBackground.setBounds(0, 0, 480, 778);
         getContentPane().add(lblBackground);
 
@@ -438,7 +441,7 @@ public class DefaultGalleryFrame extends JFrame{
             delete.setVisible(false);
             delete.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    File file = new File(path+"/"+albName+".txt");
+                    File file = new File(path+"\\"+albName+".txt");
                     try {					
                         //Confirmation
                         int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete \""+albName+"\" ?");
@@ -464,7 +467,7 @@ public class DefaultGalleryFrame extends JFrame{
             save.setVisible(false);
             save.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    File file = new File(path+"/"+currentAlbum.getName()+".txt");      
+                    File file = new File(path+"\\"+currentAlbum.getName()+".txt");      
                     if(!albumNameTxt.getText().equals("")){
                         albumNameTxt.setVisible(false);
                         albumName.setVisible(true);
@@ -477,7 +480,12 @@ public class DefaultGalleryFrame extends JFrame{
                         albumName.setText(albumNameTxt.getText());
                         //Delete old album
                         file.delete();
-                        newAlbum = new Album(albumNameTxt.getText());
+                        newAlbum.renameAlbum(albumNameTxt.getText());
+                        newAlbum.setPics(currentPics);
+                        if(currentPics.length==0)
+                        	newAlbum.setHomePic(newAlbum.defaultAlbumPic);
+                        else
+                        	newAlbum.setHomePic(currentPics[0]);              	
                         try {
                             saveInFile(newAlbum);
                         } catch (IOException e1) {
@@ -522,7 +530,8 @@ public class DefaultGalleryFrame extends JFrame{
             //Editing current album
             edit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    JPanel allPicsPanel = new JPanel();
+                	newAlbum = new Album(currentAlbum.getName());
+                	JPanel allPicsPanel = new JPanel();
                     albumNameTxt.setVisible(true);
                     albumName.setVisible(false);
                     delete.setVisible(true);
@@ -560,7 +569,7 @@ public class DefaultGalleryFrame extends JFrame{
 
                     //Loading pictures
                     for(int i=0;i<images.length;i++){
-                        imgPath=imgFolder+"/"+Integer.toString(i)+".jpg";
+                        imgPath=imgFolder+"\\"+Integer.toString(i)+".jpg";
                         images[i] = new ImageIcon(imgPath);
                         buttons[i] = new JButton(images[i]);
                         buttons[i].setName(imgPath);
@@ -606,8 +615,8 @@ public class DefaultGalleryFrame extends JFrame{
                         
                         //If pic is already in the album
                         for(int i=0; i<currentPics.length; i++){
+                        	
                             if(currentPics[i].equals(img)){
-                                del=true;
                                 int yes = JOptionPane.showConfirmDialog(null, "This picture is already in the album. Do you want to delete it ?");
                                 if(yes == JOptionPane.YES_OPTION){
                                     newDeletedPics = new String[currentPics.length-1];
@@ -616,7 +625,8 @@ public class DefaultGalleryFrame extends JFrame{
                                             newDeletedPics[cpt]=currentPics[j];
                                             cpt++;
                                         }
-                                    }                              
+                                    }  
+                                    del=true;
                                     break;
                                 }           
                             }
@@ -629,14 +639,12 @@ public class DefaultGalleryFrame extends JFrame{
                         newAddedPics[currentPics.length] = img;
                                      
                         if(!del){
-                            newAlbum.setPics(newAddedPics);
+                            currentPics=newAddedPics;
                             button.setEnabled(false);
                         }
                         else
-                            newAlbum.setPics(newDeletedPics);
-                        
-                        newAlbum.setHomePic(newAlbum.getPics()[0]);
-                        
+                            currentPics=newDeletedPics;
+                                               
                     }
                 }
             });
@@ -783,7 +791,7 @@ public class DefaultGalleryFrame extends JFrame{
 
     private void saveInFile(Album album) throws IOException{ 
 
-        FileOutputStream fos = new FileOutputStream(path+"/"+album.getName()+".txt");  
+        FileOutputStream fos = new FileOutputStream(path+"\\"+album.getName()+".txt");  
         BufferedOutputStream bfos = new BufferedOutputStream(fos);
         ObjectOutputStream obfos = new ObjectOutputStream(bfos);
         obfos.writeObject(album);

@@ -35,10 +35,10 @@ public class ContactApp extends JFrame{
     private JButton searchButton;
     //Mac : /Users/black and white/Desktop/App/Backgrounds/plus.png
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\plus.png
-    private Icon addIcon = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/plus.png");
+    private Icon addIcon = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\plus.png");
     //Mac : /Users/black and white/Desktop/App/Contacts
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts
-    private String path = "/Users/black and white/Desktop/App/Contacts";
+    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Contacts";
     private JLabel[] lbllastNameOut;
     private JLabel[] lblOneInfoOut;
     private File contactFolder = new File(path);
@@ -121,7 +121,9 @@ public class ContactApp extends JFrame{
         searchButton.setBounds(6, 23, 89, 40);
         getContentPane().add(searchButton);
         
-        lblbackground = new JLabel(new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png"));
+        //Mac : /Users/black and white/Desktop/App/Backgrounds/background.png
+        //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png
+        lblbackground = new JLabel(new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png"));
         lblbackground.setBounds(0, 0, 476, 776);
         getContentPane().add(lblbackground);
         
@@ -284,10 +286,10 @@ public class ContactApp extends JFrame{
             try{
 
                 if(lbllastNameOut[realposition] != null && lblOneInfoOut[realposition] == null){
-                    readContact = readFile(path + "/" + lbllastNameOut[realposition].getText() + lblfirstNames[realposition].getText() + ".txt");
+                    readContact = readFile(path + "\\" + lbllastNameOut[realposition].getText() + lblfirstNames[realposition].getText() + ".txt");
                 }
                 else {
-                    readContact = readFile(path + "/" + lblOneInfoOut[realposition].getText() + ".txt");
+                    readContact = readFile(path + "\\" + lblOneInfoOut[realposition].getText() + ".txt");
                 } 
                 
                 contact.setTxtFirstName(readContact.getFirstName());

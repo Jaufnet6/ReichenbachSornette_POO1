@@ -6,14 +6,14 @@ import javax.swing.ImageIcon;
 public class Album implements Serializable{
 
 	private final String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Gallery";
-	private final String homePicPath = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png";
+	public final String defaultAlbumPic = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png";
 	
 	
 	private String name;
 	private String[] pics = new String[0];
 	//Picture which is displayed on gallery to represent the album
 	//is the first picture added OR a default picture if album still is empty
-	private String homePic = new String(homePicPath);
+	private String homePic = new String(defaultAlbumPic);
 	
 	public Album(){
 		//Default name

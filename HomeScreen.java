@@ -33,10 +33,10 @@ public class HomeScreen extends JFrame{
     
     // Mac : /Users/black and white/Desktop/App/Backgrounds/
     // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds
-    private File folder = new File("/Users/black and white/Desktop/App/Backgrounds/");
+    private File folder = new File("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds");
     // Mac : /Users/black and white/Desktop/App/Backgrounds/tiger.jpg
-    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\homescreen\\tiger.jpg
-    private Icon backgroundImage = new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png");
+    // Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png
+    private Icon backgroundImage = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png");
 
     private ContactApp contacts;
     private CalculatorFrame calculator;
@@ -57,7 +57,7 @@ public class HomeScreen extends JFrame{
         getContentPane().add(statusBar);
         setTime();
         
-        contactButton = new JButton(new ImageIcon (folder + "/contact.png"));
+        contactButton = new JButton(new ImageIcon (folder + "\\contact.png"));
         contactButton.setOpaque(true);
         contactButton.setContentAreaFilled(false);
         contactButton.setBorderPainted(false);
@@ -68,7 +68,7 @@ public class HomeScreen extends JFrame{
                 setVisible(false);
             }
         });
-        galleryButton = new JButton(new ImageIcon (folder + "/gallery.png"));
+        galleryButton = new JButton(new ImageIcon (folder + "\\gallery.png"));
         galleryButton.setOpaque(true);
         galleryButton.setContentAreaFilled(false);
         galleryButton.setBorderPainted(false);
@@ -87,7 +87,7 @@ public class HomeScreen extends JFrame{
             }
         });
 
-        calculatorButton = new JButton(new ImageIcon (folder + "/calc.png"));
+        calculatorButton = new JButton(new ImageIcon (folder + "\\calc.png"));
         calculatorButton.setOpaque(true);
         calculatorButton.setContentAreaFilled(false);
         calculatorButton.setBorderPainted(false);
