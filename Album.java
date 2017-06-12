@@ -5,10 +5,10 @@ import javax.swing.ImageIcon;
 
 public class Album implements Serializable{
 
-	private final String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Gallery";
-	public final String defaultAlbumPic = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png";
-	
-	
+	//Mac : /Users/black and white/Desktop/App/defaultPictures/album.png
+	//Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png
+	public final String defaultAlbumPic = "/Users/black and white/Desktop/App/defaultPictures/album.png";
+
 	private String name;
 	private String[] pics = new String[0];
 	//Picture which is displayed on gallery to represent the album

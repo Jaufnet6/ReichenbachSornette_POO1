@@ -30,13 +30,13 @@ public class DefaultGalleryFrame extends JFrame{
     private JTextField txtSearch;
     //Mac: /Users/black and white/Desktop/App/albums
     //Windows: C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\albums
-    private String path = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\albums";
+    private String path = "/Users/black and white/Desktop/App/albums";
     //Mac : /Users/black and white/Desktop/App/defaultPictures/album.png
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png
-    private Icon defaultAlbum = new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\defaultPictures\\album.png");
+    private Icon defaultAlbum = new ImageIcon("/Users/black and white/Desktop/App/defaultPictures/album.png");
     //Mac : /Users/black and white/Desktop/App/gallery
     //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery
-    private String imgFolder = "C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\gallery";
+    private String imgFolder = "/Users/black and white/Desktop/App/gallery";
     private JButton search;
     private JButton cancel;
     private JScrollPane scroll;
@@ -127,7 +127,7 @@ public class DefaultGalleryFrame extends JFrame{
 
         //MAc : /Users/black and white/Desktop/App/Backgrounds/background.png
         //Windows : C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png
-        lblBackground = new JLabel(new ImageIcon("C:\\Users\\Julien\\Desktop\\SEMESTRE 2\\POO\\Projet\\Backgrounds\\background.png"));
+        lblBackground = new JLabel(new ImageIcon("/Users/black and white/Desktop/App/Backgrounds/background.png"));
         lblBackground.setBounds(0, 0, 480, 778);
         getContentPane().add(lblBackground);
 
@@ -370,7 +370,7 @@ public class DefaultGalleryFrame extends JFrame{
             albumNameTxt.setFont(new Font("Avenir Next", Font.BOLD | Font.ITALIC, 20));
             albumNameTxt.setForeground(Color.BLACK);
             albumNameTxt.setHorizontalAlignment(SwingConstants.CENTER);
-            albumNameTxt.setBounds(97, 8, 280, 50);
+            albumNameTxt.setBounds(107, 8, 260, 50);
             albumNameTxt.setVisible(false);
 
             //Filling the panel
@@ -441,7 +441,7 @@ public class DefaultGalleryFrame extends JFrame{
             delete.setVisible(false);
             delete.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    File file = new File(path+"\\"+albName+".txt");
+                    File file = new File(path+"/"+albName+".txt");
                     try {					
                         //Confirmation
                         int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete \""+albName+"\" ?");
@@ -467,7 +467,7 @@ public class DefaultGalleryFrame extends JFrame{
             save.setVisible(false);
             save.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    File file = new File(path+"\\"+currentAlbum.getName()+".txt");      
+                    File file = new File(path+"/"+currentAlbum.getName()+".txt");      
                     if(!albumNameTxt.getText().equals("")){
                         albumNameTxt.setVisible(false);
                         albumName.setVisible(true);
@@ -569,7 +569,7 @@ public class DefaultGalleryFrame extends JFrame{
 
                     //Loading pictures
                     for(int i=0;i<images.length;i++){
-                        imgPath=imgFolder+"\\"+Integer.toString(i)+".jpg";
+                        imgPath=imgFolder+"/"+Integer.toString(i)+".jpg";
                         images[i] = new ImageIcon(imgPath);
                         buttons[i] = new JButton(images[i]);
                         buttons[i].setName(imgPath);
@@ -617,19 +617,22 @@ public class DefaultGalleryFrame extends JFrame{
                         for(int i=0; i<currentPics.length; i++){
                         	
                             if(currentPics[i].equals(img)){
-                                int yes = JOptionPane.showConfirmDialog(null, "This picture is already in the album. Do you want to delete it ?");
-                                if(yes == JOptionPane.YES_OPTION){
-                                    newDeletedPics = new String[currentPics.length-1];
+                            	del=true;
+                            	int choice = JOptionPane.showConfirmDialog(null, "This picture is already in the album. Do you want to delete it ?");
+                                if(choice == JOptionPane.YES_OPTION){                               	
+                                	newDeletedPics = new String[currentPics.length-1];
                                     for(int j=0; j<currentPics.length; j++){                                        
                                         if(j!=i){
                                             newDeletedPics[cpt]=currentPics[j];
                                             cpt++;
                                         }
-                                    }  
-                                    del=true;
-                                    break;
-                                }           
+                                    }                               
+                                } else {
+                                	newDeletedPics = currentPics;
+                                }
+                                break;
                             }
+                           
                         }
                         
                         //For new pictures
@@ -791,7 +794,7 @@ public class DefaultGalleryFrame extends JFrame{
 
     private void saveInFile(Album album) throws IOException{ 
 
-        FileOutputStream fos = new FileOutputStream(path+"\\"+album.getName()+".txt");  
+        FileOutputStream fos = new FileOutputStream(path+"/"+album.getName()+".txt");  
         BufferedOutputStream bfos = new BufferedOutputStream(fos);
         ObjectOutputStream obfos = new ObjectOutputStream(bfos);
         obfos.writeObject(album);
